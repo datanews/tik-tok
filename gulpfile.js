@@ -16,6 +16,7 @@ var rename = require('gulp-rename');
 var less = require('gulp-less');
 var recess = require('gulp-recess');
 var cssminify = require('gulp-minify-css');
+var autoprefixer = require('gulp-autoprefixer');
 
 // Create banner to insert into files
 var pkg = require('./package.json');
@@ -26,6 +27,10 @@ var banner = ['/**',
   ' * @license <%= pkg.license %>',
   ' */',
   ''].join('\n');
+
+// Browser support (for autoprefixer).  This should be more defined
+// for the project as a whole
+var supportedBrowsers = ['> 1%', 'last 2 versions', 'Firefox ESR', 'Opera 12.1'];
 
 // Plumber allows for better error handling and makes it so that
 // gulp doesn't crash so hard.  Good for watching and linting tasks
@@ -76,6 +81,9 @@ gulp.task('styles', function() {
     .pipe(less())
     .pipe(recess.reporter({
       fail: true
+    }))
+    .pipe(autoprefixer({
+      browsers: supportedBrowsers
     }))
     .pipe(header(banner, { pkg: pkg }))
     .pipe(gulp.dest('dist'))

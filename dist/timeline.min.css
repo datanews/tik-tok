@@ -4,4 +4,4 @@
  * @link https://github.com/datanews/mobile-timeline
  * @license MIT
  */
-.timeline-container{background:red}
+.timeline-container{display:-webkit-box;display:-webkit-flex;display:-ms-flexbox;display:flex;background:red}
