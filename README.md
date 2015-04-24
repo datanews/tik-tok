@@ -35,6 +35,12 @@ Install dependencies.  All commands are assumed to be from the [Command Line](ht
 1. Get the code (replace with your fork's repository URL) and enter into the code directory: `git clone https://github.com/datanews/mobile-timeline.git && cd mobile-timeline`
 1. Install Node dependencies: `npm install`
 
+### Development
+
+Edit files in the `src` directory; these will get built into the `dist`.  Use these handy Gulp tasks to ease in development:
+
+* `gulp watch`: Watches changes in `src` and runs the build process accordingly.  Will beep if something goes wrong.
+
 ### Build
 
 After make your edits, run checks and create build version with the following command:
