@@ -13,6 +13,9 @@ var util = require('gulp-util');
 var header = require('gulp-header');
 var uglify = require('gulp-uglify');
 var rename = require('gulp-rename');
+var less = require('gulp-less');
+var recess = require('gulp-recess');
+var cssminify = require('gulp-minify-css');
 
 // Create banner to insert into files
 var pkg = require('./package.json');
@@ -47,9 +50,8 @@ gulp.task('support-js', function() {
 });
 
 // Main JS task for timeline library.  Takes in files from src and outputs
-// to dist.  Uses JSHint, JSCS, add header, ...
+// to dist.  Uses JSHint, JSCS, add header, minify
 gulp.task('js', function() {
-  // Lint and create un-minified version
   gulp.src('src/**/*.js')
     .pipe(plumber(plumberHandler))
     .pipe(jshint())
@@ -57,17 +59,33 @@ gulp.task('js', function() {
     .pipe(jshint.reporter('fail'))
     .pipe(jscs())
     .pipe(header(banner, { pkg: pkg }))
-    .pipe(gulp.dest('dist'));
-
-  // Create minified version
-  gulp.src('src/**/*.js')
+    .pipe(gulp.dest('dist'))
     .pipe(uglify())
+    .pipe(header(banner, { pkg: pkg }))
     .pipe(rename({
       extname: '.min.js'
     }))
+    .pipe(gulp.dest('dist'));
+});
+
+// Styles.  Recess linting, Convert LESS to CSS, minify
+gulp.task('styles', function() {
+  gulp.src('src/**/*.less')
+    .pipe(plumber(plumberHandler))
+    .pipe(recess())
+    .pipe(less())
+    .pipe(recess.reporter({
+      fail: true
+    }))
     .pipe(header(banner, { pkg: pkg }))
+    .pipe(gulp.dest('dist'))
+    .pipe(cssminify())
+    .pipe(header(banner, { pkg: pkg }))
+    .pipe(rename({
+      extname: '.min.css'
+    }))
     .pipe(gulp.dest('dist'));
 });
 
 // Default task is a basic build
-gulp.task('default', ['support-js', 'js']);
+gulp.task('default', ['support-js', 'js', 'styles']);
