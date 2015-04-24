@@ -17,6 +17,7 @@ var less = require('gulp-less');
 var recess = require('gulp-recess');
 var cssminify = require('gulp-minify-css');
 var autoprefixer = require('gulp-autoprefixer');
+var webserver = require('gulp-webserver');
 
 // Create banner to insert into files
 var pkg = require('./package.json');
@@ -46,7 +47,7 @@ var plumberHandler = function(error) {
 // Support JS is a task to look at the supporting JS, like this
 // file
 gulp.task('support-js', function() {
-  return gulp.src('gulpfile.js')
+  return gulp.src('*.js')
     .pipe(plumber(plumberHandler))
     .pipe(jshint())
     .pipe(jshint.reporter('jshint-stylish'))
@@ -97,10 +98,29 @@ gulp.task('styles', function() {
 
 // Watch for files that need to be processed
 gulp.task('watch', function() {
-  // JS
+  gulp.watch('src/*.js', ['js']);
   gulp.watch('src/**/*.js', ['js']);
   gulp.watch('src/**/*.less', ['styles']);
 });
 
+// Web server for conveinence
+gulp.task('webserver', function() {
+  gulp.src('./')
+    .pipe(webserver({
+      port: 8089,
+      livereload: true,
+      directoryListing: true,
+      open: true,
+      fallback: 'index.html',
+      filter: function(file) {
+        // Watch dist and examples
+        return (file.match(/dist|examples/)) ? true : false;
+      }
+    }));
+});
+
 // Default task is a basic build
 gulp.task('default', ['support-js', 'js', 'styles']);
+
+// Combine webserver and watch tasks for a more complete server
+gulp.task('server', ['watch', 'webserver']);

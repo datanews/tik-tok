@@ -37,12 +37,21 @@ Install dependencies.  All commands are assumed to be from the [Command Line](ht
 
 ### Development
 
-Edit files in the `src` directory; these will get built into the `dist`.  Use these handy Gulp tasks to ease in development:
+Edit files in the `src` directory; these need to get built into the `dist`.  Use these handy Gulp tasks to ease in development:
 
-* `gulp watch`: Watches changes in `src` and runs the build process accordingly.  Will beep if something goes wrong.
+* `gulp server`
+    * Runs (and opens) a basic, local web server at port `8089`.
+    * Automatically builds the source files when they are changes.
+    * Runs [Livereload](http://livereload.com/) and will update the browser when changes are made.  Requires installation of the Livereload application or the browser extensions.
+* `gulp watch`
+    * Running tasks that automatically builds the source files when they are changes.
 
 ### Build
 
-After make your edits, run checks and create build version with the following command:
+After edits are made, run checks and create build version with the following command:
 
     gulp
+
+### Release
+
+(TODO)
