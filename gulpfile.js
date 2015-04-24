@@ -95,5 +95,12 @@ gulp.task('styles', function() {
     .pipe(gulp.dest('dist'));
 });
 
+// Watch for files that need to be processed
+gulp.task('watch', function() {
+  // JS
+  gulp.watch('src/**/*.js', ['js']);
+  gulp.watch('src/**/*.less', ['styles']);
+});
+
 // Default task is a basic build
 gulp.task('default', ['support-js', 'js', 'styles']);
