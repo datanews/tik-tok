@@ -42,12 +42,12 @@
   "homepage": "https://github.com/datanews/mobile-timeline",
   "devDependencies": {
     "gulp": "^3.8.11",
+    "gulp-header": "^1.2.2",
     "gulp-jscs": "^1.6.0",
     "gulp-jshint": "^1.10.0",
+    "gulp-plumber": "^1.0.0",
     "gulp-util": "^3.0.4",
-    "jshint-stylish": "^1.0.1",
-    "gulp-plumber": "^1.0.0"
+    "jshint-stylish": "^1.0.1"
   },
-  "dependencies": {
-  }
+  "dependencies": {}
 }
