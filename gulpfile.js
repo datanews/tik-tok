@@ -11,6 +11,8 @@ var jscs = require('gulp-jscs');
 var plumber = require('gulp-plumber');
 var util = require('gulp-util');
 var header = require('gulp-header');
+var uglify = require('gulp-uglify');
+var rename = require('gulp-rename');
 
 // Create banner to insert into files
 var pkg = require('./package.json');
@@ -23,10 +25,13 @@ var banner = ['/**',
   ''].join('\n');
 
 // Plumber allows for better error handling and makes it so that
-// gulp doesn't crash so hard
-var plumberConfig = {
-  errorHandler: function() {
+// gulp doesn't crash so hard.  Good for watching and linting tasks
+var plumberHandler = function(error) {
+  if (error) {
     util.beep();
+  }
+  else {
+    this.emit('end');
   }
 };
 
@@ -34,7 +39,7 @@ var plumberConfig = {
 // file
 gulp.task('support-js', function() {
   return gulp.src('gulpfile.js')
-    .pipe(plumber(plumberConfig))
+    .pipe(plumber(plumberHandler))
     .pipe(jshint())
     .pipe(jshint.reporter('jshint-stylish'))
     .pipe(jshint.reporter('fail'))
@@ -44,11 +49,22 @@ gulp.task('support-js', function() {
 // Main JS task for timeline library.  Takes in files from src and outputs
 // to dist.  Uses JSHint, JSCS, add header, ...
 gulp.task('js', function() {
-  return gulp.src('src/**/*.js')
+  // Lint and create un-minified version
+  gulp.src('src/**/*.js')
+    .pipe(plumber(plumberHandler))
     .pipe(jshint())
     .pipe(jshint.reporter('jshint-stylish'))
     .pipe(jshint.reporter('fail'))
     .pipe(jscs())
+    .pipe(header(banner, { pkg: pkg }))
+    .pipe(gulp.dest('dist'));
+
+  // Create minified version
+  gulp.src('src/**/*.js')
+    .pipe(uglify())
+    .pipe(rename({
+      extname: '.min.js'
+    }))
     .pipe(header(banner, { pkg: pkg }))
     .pipe(gulp.dest('dist'));
 });

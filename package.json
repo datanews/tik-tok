@@ -46,8 +46,11 @@
     "gulp-jscs": "^1.6.0",
     "gulp-jshint": "^1.10.0",
     "gulp-plumber": "^1.0.0",
+    "gulp-rename": "^1.2.2",
+    "gulp-uglify": "^1.2.0",
     "gulp-util": "^3.0.4",
     "jshint-stylish": "^1.0.1"
   },
-  "dependencies": {}
+  "dependencies": {
+  }
 }
