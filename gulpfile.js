@@ -19,13 +19,15 @@ gulp.task('support-js', function() {
     .pipe(jscs());
 });
 
-// Main JS task for timeline library.  JSHint, JSCS
+// Main JS task for timeline library.  Takes in files from src and outputs
+// to dist.  Uses JSHint, JSCS
 gulp.task('js', function() {
   return gulp.src('src/**/*.js')
     .pipe(jshint())
     .pipe(jshint.reporter('jshint-stylish'))
     .pipe(jshint.reporter('fail'))
-    .pipe(jscs());
+    .pipe(jscs())
+    .pipe(gulp.dest('dist'));
 });
 
 // Default task is a basic build

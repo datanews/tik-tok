@@ -34,3 +34,9 @@ Install dependencies.  All commands are assumed to be from the [Command Line](ht
 1. Install [Gulp](http://gulpjs.com/) command line tool: `npm install gulp -g`
 1. Get the code (replace with your fork's repository URL) and enter into the code directory: `git clone https://github.com/datanews/mobile-timeline.git && cd mobile-timeline`
 1. Install Node dependencies: `npm install`
+
+### Build
+
+After make your edits, run checks and create build version with the following command:
+
+    gulp
