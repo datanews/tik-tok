@@ -7,7 +7,7 @@
 // Dependencies
 var gulp = require('gulp');
 var jshint = require('gulp-jshint');
-
+var jscs = require('gulp-jscs');
 
 // Support JS is a task to look at the supporting JS, like this
 // file
@@ -15,18 +15,18 @@ gulp.task('support-js', function() {
   return gulp.src('gulpfile.js')
     .pipe(jshint())
     .pipe(jshint.reporter('jshint-stylish'))
-    .pipe(jshint.reporter('fail'));
+    .pipe(jshint.reporter('fail'))
+    .pipe(jscs());
 });
 
-// Main JS task for timeline library
+// Main JS task for timeline library.  JSHint, JSCS
 gulp.task('js', function() {
   return gulp.src('src/**/*.js')
-    // JSHint files
     .pipe(jshint())
     .pipe(jshint.reporter('jshint-stylish'))
-    .pipe(jshint.reporter('fail'));
+    .pipe(jshint.reporter('fail'))
+    .pipe(jscs());
 });
-
 
 // Default task is a basic build
 gulp.task('default', ['support-js', 'js']);
