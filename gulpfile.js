@@ -8,11 +8,22 @@
 var gulp = require('gulp');
 var jshint = require('gulp-jshint');
 var jscs = require('gulp-jscs');
+var plumber = require('gulp-plumber');
+var util = require('gulp-util');
+
+// Plumber allows for better error handling and makes it so that
+// gulp doesn't crash so hard
+var plumberConfig = {
+  errorHandler: function() {
+    util.beep();
+  }
+};
 
 // Support JS is a task to look at the supporting JS, like this
 // file
 gulp.task('support-js', function() {
   return gulp.src('gulpfile.js')
+    .pipe(plumber(plumberConfig))
     .pipe(jshint())
     .pipe(jshint.reporter('jshint-stylish'))
     .pipe(jshint.reporter('fail'))
