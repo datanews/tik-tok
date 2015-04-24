@@ -108,14 +108,16 @@ gulp.task('webserver', function() {
   gulp.src('./')
     .pipe(webserver({
       port: 8089,
-      livereload: true,
+      livereload: {
+        enable: true,
+        filter: function(file) {
+          // Only watch dist and examples
+          return (file.match(/dist|examples/)) ? true : false;
+        }
+      },
       directoryListing: true,
       open: true,
-      fallback: 'index.html',
-      filter: function(file) {
-        // Watch dist and examples
-        return (file.match(/dist|examples/)) ? true : false;
-      }
+      fallback: 'index.html'
     }));
 });
 
