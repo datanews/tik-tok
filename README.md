@@ -28,7 +28,9 @@ Install dependencies.  All commands are assumed to be from the [Command Line](ht
 1. Install [Git](http://git-scm.com/).
     * On a Mac, install [Homebrew](http://brew.sh/) and run: `brew install git`
     * On common Linux systems: `apt-get install git-core`
-1. Install [NodeJS]() (io.js should work as well).
+1. Install [NodeJS](https://nodejs.org/) (io.js should work as well).
     * On a Mac: `brew install node`
     * On common Linux systems: `apt-get install nodejs`
+1. Install [Gulp](http://gulpjs.com/) command line tool: `npm install gulp -g`
 1. Get the code (replace with your fork's repository URL) and enter into the code directory: `git clone https://github.com/datanews/mobile-timeline.git && cd mobile-timeline`
+1. Install Node dependencies: `npm install`

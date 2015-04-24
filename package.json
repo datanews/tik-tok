@@ -14,30 +14,35 @@
     "Timeline"
   ],
   "author": {
-    "name" : "Alan Palazzolo",
-    "email" : "apalzzolo@wnyc.org",
-    "url" : "http://wnyc.org"
+    "name": "Alan Palazzolo",
+    "email": "apalzzolo@wnyc.org",
+    "url": "http://wnyc.org"
   },
   "contributors": [
     {
-      "name" : "Noah Veltman",
-      "email" : "nveltman@wnyc.org",
-      "url" : "http://wnyc.org"
+      "name": "Noah Veltman",
+      "email": "nveltman@wnyc.org",
+      "url": "http://wnyc.org"
     },
     {
-      "name" : "Chris Keller",
-      "email" : "ckeller@scpr.org",
-      "url" : "http://scpr.org"
+      "name": "Chris Keller",
+      "email": "ckeller@scpr.org",
+      "url": "http://scpr.org"
     },
     {
-      "name" : "John Keefe",
-      "email" : "jkeefe@wnyc.org",
-      "url" : "http://wnyc.org"
+      "name": "John Keefe",
+      "email": "jkeefe@wnyc.org",
+      "url": "http://wnyc.org"
     }
   ],
   "license": "MIT",
   "bugs": {
     "url": "https://github.com/datanews/mobile-timeline/issues"
   },
-  "homepage": "https://github.com/datanews/mobile-timeline"
+  "homepage": "https://github.com/datanews/mobile-timeline",
+  "devDependencies": {
+    "gulp": "^3.8.11",
+    "gulp-jshint": "^1.10.0",
+    "jshint-stylish": "^1.0.1"
+  }
 }
