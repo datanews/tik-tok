@@ -64,7 +64,7 @@ Test should be run within the watch tasks described above, but you can run the t
 
 The project is setup to use [Testling](https://ci.testling.com/) for basic cross-browser support.  The tests will get run when pushed up to Github.  You can run them locally if you have installed the Testling command line tool (see above) with the following:
 
-    `testling`
+    testling
 
 ### Build
 
