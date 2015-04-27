@@ -32,8 +32,10 @@ Install dependencies.  All commands are assumed to be from the [Command Line](ht
     * On a Mac: `brew install node`
     * On common Linux systems: `apt-get install nodejs`
 1. Install [Gulp](http://gulpjs.com/) command line tool: `npm install gulp -g`
+1. Install [Bower](http://bower.cio/) command line tool: `npm install bower -g`
 1. Get the code (replace with your fork's repository URL) and enter into the code directory: `git clone https://github.com/datanews/mobile-timeline.git && cd mobile-timeline`
 1. Install Node dependencies: `npm install`
+1. Install Bower dependencies: `bower install`
 
 ### Development
 

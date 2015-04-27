@@ -1,0 +1,49 @@
+{
+  "name": "mobile-timeline",
+  "version": "0.0.1",
+  "homepage": "https://github.com/datanews/mobile-timeline",
+  "authors": [
+    {
+      "name": "Alan Palazzolo",
+      "email": "apalzzolo@wnyc.org",
+      "url": "http://wnyc.org"
+    },
+    {
+      "name": "Noah Veltman",
+      "email": "nveltman@wnyc.org",
+      "url": "http://wnyc.org"
+    },
+    {
+      "name": "Chris Keller",
+      "email": "ckeller@scpr.org",
+      "url": "http://scpr.org"
+    },
+    {
+      "name": "John Keefe",
+      "email": "jkeefe@wnyc.org",
+      "url": "http://wnyc.org"
+    }
+  ],
+  "description": "A timeline focused on a mobile-first strategy (i.e. vertical)",
+  "main": "dist/timeline.js",
+  "moduleType": [
+    "amd",
+    "globals",
+    "node"
+  ],
+  "keywords": [
+    "timeline"
+  ],
+  "license": "MIT",
+  "ignore": [
+    "**/.*",
+    "node_modules",
+    "bower_components",
+    "test",
+    "tests"
+  ],
+  "dependencies": {
+    "underscore": "~1.8.3",
+    "jquery": "^1.11"
+  }
+}
