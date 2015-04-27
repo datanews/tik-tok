@@ -118,4 +118,55 @@ describe('Timeline', function() {
       assert.deepEqual(t.mapColumns(events, {}), events);
     });
   });
+
+  // Determine groups
+  describe('#determineGroups', function() {
+    // Group these events by months
+    it('should group events by months', function() {
+      var t;
+      var events = [
+        { date: '2014-05-01', title: 'Second', body: 'This is 2' },
+        { date: '2014-06-01', title: 'Third', body: 'This is 3' },
+        { date: '2014-03-01', title: 'First', body: 'This is 1' }
+      ];
+
+      t = new Timeline({
+        events: events
+      });
+
+      assert.equal(t.groupType, 'months');
+    });
+
+    // Group these events by years
+    it('should group events by years', function() {
+      var t;
+      var events = [
+        { date: '2014-05-01', title: 'Second', body: 'This is 2' },
+        { date: '2015-06-01', title: 'Third', body: 'This is 3' },
+        { date: '2013-03-01', title: 'First', body: 'This is 1' }
+      ];
+
+      t = new Timeline({
+        events: events
+      });
+
+      assert.equal(t.groupType, 'years');
+    });
+
+    // Group these events by decades
+    it('should group events by decads', function() {
+      var t;
+      var events = [
+        { date: '1990-05-01', title: 'Second', body: 'This is 2' },
+        { date: '2000-06-01', title: 'Third', body: 'This is 3' },
+        { date: '1980-03-01', title: 'First', body: 'This is 1' }
+      ];
+
+      t = new Timeline({
+        events: events
+      });
+
+      assert.equal(t.groupType, 'decades');
+    });
+  });
 });

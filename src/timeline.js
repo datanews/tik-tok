@@ -62,6 +62,9 @@
       e.date = d;
       return e;
     });
+
+    // Determine groups
+    this.groupType = this.determineGroups(this.events);
   };
 
   // Add methods
@@ -69,6 +72,20 @@
     // Main renderer
     render: function() {
       console.log(this);
+    },
+
+    // Determine groups
+    determineGroups: function(events) {
+      // Some functions
+      var getDate = function(e) { return e.date.unix(); };
+
+      // Determine span and grouping
+      var min = _.min(events, getDate);
+      var max = _.max(events, getDate);
+      var diff = max.date.diff(min.date, 'years');
+
+      return (diff < 2) ? 'months' :
+        (diff < 10) ? 'years' : 'decades';
     },
 
     // Map columns
