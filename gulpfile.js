@@ -18,6 +18,7 @@ var recess = require('gulp-recess');
 var cssminify = require('gulp-minify-css');
 var autoprefixer = require('gulp-autoprefixer');
 var webserver = require('gulp-webserver');
+var mocha = require('gulp-mocha');
 
 // Create banner to insert into files
 var pkg = require('./package.json');
@@ -47,12 +48,21 @@ var plumberHandler = function(error) {
 // Support JS is a task to look at the supporting JS, like this
 // file
 gulp.task('support-js', function() {
-  return gulp.src('*.js')
+  return gulp.src(['gulpfile.js', 'tests/**/*.js'])
     .pipe(plumber(plumberHandler))
     .pipe(jshint())
     .pipe(jshint.reporter('jshint-stylish'))
     .pipe(jshint.reporter('fail'))
     .pipe(jscs());
+});
+
+// Run tests
+gulp.task('test', function() {
+  return gulp.src('tests/**/*.js', { read: false })
+    .pipe(mocha({
+      ui: 'bdd',
+      reporter: 'spec'
+    }));
 });
 
 // Main JS task for timeline library.  Takes in files from src and outputs
@@ -98,8 +108,8 @@ gulp.task('styles', function() {
 
 // Watch for files that need to be processed
 gulp.task('watch', function() {
-  gulp.watch('src/*.js', ['js']);
-  gulp.watch('src/**/*.js', ['js']);
+  gulp.watch(['gulpfile.js', 'tests/**/*.js'], ['support-js']);
+  gulp.watch('src/**/*.js', ['js', 'test']);
   gulp.watch('src/**/*.less', ['styles']);
 });
 
@@ -122,7 +132,7 @@ gulp.task('webserver', function() {
 });
 
 // Default task is a basic build
-gulp.task('default', ['support-js', 'js', 'styles']);
+gulp.task('default', ['support-js', 'js', 'test', 'styles']);
 
 // Combine webserver and watch tasks for a more complete server
 gulp.task('server', ['watch', 'webserver']);

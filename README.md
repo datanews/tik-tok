@@ -33,6 +33,7 @@ Install dependencies.  All commands are assumed to be from the [Command Line](ht
     * On common Linux systems: `apt-get install nodejs`
 1. Install [Gulp](http://gulpjs.com/) command line tool: `npm install gulp -g`
 1. Install [Bower](http://bower.cio/) command line tool: `npm install bower -g`
+1. (optional, see below) Install [Testling](https://ci.testling.com/) command line tool: `npm install -g testling`
 1. Get the code (replace with your fork's repository URL) and enter into the code directory: `git clone https://github.com/datanews/mobile-timeline.git && cd mobile-timeline`
 1. Install Node dependencies: `npm install`
 1. Install Bower dependencies: `bower install`
@@ -47,6 +48,18 @@ Edit files in the `src` directory; these need to get built into the `dist`.  Use
     * Runs [Livereload](http://livereload.com/) and will update the browser when changes are made.  Requires installation of the Livereload application or the browser extensions.
 * `gulp watch`
     * Running tasks that automatically builds the source files when they are changes.
+
+### Testing
+
+Test should be run within the watch tasks described above, but you can run the tests manually with the following:
+
+    gulp test
+
+#### Cross-browser testing
+
+The project is setup to use [Testling](https://ci.testling.com/) for basic cross-browser support.  The tests will get run when pushed up to Github.  You can run them locally if you have installed the Testling command line tool (see above) with the following:
+
+    `testling`
 
 ### Build
 
