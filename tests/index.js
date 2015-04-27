@@ -26,17 +26,54 @@ describe('Timeline', function() {
 
   // Constructor
   describe('#constructor', function() {
+    // Throws and error with no event data
     it('should throw an error without any events', function() {
+      var t;
+
       assert.throws(function() {
-        var t = new Timeline();
-        t = {};
+        t = new Timeline();
+      });
+    });
+
+    // Throws error with bad date
+    it('should throw an error if bad dates are given', function() {
+      var t;
+      var events = [
+        {
+          date: 'this is not valid',
+          title: 'Title!',
+          body: 'Over here!'
+        }
+      ];
+
+      assert.throws(function() {
+        t = new Timeline({
+          events: events
+        });
+      });
+    });
+
+    // Should not throw errors with valid data
+    it('should not throw an error with valid event data', function() {
+      var t;
+      var events = [
+        {
+          date: '2015-01-03',
+          title: 'Title!',
+          body: 'Over here!'
+        }
+      ];
+      assert.doesNotThrow(function() {
+        t = new Timeline({
+          events: events
+        });
       });
     });
   });
 
-  // Metho column mapping
+  // Method column mapping
   describe('#mapColumns', function() {
-    it('should map columns', function() {
+    it('should map different columns', function() {
       var events = [
         {
           'this is a date': '2014-05-01',
@@ -62,6 +99,23 @@ describe('Timeline', function() {
       });
 
       assert.deepEqual(t.mapColumns(events, columnMapping), expected);
+    });
+
+    // Should be fine if columns are what they should be
+    it('should map same columns', function() {
+      var events = [
+        {
+          date: '2014-05-01',
+          title: 'Title!',
+          body: 'Over here!'
+        }
+      ];
+      var t = new Timeline({
+        events: events,
+        columnMapping: {}
+      });
+
+      assert.deepEqual(t.mapColumns(events, {}), events);
     });
   });
 });

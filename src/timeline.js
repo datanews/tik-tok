@@ -29,14 +29,7 @@
   // Default options
   var defaultOptions = {
     // Date formates used by moment
-    dateFormats: ['MMM DD, YYYY', 'MM/DD/YYYY', 'M/D/YYYY', 'DD MMM YYYY'],
-
-    // Column mapping in format { needed: provided }
-    columnMapping: {
-      date: 'date',
-      title: 'title',
-      body: 'body'
-    }
+    dateFormats: ['MMM DD, YYYY', 'MM/DD/YYYY', 'M/D/YYYY', 'DD MMM YYYY', 'YYYY-MM-DD']
   };
 
   // Constructior
@@ -50,16 +43,24 @@
     }
 
     // Ensure there is column mapping
-    if (!_.isObject(this.options.columnMapping)) {
+    if (this.options.columnMapping && !_.isObject(this.options.columnMapping)) {
       throw new Error('"columnMapping" was not provided as an object.');
     }
 
-    // Map columns and attach events to object for easier access
+    // Map columns and attach events to object for easier access.
+    // Should be in format { needed: provided }
     this.events = this.mapColumns(this.options.events, this.options.columnMapping);
 
     // Parse out dates
     this.events = _.map(this.events, function(e) {
-      e.date = moment(e.date, _this.options.dateFormats);
+      var d = moment(e.date, _this.options.dateFormats);
+
+      if (!d.isValid()) {
+        throw new Error('Error parsing date from "' + e.date + '"');
+      }
+
+      e.date = d;
+      return e;
     });
   };
 
@@ -72,13 +73,15 @@
 
     // Map columns
     mapColumns: function(events, mapping) {
+      mapping = mapping || {};
+
       // Go through each event, clone, change mappings, and remove old
       return _.map(events, function(e) {
         var n = _.clone(e);
 
         // Find a mapping
         _.each(mapping, function(m, mi) {
-          if (!_.isUndefined(e[m])) {
+          if (!_.isUndefined(e[m]) && m !== mi) {
             n[mi] = _.clone(e[m]);
             delete n[m];
           }
