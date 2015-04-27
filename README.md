@@ -2,6 +2,11 @@
 
 A timeline focused on a mobile-first strategy (i.e. vertical)
 
+## Status
+
+[![Testling browser support](https://ci.testling.com/datanews/mobile-timeline.png)
+](https://ci.testling.com/datanews/mobile-timeline)
+
 ## Development and contributing
 
 Instructions on how to do development and make contributions to the project.
