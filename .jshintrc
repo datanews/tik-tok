@@ -18,5 +18,7 @@
   "sub": true,
 
   "browser": true,
-  "node": true
+  "node": true,
+
+  "validthis": true
 }
