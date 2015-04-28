@@ -3,10 +3,15 @@
 @default-color: #232323;
 @bg-color-grouping: #565656;
 @color-grouping: #EFEFEF;
+@color-source: #565656;
+@width-medium: 600px;
 
+// Mobile first, meaning original styles are for mobiles and
+// we make changes as the screen gets larger.
 
 .timeline-container {
-  width: 90%;
+  width: 95%;
+  max-width: 70em;
   margin: 0 auto 2em auto;
   font-family: sans-serif;
   color: @default-color;
@@ -15,6 +20,20 @@
 
   div, span, section {
     box-sizing: border-box;
+  }
+
+  // Mini clearfix
+  // http://nicolasgallagher.com/micro-clearfix-hack/
+  .cf:before,
+  .cf:after {
+    display: table;
+    content: " ";
+  }
+  .cf:after {
+    clear: both;
+  }
+  .cf {
+    *zoom: 1;
   }
 
   .group {
@@ -30,11 +49,62 @@
     .group-events {
       padding-left: 1em;
       margin-bottom: 1em;
+    }
+  }
 
-      .event {
-        padding: 1em;
-        margin-bottom: 1em;
-        border: 1px solid @default-color;
+  .event {
+    padding: 1em;
+    margin-bottom: 1em;
+    border: 1px solid @default-color;
+
+    .event-date {
+      margin-bottom: 0.5em;
+      font-size: 0.85em;
+      text-transform: uppercase;
+    }
+
+    .event-title {
+      padding-top: 0;
+      margin-top: 0;
+    }
+
+    .event-media {
+      margin-bottom: 1em;
+
+      &.with-source {
+        margin-bottom: 0.5em;
+      }
+
+      img {
+        max-width: 100%;
+      }
+    }
+
+    .event-source {
+      margin-bottom: 1em;
+      font-size: 0.85em;
+      color: @color-source;
+      text-align: right;
+    }
+
+    .event-body {
+      margin-bottom: 0;
+    }
+
+    // On larger screens split media and body
+    @media (min-width: @width-medium) {
+      .event-media-container.with-body,
+      .event-body-container.with-media {
+        width: 50%;
+        float: right;
+      }
+
+      .event-media-container.with-body {
+        padding-left: 1em;
+      }
+
+      .event-body-container.with-media {
+        padding-right: 1em;
       }
     }
   }

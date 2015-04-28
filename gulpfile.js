@@ -96,7 +96,9 @@ gulp.task('js', function() {
 gulp.task('styles', function() {
   gulp.src('src/**/*.less')
     .pipe(plumber(plumberHandler))
-    .pipe(recess())
+    .pipe(recess({
+      noOverqualifying: false
+    }))
     .pipe(less())
     .pipe(recess.reporter({
       fail: true

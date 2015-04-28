@@ -42,7 +42,7 @@
 
     // Template.  This can be a function or string and the default will
     // be replace in the build process
-    template: '<div class="timeline-container">  <% _.forEach(groups, function(g, gi) { %>  <div class="group">  <div class="group-label">  <%= g.id %>  </div>   <div class="group-events">  <% _.forEach(g.events, function(e, ei) { %>  <div class="event">  <div class="event-date"><%= e.dateFormatted %></div>  <h3 class="event-title"><%= e.title %></h3>   <p><%= e.body %></p>  </div>  <% }) %>  </div>  </div>  <% }) %> </div> '
+    template: '<div class="timeline-container">  <% _.forEach(groups, function(g, gi) { %>  <div class="group">  <div class="group-label">  <%= g.id %>  </div>   <div class="group-events">  <% _.forEach(g.events, function(e, ei) { %>  <div class="event">  <div class="event-date"><%= e.dateFormatted %></div>   <% if (e.title) { %>  <h3 class="event-title"><%= e.title %></h3>  <% } %>   <div class="event-content-container cf">  <% if (e.media) { %>  <div class="event-media-container <% if (e.body) { %>with-body<% } %>">  <div class="event-media <% if (e.source) { %>with-source<% } %>">  <img src="<%= e.media %>">  </div>   <% if (e.source) { %>  <div class="event-source">  <%= e.source %>  </div>  <% } %>  </div>  <% } %>   <% if (e.body) { %>  <div class="event-body-container <% if (e.media) { %>with-media<% } %>">  <div class="event-body"><%= e.body %></div>  </div>  <% } %>  </div>  </div>  <% }) %>  </div>  </div>  <% }) %> </div> '
   };
 
   // Constructior
