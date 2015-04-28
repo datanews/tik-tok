@@ -47,6 +47,22 @@
       throw new Error('"columnMapping" was not provided as an object.');
     }
 
+    // Determine if browser
+    this.isBrowser = this.checkBrowser();
+
+    // Check that element is given if in browser
+    if (this.isBrowser && !this.options.el) {
+      throw new Error('"el" needs to br provided as a string or object.');
+    }
+
+    // Get element
+    this.el = this.getElement(this.options.el);
+
+    // Check that an element was found if in browser
+    if (this.isBrowser && !this.el) {
+      throw new Error('Could not find a valid element from the given "el" option.');
+    }
+
     // Map columns and attach events to object for easier access.
     // Should be in format { needed: provided }
     this.events = this.mapColumns(this.options.events, this.options.columnMapping);
@@ -65,6 +81,9 @@
 
     // Group events.
     this.groups = this.groupEvents(this.events);
+
+    // Sort groups
+    this.groups = this.sortGroups(this.groups);
   };
 
   // Add methods
@@ -72,6 +91,68 @@
     // Main renderer
     render: function() {
       console.log(this);
+    },
+
+    // Get element from some sort of selector or element.  Inspiration
+    // from Ractive
+    getElement: function(input) {
+      var output;
+
+      // Check if we are in a brower
+      if (!this.isBrowser || !input) {
+        return null;
+      }
+
+      // We already have a DOM node - no work to do.
+      if (input.nodeType) {
+        return input;
+      }
+
+      // Get node from string
+      if (typeof input === 'string') {
+        // try ID first
+        output = document.getElementById(input);
+
+        // then as selector, if possible
+        if (!output && document.querySelector) {
+          output = document.querySelector(input);
+        }
+
+        // Did it work?
+        if (output && output.nodeType) {
+          return output;
+        }
+      }
+
+      // If we've been given a collection (jQuery, Zepto etc),
+      // extract the first item
+      if (input[0] && input[0].nodeType) {
+        return input[0];
+      }
+
+      return null;
+    },
+
+    // Simple test for browser (used mostly for testing in Node)
+    checkBrowser: function() {
+      return (typeof window !== 'undefined' && document);
+    },
+
+    // Sort groups (and events in groups)
+    sortGroups: function(groups) {
+      // Sort events
+      groups = _.map(groups, function(g) {
+        g.events = _.sortBy(g.events, function(e) {
+          return e.date.unix();
+        });
+
+        return g;
+      });
+
+      // Sort groups
+      return _.sortBy(groups, function(g) {
+        return g.date.unix();
+      });
     },
 
     // Group events based on grouping function.  A grouping function

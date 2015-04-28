@@ -71,6 +71,25 @@ describe('Timeline', function() {
     });
   });
 
+  // Check browser
+  describe('#checkBrowser', function() {
+    it('should (not) be browser', function() {
+      var isBrowser = !(module && module.exports);
+      var events = [
+        { date: '2014-05-01', title: 'Second', body: 'This is 2' },
+        { date: '2014-06-01', title: 'Third', body: 'This is 3' },
+        { date: '2014-03-01', title: 'First', body: 'This is 1' }
+      ];
+      var t;
+
+      t = new Timeline({
+        events: events
+      });
+
+      assert.equal(t.checkBrowser(), isBrowser);
+    });
+  });
+
   // Method column mapping
   describe('#mapColumns', function() {
     it('should map different columns', function() {
@@ -187,6 +206,66 @@ describe('Timeline', function() {
       });
 
       assert.equal(t.groupEvents(t.events)[0].id, expected);
+    });
+  });
+
+  // Sort groups
+  describe('#sortGroups', function() {
+    // Group these events by months
+    it('should sort events by months', function() {
+      var t;
+      var events = [
+        { date: '2014-05-01', title: 'Second', body: 'This is 2' },
+        { date: '2014-06-01', title: 'Third', body: 'This is 3' },
+        { date: '2014-03-01', title: 'First', body: 'This is 1' }
+      ];
+      var expected = '2014-03';
+
+      t = new Timeline({
+        events: events
+      });
+
+      assert.equal(t.sortGroups(t.groups)[0].id, expected);
+    });
+  });
+
+  // Get elements
+  describe('#getElement', function() {
+    // Not in browser
+    it('should return null if not in browser', function() {
+      var t;
+      var events = [
+        { date: '2014-05-01', title: 'Second', body: 'This is 2' },
+        { date: '2014-06-01', title: 'Third', body: 'This is 3' },
+        { date: '2014-03-01', title: 'First', body: 'This is 1' }
+      ];
+      var element = { nodeType: true };
+
+      // Create object
+      t = new Timeline({
+        events: events
+      });
+
+      assert.equal(t.getElement(element), null);
+    });
+
+    // Use fake element
+    it('should find element in browser', function() {
+      var t;
+      var events = [
+        { date: '2014-05-01', title: 'Second', body: 'This is 2' },
+        { date: '2014-06-01', title: 'Third', body: 'This is 3' },
+        { date: '2014-03-01', title: 'First', body: 'This is 1' }
+      ];
+      var element = { nodeType: true };
+
+      // Create object
+      t = new Timeline({
+        events: events
+      });
+      t.isBrowser = true;
+
+      assert.deepEqual(t.getElement(element), element);
     });
   });
 });
