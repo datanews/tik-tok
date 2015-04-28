@@ -37,14 +37,16 @@
     // Date formates used by moment
     dateFormats: ['MMM DD, YYYY', 'MM/DD/YYYY', 'M/D/YYYY', 'DD MMM YYYY', 'YYYY-MM-DD'],
 
+    // Date display format
+    displayFormat: 'MMM DD, YYYY',
+
     // Template.  This can be a function or string and the default will
     // be replace in the build process
-    template: '<div class="timeline-container">  <% _.forEach(groups, function(g, gi) { %>   <div><%= g.id %></div>   <% }) %> </div> '
+    template: '<div class="timeline-container">  <% _.forEach(groups, function(g, gi) { %>  <div class="group">  <div class="group-label">  <%= g.id %>  </div>   <div class="group-events">  <% _.forEach(g.events, function(e, ei) { %>  <div class="event">  <div class="event-date"><%= e.dateFormatted %></div>  <h3 class="event-title"><%= e.title %></h3>   <p><%= e.body %></p>  </div>  <% }) %>  </div>  </div>  <% }) %> </div> '
   };
 
   // Constructior
   var Timeline = function(options) {
-    var _this = this;
     this.options = _.extend({}, defaultOptions, options || {});
 
     // Enusre there is data
@@ -92,17 +94,8 @@
     // Should be in format { needed: provided }
     this.events = this.mapColumns(this.options.events, this.options.columnMapping);
 
-    // Parse out dates
-    this.events = _.map(this.events, function(e) {
-      var d = moment(e.date, _this.options.dateFormats);
-
-      if (!d.isValid()) {
-        throw new Error('Error parsing date from "' + e.date + '"');
-      }
-
-      e.date = d;
-      return e;
-    });
+    // Parse events like dates
+    this.events = this.parseEvents(this.events);
 
     // Group events.
     this.groups = this.groupEvents(this.events);
@@ -257,6 +250,24 @@
 
       return (diff < 2) ? 'months' :
         (diff < 10) ? 'years' : 'decades';
+    },
+
+    // Parse events
+    parseEvents: function(events) {
+      return _.map(events, _.bind(function(e) {
+        // Parse date
+        var d = moment(e.date, this.options.dateFormats);
+        if (!d.isValid()) {
+          throw new Error('Error parsing date from "' + e.date + '"');
+        }
+
+        e.date = d;
+
+        // Create a formatted version of date for template
+        e.dateFormatted = d.format(this.options.displayFormat);
+
+        return e;
+      }, this));
     },
 
     // Map columns

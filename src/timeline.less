@@ -1,4 +1,41 @@
 
+// Variables
+@default-color: #232323;
+@bg-color-grouping: #565656;
+@color-grouping: #EFEFEF;
+
+
 .timeline-container {
-  background: red;
+  width: 90%;
+  margin: 0 auto 2em auto;
+  font-family: sans-serif;
+  color: @default-color;
+  border-left: 1em solid @bg-color-grouping;
+  box-sizing: border-box;
+
+  div, span, section {
+    box-sizing: border-box;
+  }
+
+  .group {
+
+    .group-label {
+      display: inline-block;
+      padding: 0.5em 1em 0.5em 2em;
+      margin-bottom: 1em;
+      color: @color-grouping;
+      background-color: @bg-color-grouping;
+    }
+
+    .group-events {
+      padding-left: 1em;
+      margin-bottom: 1em;
+
+      .event {
+        padding: 1em;
+        margin-bottom: 1em;
+        border: 1px solid @default-color;
+      }
+    }
+  }
 }

@@ -1,7 +1,21 @@
 <div class="timeline-container">
   <% _.forEach(groups, function(g, gi) { %>
+    <div class="group">
+      <div class="group-label">
+        <%= g.id %>
+      </div>
 
-    <div><%= g.id %></div>
+      <div class="group-events">
+        <% _.forEach(g.events, function(e, ei) { %>
+          <div class="event">
+            <div class="event-date"><%= e.dateFormatted %></div>
+            
+            <h3 class="event-title"><%= e.title %></h3>
 
+            <p><%= e.body %></p>
+          </div>
+        <% }) %>
+      </div>
+    </div>
   <% }) %>
 </div>

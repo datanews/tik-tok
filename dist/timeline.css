@@ -5,5 +5,31 @@
  * @license MIT
  */
 .timeline-container {
-  background: red;
+  width: 90%;
+  margin: 0 auto 2em auto;
+  font-family: sans-serif;
+  color: #232323;
+  border-left: 1em solid #565656;
+  box-sizing: border-box;
+}
+.timeline-container div,
+.timeline-container span,
+.timeline-container section {
+  box-sizing: border-box;
+}
+.timeline-container .group .group-label {
+  display: inline-block;
+  padding: 0.5em 1em 0.5em 2em;
+  margin-bottom: 1em;
+  color: #efefef;
+  background-color: #565656;
+}
+.timeline-container .group .group-events {
+  padding-left: 1em;
+  margin-bottom: 1em;
+}
+.timeline-container .group .group-events .event {
+  padding: 1em;
+  margin-bottom: 1em;
+  border: 1px solid #232323;
 }

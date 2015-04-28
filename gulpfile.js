@@ -117,7 +117,7 @@ gulp.task('styles', function() {
 // Watch for files that need to be processed
 gulp.task('watch', function() {
   gulp.watch(['gulpfile.js', 'tests/**/*.js'], ['support-js']);
-  gulp.watch('src/**/*.js', ['js', 'test']);
+  gulp.watch(['src/**/*.js', 'src/**/*.html'], ['js', 'test']);
   gulp.watch('src/**/*.less', ['styles']);
 });
 
@@ -143,4 +143,4 @@ gulp.task('webserver', function() {
 gulp.task('default', ['support-js', 'js', 'test', 'styles']);
 
 // Combine webserver and watch tasks for a more complete server
-gulp.task('server', ['watch', 'webserver']);
+gulp.task('server', ['default', 'watch', 'webserver']);
