@@ -63,8 +63,8 @@
       return e;
     });
 
-    // Determine groups
-    this.groupType = this.determineGroups(this.events);
+    // Group events.
+    this.groups = this.groupEvents(this.events);
   };
 
   // Add methods
@@ -72,6 +72,62 @@
     // Main renderer
     render: function() {
       console.log(this);
+    },
+
+    // Group events based on grouping function.  A grouping function
+    // should take an event and return an object with the following
+    // properties: `id`, `date` (as moment object)
+    groupEvents: function(events) {
+      var groups = {};
+      var groupByFunc;
+
+      // Determine group
+      this.groupType = this.determineGroups(this.events);
+
+      // Get grouping function
+      groupByFunc = 'groupBy' + this.groupType.charAt(0).toUpperCase() +
+        this.groupType.slice(1);
+      groupByFunc = this[groupByFunc];
+
+      // Go through each event and create or add to group
+      _.each(events, function(e) {
+        var g = _.bind(groupByFunc, this)(e, moment);
+
+        if (groups[g.id]) {
+          groups[g.id].events.push(e);
+        }
+        else {
+          groups[g.id] = g;
+          groups[g.id].events = [e];
+        }
+      });
+
+      return _.values(groups);
+    },
+
+    // Group by for months
+    groupByMonths: function(event, moment) {
+      return {
+        id: event.date.format('YYYY-MM'),
+        date: moment(event.date.format('YYYY-MM'), 'YYYY-MM')
+      };
+    },
+
+    // Group by for years
+    groupByYears: function(event, moment) {
+      return {
+        id: event.date.format('YYYY'),
+        date: moment(event.date.format('YYYY'), 'YYYY')
+      };
+    },
+
+    // Group by for decades
+    groupByDecades: function(event, moment) {
+      var decade = Math.floor(event.date.year() / 10) * 10;
+      return {
+        id: decade.toString(),
+        date: moment(decade.toString(), 'YYYY')
+      };
     },
 
     // Determine groups

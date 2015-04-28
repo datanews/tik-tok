@@ -122,7 +122,7 @@ describe('Timeline', function() {
   // Determine groups
   describe('#determineGroups', function() {
     // Group these events by months
-    it('should group events by months', function() {
+    it('should determine group to be months', function() {
       var t;
       var events = [
         { date: '2014-05-01', title: 'Second', body: 'This is 2' },
@@ -138,7 +138,7 @@ describe('Timeline', function() {
     });
 
     // Group these events by years
-    it('should group events by years', function() {
+    it('should determine group to be years', function() {
       var t;
       var events = [
         { date: '2014-05-01', title: 'Second', body: 'This is 2' },
@@ -154,7 +154,7 @@ describe('Timeline', function() {
     });
 
     // Group these events by decades
-    it('should group events by decads', function() {
+    it('should determine group to be decades', function() {
       var t;
       var events = [
         { date: '1990-05-01', title: 'Second', body: 'This is 2' },
@@ -167,6 +167,26 @@ describe('Timeline', function() {
       });
 
       assert.equal(t.groupType, 'decades');
+    });
+  });
+
+  // Group events
+  describe('#groupEvents', function() {
+    // Group these events by months
+    it('should group events by months', function() {
+      var t;
+      var events = [
+        { date: '2014-05-01', title: 'Second', body: 'This is 2' },
+        { date: '2014-06-01', title: 'Third', body: 'This is 3' },
+        { date: '2014-03-01', title: 'First', body: 'This is 1' }
+      ];
+      var expected = '2014-05';
+
+      t = new Timeline({
+        events: events
+      });
+
+      assert.equal(t.groupEvents(t.events)[0].id, expected);
     });
   });
 });
