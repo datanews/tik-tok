@@ -47,22 +47,22 @@ describe('Timeline', function() {
       });
     });
 
-    // Throws error with bad column mapping
-    it('should throw an error if bad column mapping are given', function() {
+    // Throws error with bad key mapping
+    it('should throw an error if bad key mapping are given', function() {
       var t;
       var events = [{ date: '2015-01-03', title: 'Title!', body: 'Over here!' }];
-      var columnMapping = 'column-mapping';
+      var keyMapping = 'key-mapping';
 
       assert.throws(function() {
         t = new Timeline({
           events: events,
-          columnMapping: columnMapping
+          keyMapping: keyMapping
         });
       });
     });
 
     // Throws error with bad template
-    it('should throw an error if bad column mapping are given', function() {
+    it('should throw an error if bad template string is given', function() {
       var t;
       var events = [{ date: '2015-01-03', title: 'Title!', body: 'Over here!' }];
       var template = '<% if x %>';
@@ -107,9 +107,9 @@ describe('Timeline', function() {
     });
   });
 
-  // Method column mapping
-  describe('#mapColumns', function() {
-    it('should map different columns', function() {
+  // Method key mapping
+  describe('#mapKeys', function() {
+    it('should map different keys', function() {
       var events = [
         {
           'this is a date': '2014-05-01',
@@ -124,21 +124,21 @@ describe('Timeline', function() {
           body: 'Over here!'
         }
       ];
-      var columnMapping = {
+      var keyMapping = {
         date: 'this is a date',
         title: 'this is out title',
         body: 'and our body is here'
       };
       var t = new Timeline({
         events: events,
-        columnMapping: columnMapping
+        keyMapping: keyMapping
       });
 
-      assert.deepEqual(t.mapColumns(events, columnMapping), expected);
+      assert.deepEqual(t.mapKeys(events, keyMapping), expected);
     });
 
-    // Should be fine if columns are what they should be
-    it('should map same columns', function() {
+    // Should be fine if keys are what they should be
+    it('should map same keys', function() {
       var events = [
         {
           date: '2014-05-01',
@@ -148,10 +148,10 @@ describe('Timeline', function() {
       ];
       var t = new Timeline({
         events: events,
-        columnMapping: {}
+        keyMapping: {}
       });
 
-      assert.deepEqual(t.mapColumns(events, {}), events);
+      assert.deepEqual(t.mapKeys(events, {}), events);
     });
   });
 

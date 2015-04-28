@@ -55,8 +55,8 @@
     }
 
     // Ensure column mapping is an object
-    if (this.options.columnMapping && !_.isObject(this.options.columnMapping)) {
-      throw new Error('"columnMapping" was not provided as an object.');
+    if (this.options.keyMapping && !_.isObject(this.options.keyMapping)) {
+      throw new Error('"keyMapping" was not provided as an object.');
     }
 
     // Ensure there is a template
@@ -92,7 +92,7 @@
 
     // Map columns and attach events to object for easier access.
     // Should be in format { needed: provided }
-    this.events = this.mapColumns(this.options.events, this.options.columnMapping);
+    this.events = this.mapKeys(this.options.events, this.options.keyMapping);
 
     // Parse events like dates
     this.events = this.parseEvents(this.events);
@@ -271,7 +271,7 @@
     },
 
     // Map columns
-    mapColumns: function(events, mapping) {
+    mapKeys: function(events, mapping) {
       mapping = mapping || {};
 
       // Go through each event, clone, change mappings, and remove old
