@@ -38,13 +38,7 @@ describe('Timeline', function() {
     // Throws error with bad date
     it('should throw an error if bad dates are given', function() {
       var t;
-      var events = [
-        {
-          date: 'this is not valid',
-          title: 'Title!',
-          body: 'Over here!'
-        }
-      ];
+      var events = [{ date: 'this is not valid', title: 'Title!', body: 'Over here!' }];
 
       assert.throws(function() {
         t = new Timeline({
@@ -53,16 +47,39 @@ describe('Timeline', function() {
       });
     });
 
+    // Throws error with bad column mapping
+    it('should throw an error if bad column mapping are given', function() {
+      var t;
+      var events = [{ date: '2015-01-03', title: 'Title!', body: 'Over here!' }];
+      var columnMapping = 'column-mapping';
+
+      assert.throws(function() {
+        t = new Timeline({
+          events: events,
+          columnMapping: columnMapping
+        });
+      });
+    });
+
+    // Throws error with bad template
+    it('should throw an error if bad column mapping are given', function() {
+      var t;
+      var events = [{ date: '2015-01-03', title: 'Title!', body: 'Over here!' }];
+      var template = '<% if x %>';
+
+      assert.throws(function() {
+        t = new Timeline({
+          events: events,
+          template: template
+        });
+      });
+    });
+
     // Should not throw errors with valid data
     it('should not throw an error with valid event data', function() {
       var t;
-      var events = [
-        {
-          date: '2015-01-03',
-          title: 'Title!',
-          body: 'Over here!'
-        }
-      ];
+      var events = [{ date: '2015-01-03', title: 'Title!', body: 'Over here!' }];
+
       assert.doesNotThrow(function() {
         t = new Timeline({
           events: events

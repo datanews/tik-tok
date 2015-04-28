@@ -13,7 +13,7 @@
 
     <h1>Timeline</h1>
 
-    <div class="timeline-container"></div>
+    <div class="example-timeline-container"></div>
 
     <!-- Dependencies -->
     <script src="../bower_components/underscore/underscore.js"></script>
@@ -24,7 +24,12 @@
 
     <!-- Make timeline -->
     <script>
-
+      var t = new Timeline({
+        el: '.example-timeline-container',
+        events: [
+          { date: '2014-05-03', title: 'Title!', body: 'Body is over here.' }
+        ]
+      });
     </script>
   </body>
 </html>

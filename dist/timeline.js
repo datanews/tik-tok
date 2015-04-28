@@ -35,7 +35,11 @@
   // Default options
   var defaultOptions = {
     // Date formates used by moment
-    dateFormats: ['MMM DD, YYYY', 'MM/DD/YYYY', 'M/D/YYYY', 'DD MMM YYYY', 'YYYY-MM-DD']
+    dateFormats: ['MMM DD, YYYY', 'MM/DD/YYYY', 'M/D/YYYY', 'DD MMM YYYY', 'YYYY-MM-DD'],
+
+    // Template.  This can be a function or string and the default will
+    // be replace in the build process
+    template: '<div class="timeline-container">  <% _.forEach(groups, function(g, gi) { %>   <div><%= g.id %></div>   <% }) %> </div> '
   };
 
   // Constructior
@@ -48,9 +52,24 @@
       throw new Error('"events" data was not provided as an array.');
     }
 
-    // Ensure there is column mapping
+    // Ensure column mapping is an object
     if (this.options.columnMapping && !_.isObject(this.options.columnMapping)) {
       throw new Error('"columnMapping" was not provided as an object.');
+    }
+
+    // Ensure there is a template
+    if (!_.isString(this.options.template) && !_.isFunction(this.options.template)) {
+      throw new Error('"template" was not provided as a string or function.');
+    }
+
+    // Try to build template if string
+    if (_.isString(this.options.template)) {
+      try {
+        this.options.template = _.template(this.options.template);
+      }
+      catch (e) {
+        throw new Error('Error parsing template string with underscore templating: ' + e.message);
+      }
     }
 
     // Determine if browser
@@ -90,13 +109,22 @@
 
     // Sort groups
     this.groups = this.sortGroups(this.groups);
+
+    // Render if browser
+    if (this.isBrowser) {
+      this.render();
+    }
   };
 
   // Add methods
   _.extend(Timeline.prototype, {
     // Main renderer
     render: function() {
-      console.log(this);
+      this.el.innerHTML = this.options.template({
+        _: _,
+        groups: this.groups,
+        timeline: this
+      });
     },
 
     // Get element from some sort of selector or element.  Inspiration

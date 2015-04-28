@@ -5,10 +5,12 @@
 'use strict';
 
 // Dependencies
+var fs = require('fs');
 var gulp = require('gulp');
 var jshint = require('gulp-jshint');
 var jscs = require('gulp-jscs');
 var plumber = require('gulp-plumber');
+var replace = require('gulp-replace');
 var util = require('gulp-util');
 var header = require('gulp-header');
 var uglify = require('gulp-uglify');
@@ -66,10 +68,16 @@ gulp.task('test', function() {
 });
 
 // Main JS task for timeline library.  Takes in files from src and outputs
-// to dist.  Uses JSHint, JSCS, add header, minify
+// to dist.  Gets template and uses JSHint, JSCS, add header, minify
 gulp.task('js', function() {
   gulp.src('src/**/*.js')
     .pipe(plumber(plumberHandler))
+    .pipe(replace(
+      'REPLACE-DEFAULT-TEMPLATE',
+      fs.readFileSync('src/timeline.tpl.html', {
+        encoding: 'utf-8'
+      }).replace(/'/g, '\\\'').replace(/(\r\n|\n|\r|\s+)/g, ' ')
+    ))
     .pipe(jshint())
     .pipe(jshint.reporter('jshint-stylish'))
     .pipe(jshint.reporter('fail'))
