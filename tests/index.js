@@ -285,4 +285,42 @@ describe('Timeline', function() {
       assert.deepEqual(t.getElement(element), element);
     });
   });
+
+  // Media type
+  describe('#determineMediaType', function() {
+    var events = [{ date: '2015-01-03', title: 'Title!', body: 'Over here!' }];
+    var t = new Timeline({
+      events: events
+    });
+
+    // No URL
+    it('should return undefined if no URL is given', function() {
+      var url;
+      assert.equal(t.determineMediaType(url), undefined);
+    });
+
+    // Image
+    it('should return image for image URL', function() {
+      var url = 'https://placekitten.com/g/1200/510';
+      assert.equal(t.determineMediaType(url), 'image');
+    });
+
+    // SoundCloud
+    it('should return soundcloud for image URL', function() {
+      var url = 'https://w.soundcloud.com/player/?url=https%3A//api.soundcloud.com/tracks/153891564&amp;color=ff5500&amp;auto_play=false&amp;hide_related=false&amp;show_comments=true&amp;show_user=true&amp;show_reposts=false';
+      assert.equal(t.determineMediaType(url), 'soundcloud');
+    });
+
+    // SoundCloud large
+    it('should return soundcloud_large for image URL', function() {
+      var url = 'https://w.soundcloud.com/player/?url=https%3A//api.soundcloud.com/tracks/153891564&amp;auto_play=false&amp;hide_related=false&amp;show_comments=true&amp;show_user=true&amp;show_reposts=false&amp;visual=true';
+      assert.equal(t.determineMediaType(url), 'soundcloud_large');
+    });
+
+    // Youtube large
+    it('should return youtube for image URL', function() {
+      var url = 'https://www.youtube.com/embed/4IP_E7efGWE';
+      assert.equal(t.determineMediaType(url), 'youtube');
+    });
+  });
 });

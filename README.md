@@ -39,7 +39,9 @@ Event data should be an array of objects with the following keys, where only the
       date: '2014-04-01', // String date, see format option below for what is supported.
       title: 'This is an awesome event',
       body: 'This is the optional main text',
-      media: 'http://url.com/to/image.png', // Media should be a URL to an image (more formats coming soon)
+      // Media should be a URL to an image or the embed URL for Youtube, SoundCloud,
+      // and (more soon)
+      media: 'http://url.com/to/image.png',
       source: 'This is a source line for your media'
     }
 

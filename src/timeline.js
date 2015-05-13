@@ -257,11 +257,44 @@
 
         e.date = d;
 
+        // Determine type of media from media url if mediaType has not
+        // been provided
+        e.mediaType = e.mediaType || this.determineMediaType(e.media);
+
         // Create a formatted version of date for template
         e.dateFormatted = d.format(this.options.displayFormat);
 
         return e;
       }, this));
+    },
+
+    // Given a URL, determine how to handle it.  The default is treat
+    // the URL as an image, otherwise
+    determineMediaType: function(url) {
+      // None
+      if (!url) {
+        return undefined;
+      }
+
+      // Youtube
+      else if (url.indexOf('youtube.com') !== -1) {
+        return 'youtube';
+      }
+
+      // SoundCloud larger/visual
+      else if (url.indexOf('soundcloud.com') !== -1 && url.indexOf('visual=true') !== -1) {
+        return 'soundcloud_large';
+      }
+
+      // SoundCloud regular
+      else if (url.indexOf('soundcloud.com') !== -1) {
+        return 'soundcloud';
+      }
+
+      // Image
+      else {
+        return 'image';
+      }
     },
 
     // Map columns

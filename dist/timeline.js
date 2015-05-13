@@ -42,7 +42,7 @@
 
     // Template.  This can be a function or string and the default will
     // be replace in the build process
-    template: '<div class="timeline-container">  <% _.forEach(groups, function(g, gi) { %>  <div class="group">  <div class="group-label">  <%= g.id %>  </div>   <div class="group-events">  <% _.forEach(g.events, function(e, ei) { %>  <div class="event">  <div class="event-date"><%= e.dateFormatted %></div>   <% if (e.title) { %>  <h3 class="event-title"><%= e.title %></h3>  <% } %>   <div class="event-content-container cf">  <% if (e.media) { %>  <div class="event-media-container <% if (e.body) { %>with-body<% } %>">  <div class="event-media <% if (e.source) { %>with-source<% } %>">  <img src="<%= e.media %>">  </div>   <% if (e.source) { %>  <div class="event-source">  <%= e.source %>  </div>  <% } %>  </div>  <% } %>   <% if (e.body) { %>  <div class="event-body-container <% if (e.media) { %>with-media<% } %>">  <div class="event-body"><%= e.body %></div>  </div>  <% } %>  </div>  </div>  <% }) %>  </div>  </div>  <% }) %> </div> '
+    template: '<div class="timeline-container">  <% _.forEach(groups, function(g, gi) { %>  <div class="group">  <div class="group-label">  <%= g.id %>  </div>   <div class="group-events">  <% _.forEach(g.events, function(e, ei) { %>  <div class="event">  <div class="event-date"><%= e.dateFormatted %></div>   <% if (e.title) { %>  <h3 class="event-title"><%= e.title %></h3>  <% } %>   <div class="event-content-container cf">  <% if (e.media) { %>  <div class="event-media-container <% if (e.body) { %>with-body<% } %>">  <div class="event-media <% if (e.source) { %>with-source<% } %>">  <% if (e.mediaType === \'youtube\') { %>  <iframe class="event-media-youtube" width="100%" height="350" src="<%= e.media %>" frameborder="0" allowfullscreen></iframe>   <% } else if (e.mediaType === \'soundcloud_large\') { %>  <iframe class="event-media-soundcloud" width="100%" height="350" scrolling="no" frameborder="no" src="<%= e.media %>"></iframe>   <% } else if (e.mediaType === \'soundcloud\') { %>  <iframe class="event-media-soundcloud" width="100%" height="166" scrolling="no" frameborder="no" src="<%= e.media %>"></iframe>   <% } else { %>  <img class="event-media-image" src="<%= e.media %>">  <% } %>  </div>   <% if (e.source) { %>  <div class="event-source">  <%= e.source %>  </div>  <% } %>  </div>  <% } %>   <% if (e.body) { %>  <div class="event-body-container <% if (e.media) { %>with-media<% } %>">  <div class="event-body"><%= e.body %></div>  </div>  <% } %>  </div>  </div>  <% }) %>  </div>  </div>  <% }) %> </div> '
   };
 
   // Constructior
@@ -263,11 +263,44 @@
 
         e.date = d;
 
+        // Determine type of media from media url if mediaType has not
+        // been provided
+        e.mediaType = e.mediaType || this.determineMediaType(e.media);
+
         // Create a formatted version of date for template
         e.dateFormatted = d.format(this.options.displayFormat);
 
         return e;
       }, this));
+    },
+
+    // Given a URL, determine how to handle it.  The default is treat
+    // the URL as an image, otherwise
+    determineMediaType: function(url) {
+      // None
+      if (!url) {
+        return undefined;
+      }
+
+      // Youtube
+      else if (url.indexOf('youtube.com') !== -1) {
+        return 'youtube';
+      }
+
+      // SoundCloud larger/visual
+      else if (url.indexOf('soundcloud.com') !== -1 && url.indexOf('visual=true') !== -1) {
+        return 'soundcloud_large';
+      }
+
+      // SoundCloud regular
+      else if (url.indexOf('soundcloud.com') !== -1) {
+        return 'soundcloud';
+      }
+
+      // Image
+      else {
+        return 'image';
+      }
     },
 
     // Map columns

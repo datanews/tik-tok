@@ -18,7 +18,18 @@
               <% if (e.media) { %>
                 <div class="event-media-container <% if (e.body) { %>with-body<% } %>">
                   <div class="event-media <% if (e.source) { %>with-source<% } %>">
-                    <img src="<%= e.media %>">
+                    <% if (e.mediaType === 'youtube') { %>
+                      <iframe class="event-media-youtube" width="100%" height="350" src="<%= e.media %>" frameborder="0" allowfullscreen></iframe>
+
+                    <% } else if (e.mediaType === 'soundcloud_large') { %>
+                      <iframe class="event-media-soundcloud" width="100%" height="350" scrolling="no" frameborder="no" src="<%= e.media %>"></iframe>
+
+                    <% } else if (e.mediaType === 'soundcloud') { %>
+                      <iframe class="event-media-soundcloud" width="100%" height="166" scrolling="no" frameborder="no" src="<%= e.media %>"></iframe>
+
+                    <% } else { %>
+                      <img class="event-media-image" src="<%= e.media %>">
+                    <% } %>
                   </div>
 
                   <% if (e.source) { %>
