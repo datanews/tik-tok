@@ -35,6 +35,28 @@
           padding-left: 10em;
         }
       }
+
+      .example-code {
+        background-color: #EAEAEA;
+        margin-bottom: 2em;
+        padding: 1em;
+      }
+
+      .example-code code,
+      .example-code p {
+        max-width: 1000px;
+        margin: 0 auto 1em auto;
+      }
+
+      .example-code code {
+        display: block;
+        font-family: monospace;
+        border: 1px solid #DADADA;
+        background-color: #FFFFFF;
+        overflow-x: scroll;
+        border-radius: 3px;
+        padding: 1em;
+      }
     </style>
   </head>
   <body>
@@ -44,6 +66,46 @@
     </div>
 
     <div class="example-timeline-container"></div>
+
+    <div class="example-code">
+      <p>Code used in the above example.</p>
+      <code><pre>
+var t = new Timeline({
+  el: '.example-timeline-container',
+  title: 'Welcome to Timeline',
+  events: [
+    { date: '2009-06-03', title: 'Welcome to the timeline',
+      body: 'Timeline lets you create a simple, mobile-friendly, vertical timeline easily.  Just give it some event data and it will do the rest.  This timeline will walk you through some of the features of Timeline, all with some cute kitten pictures.' },
+    { date: '2009-07-10', title: 'Some HTML content',
+      body: 'Each event is at least a &lt;code&gt;title&lt;/code&gt; and a &lt;code&gt;body&lt;/code&gt;.  You can use any &lt;abbr title="Hypertext Markup Language"&gt;HTML&lt;/abbr&gt; you want.' },
+
+    { date: '2010-01-13', title: 'Images',
+      body: 'You can add an image with the &lt;code&gt;media&lt;/code&gt; field.  Just put in a URL and Timeline will work it out.',
+      media: 'https://placekitten.com/g/1200/350' },
+    { date: '2010-02-11', title: 'Add some source information',
+      body: 'Also, include a &lt;code&gt;source&lt;/code&gt; field to add a note about the media source, such as where it came from.',
+      media: 'https://placekitten.com/g/800/350',
+      source: '&lt;a href="https://placekitten.com/" target="_blank"&gt;PlaceKitten&lt;/a&gt; is an amazing source for kitten images.' },
+    { date: '2010-10-03', title: 'Or just use a single image',
+      media: 'https://placekitten.com/g/1200/500',
+      source: 'You can use just a &lt;code&gt;media&lt;/code&gt; URL, and no &lt;code&gt;body&lt;/code&gt; and the media will take up the full space on any screen size.'},
+
+    { date: '2012-01-03', title: 'YouTube',
+      body: 'The &lt;code&gt;media&lt;/code&gt; field supports multiple sources and embeds them appropriately.  You can use a YoutTube embed URL, such as &lt;code&gt;https://www.youtube.com/embed/4IP_E7efGWE&lt;/code&gt;.',
+      media: 'https://www.youtube.com/embed/4IP_E7efGWE',
+      source: 'Videos of kittens are even better.'
+    },
+    { date: '2012-04-03', title: 'SoundCloud',
+      body: 'There\'s also support for the SoundCloud player; just use the &lt;code&gt;iframe src&lt;/code&gt; URL.',
+      media: 'https://w.soundcloud.com/player/?url=https%3A//api.soundcloud.com/tracks/153891564&amp;amp;color=ff5500&amp;amp;auto_play=false&amp;amp;hide_related=false&amp;amp;show_comments=true&amp;amp;show_user=true&amp;amp;show_reposts=false',
+      source: 'Space cats!'},
+    { date: '2012-05-03', title: 'SoundCloud large visual support',
+      media: 'https://w.soundcloud.com/player/?url=https%3A//api.soundcloud.com/tracks/153891564&amp;amp;auto_play=false&amp;amp;hide_related=false&amp;amp;show_comments=true&amp;amp;show_user=true&amp;amp;show_reposts=false&amp;amp;visual=true',
+      source: 'If you use the larger player, Timeline will provide a full-width larger player on all screens.'}
+  ]
+});
+      </pre></code>
+    </div>
 
     <!-- Dependencies -->
     <script src="../bower_components/underscore/underscore.js"></script>
