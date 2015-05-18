@@ -150,11 +150,30 @@
   font-family: Georgia, serif;
   font-size: 0.85em;
   color: #8b8b8b;
-  text-align: right;
 }
 .timeline-container .event .event-body {
   margin-bottom: 0;
   font-family: Georgia, serif;
+}
+.timeline-container .event .event-body a,
+.timeline-container .event .event-source a {
+  color: #e51133;
+  text-decoration: none;
+}
+.timeline-container .event .event-body a:hover,
+.timeline-container .event .event-source a:hover {
+  text-decoration: underline;
+}
+.timeline-container .event .event-body code,
+.timeline-container .event .event-source code {
+  padding: 0.15em 0.25em;
+  font-family: monospace;
+  background-color: #ECECEC;
+}
+.timeline-container .event .event-body abbr,
+.timeline-container .event .event-source abbr {
+  cursor: help;
+  border-bottom: 1px dashed #ECECEC;
 }
 @media (min-width: 600px) {
   .timeline-container .event .event-media-container.with-body,

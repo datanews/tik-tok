@@ -2,6 +2,7 @@
 // Variables
 @font-header: Helvetica, Arial, sans-serif;
 @font-content: Georgia, serif;
+@font-mono: monospace;
 
 @color-default: #565656;
 @bg-color-default: #FF6666;
@@ -12,6 +13,7 @@
 @bg-color-event: #FFFFFF;
 @color-date: #FF6666;
 @color-source: #8B8B8B;
+@color-link: #E51133;
 
 @spine-width: 4px;
 
@@ -191,12 +193,35 @@
       font-family: @font-content;
       font-size: 0.85em;
       color: @color-source;
-      text-align: right;
     }
 
     .event-body {
       margin-bottom: 0;
       font-family: @font-content;
+    }
+
+    .event-body,
+    .event-source {
+
+      a {
+        color: @color-link;
+        text-decoration: none;
+
+        &:hover {
+          text-decoration: underline;
+        }
+      }
+
+      code {
+        padding: 0.15em 0.25em;
+        font-family: @font-mono;
+        background-color: #ECECEC;
+      }
+
+      abbr {
+        cursor: help;
+        border-bottom: 1px dashed #ECECEC;
+      }
     }
 
     // On larger screens split media and body
