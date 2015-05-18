@@ -1,21 +1,33 @@
 
 // Variables
-@default-color: #232323;
-@bg-color-grouping: #565656;
-@color-grouping: #EFEFEF;
-@color-source: #565656;
+@font-header: Helvetica, Arial, sans-serif;
+@font-content: Georgia, serif;
+
+@color-default: #565656;
+@bg-color-default: #FF6666;
+@bg-color-header: #232323;
+@color-header: #FFFFFF;
+@bg-color-grouping: #FFCC00;
+@color-grouping: #232323;
+@bg-color-event: #FFFFFF;
+@color-date: #FF6666;
+@color-source: #8B8B8B;
+
+@spine-width: 4px;
+
 @width-medium: 600px;
 
 // Mobile first, meaning original styles are for mobiles and
 // we make changes as the screen gets larger.
 
 .timeline-container {
+  position: relative;
   width: 95%;
   max-width: 70em;
   margin: 0 auto 2em auto;
-  font-family: sans-serif;
-  color: @default-color;
-  border-left: 1em solid @bg-color-grouping;
+  font-family: @font-header;
+  color: @color-default;
+  background-color: @bg-color-default;
   box-sizing: border-box;
 
   div, span, section {
@@ -36,18 +48,109 @@
     *zoom: 1;
   }
 
+  .timeline-header {
+    position: relative;
+    z-index: 10;
+    padding-top: 1.5em;
+    font-family: @font-header;
+    color: @color-header;
+    text-align: center;
+    background-color: @bg-color-header;
+
+    .timeline-label {
+      margin-bottom: 1em;
+      font-size: 1.25em;
+    }
+
+    .timeline-title {
+      margin-bottom: 0.5em;
+      font-size: 2em;
+    }
+  }
+
+  .spine-background {
+    position: absolute;
+    top: 0;
+    right: 0;
+    bottom: 0;
+    left: 0;
+    z-index: 0;
+    width: 100%;
+    height: 100%;
+    text-align: center;
+
+    .spine {
+      top: 0;
+      bottom: 0;
+      display: inline-block;
+      width: @spine-width;
+      height: 100%;
+      background-color: @bg-color-grouping;
+    }
+  }
+
+  .spine-end {
+    position: relative;
+    padding: 0;
+    line-height: 0.5em;
+    text-align: center;
+
+    .spine-point {
+      display: inline-block;
+      width: @spine-width * 4;
+      height: @spine-width * 4;
+      padding: 0;
+      margin: 0;
+      background-color: @bg-color-grouping;
+      border-radius: 50%;
+    }
+
+    .spine {
+      display: inline-block;
+      width: @spine-width;
+      height: 2em;
+      padding: 0;
+      margin: 0;
+      background-color: @bg-color-grouping;
+    }
+
+    &.spine-top {
+      padding-top: 2em;
+      background-color: @bg-color-header;
+
+      .spine-point {
+        margin-bottom: -1px;
+      }
+    }
+
+    &.spine-bottom {
+      padding-bottom: 2em;
+      background-color: @bg-color-default;
+    }
+  }
+
+  .group-container {
+    position: relative;
+    z-index: 10;
+    padding-top: 1em;
+  }
+
   .group {
+
+    .group-label-container {
+      text-align: center;
+    }
 
     .group-label {
       display: inline-block;
-      padding: 0.5em 1em 0.5em 2em;
-      margin-bottom: 1em;
+      padding: 0.5em 1em;
+      margin: 0 auto 1em auto;
       color: @color-grouping;
       background-color: @bg-color-grouping;
     }
 
     .group-events {
-      padding-left: 1em;
+      padding: 0 1em 1em 1em;
       margin-bottom: 1em;
     }
   }
@@ -55,21 +158,24 @@
   .event {
     padding: 1em;
     margin-bottom: 1em;
-    border: 1px solid @default-color;
+    background-color: @bg-color-event;
 
     .event-date {
-      margin-bottom: 0.5em;
+      margin-bottom: 1em;
       font-size: 0.85em;
+      color: @color-date;
       text-transform: uppercase;
     }
 
     .event-title {
-      padding-top: 0;
-      margin-top: 0;
+      padding: 0;
+      margin: 0 0 0.75em 0;
+      font-size: 1.5em;
+      font-weight: normal;
     }
 
     .event-media {
-      margin-bottom: 1em;
+      margin: 0 -1em 1em -1em;
 
       &.with-source {
         margin-bottom: 0.5em;
@@ -82,6 +188,7 @@
 
     .event-source {
       margin-bottom: 1em;
+      font-family: @font-content;
       font-size: 0.85em;
       color: @color-source;
       text-align: right;
@@ -89,6 +196,7 @@
 
     .event-body {
       margin-bottom: 0;
+      font-family: @font-content;
     }
 
     // On larger screens split media and body
@@ -101,6 +209,11 @@
 
       .event-media-container.with-body {
         padding-left: 1em;
+
+        .event-media {
+          margin-left: 0;
+          margin-right: 0;
+        }
       }
 
       .event-body-container.with-media {

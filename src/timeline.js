@@ -110,6 +110,7 @@
       this.el.innerHTML = this.options.template({
         _: _,
         groups: this.groups,
+        title: this.options.title,
         timeline: this
       });
     },

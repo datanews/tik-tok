@@ -5,12 +5,13 @@
  * @license MIT
  */
 .timeline-container {
+  position: relative;
   width: 95%;
   max-width: 70em;
   margin: 0 auto 2em auto;
-  font-family: sans-serif;
-  color: #232323;
-  border-left: 1em solid #565656;
+  font-family: Helvetica, Arial, sans-serif;
+  color: #565656;
+  background-color: #ff6666;
   box-sizing: border-box;
 }
 .timeline-container div,
@@ -29,33 +30,114 @@
 .timeline-container .cf {
   *zoom: 1;
 }
+.timeline-container .timeline-header {
+  position: relative;
+  z-index: 10;
+  padding-top: 1.5em;
+  font-family: Helvetica, Arial, sans-serif;
+  color: #ffffff;
+  text-align: center;
+  background-color: #232323;
+}
+.timeline-container .timeline-header .timeline-label {
+  margin-bottom: 1em;
+  font-size: 1.25em;
+}
+.timeline-container .timeline-header .timeline-title {
+  margin-bottom: 0.5em;
+  font-size: 2em;
+}
+.timeline-container .spine-background {
+  position: absolute;
+  top: 0;
+  right: 0;
+  bottom: 0;
+  left: 0;
+  z-index: 0;
+  width: 100%;
+  height: 100%;
+  text-align: center;
+}
+.timeline-container .spine-background .spine {
+  top: 0;
+  bottom: 0;
+  display: inline-block;
+  width: 4px;
+  height: 100%;
+  background-color: #ffcc00;
+}
+.timeline-container .spine-end {
+  position: relative;
+  padding: 0;
+  line-height: 0.5em;
+  text-align: center;
+}
+.timeline-container .spine-end .spine-point {
+  display: inline-block;
+  width: 16px;
+  height: 16px;
+  padding: 0;
+  margin: 0;
+  background-color: #ffcc00;
+  border-radius: 50%;
+}
+.timeline-container .spine-end .spine {
+  display: inline-block;
+  width: 4px;
+  height: 2em;
+  padding: 0;
+  margin: 0;
+  background-color: #ffcc00;
+}
+.timeline-container .spine-end.spine-top {
+  padding-top: 2em;
+  background-color: #232323;
+}
+.timeline-container .spine-end.spine-top .spine-point {
+  margin-bottom: -1px;
+}
+.timeline-container .spine-end.spine-bottom {
+  padding-bottom: 2em;
+  background-color: #ff6666;
+}
+.timeline-container .group-container {
+  position: relative;
+  z-index: 10;
+  padding-top: 1em;
+}
+.timeline-container .group .group-label-container {
+  text-align: center;
+}
 .timeline-container .group .group-label {
   display: inline-block;
-  padding: 0.5em 1em 0.5em 2em;
-  margin-bottom: 1em;
-  color: #efefef;
-  background-color: #565656;
+  padding: 0.5em 1em;
+  margin: 0 auto 1em auto;
+  color: #232323;
+  background-color: #ffcc00;
 }
 .timeline-container .group .group-events {
-  padding-left: 1em;
+  padding: 0 1em 1em 1em;
   margin-bottom: 1em;
 }
 .timeline-container .event {
   padding: 1em;
   margin-bottom: 1em;
-  border: 1px solid #232323;
+  background-color: #ffffff;
 }
 .timeline-container .event .event-date {
-  margin-bottom: 0.5em;
+  margin-bottom: 1em;
   font-size: 0.85em;
+  color: #ff6666;
   text-transform: uppercase;
 }
 .timeline-container .event .event-title {
-  padding-top: 0;
-  margin-top: 0;
+  padding: 0;
+  margin: 0 0 0.75em 0;
+  font-size: 1.5em;
+  font-weight: normal;
 }
 .timeline-container .event .event-media {
-  margin-bottom: 1em;
+  margin: 0 -1em 1em -1em;
 }
 .timeline-container .event .event-media.with-source {
   margin-bottom: 0.5em;
@@ -65,12 +147,14 @@
 }
 .timeline-container .event .event-source {
   margin-bottom: 1em;
+  font-family: Georgia, serif;
   font-size: 0.85em;
-  color: #565656;
+  color: #8b8b8b;
   text-align: right;
 }
 .timeline-container .event .event-body {
   margin-bottom: 0;
+  font-family: Georgia, serif;
 }
 @media (min-width: 600px) {
   .timeline-container .event .event-media-container.with-body,
@@ -80,6 +164,10 @@
   }
   .timeline-container .event .event-media-container.with-body {
     padding-left: 1em;
+  }
+  .timeline-container .event .event-media-container.with-body .event-media {
+    margin-left: 0;
+    margin-right: 0;
   }
   .timeline-container .event .event-body-container.with-media {
     padding-right: 1em;
