@@ -9,7 +9,7 @@
   width: 95%;
   max-width: 70em;
   margin: 0 auto 2em auto;
-  font-family: Helvetica, Arial, sans-serif;
+  font-family: Lato, Helvetica, Arial, sans-serif;
   color: #565656;
   background-color: #ff6666;
   box-sizing: border-box;
@@ -34,7 +34,7 @@
   position: relative;
   z-index: 10;
   padding-top: 1.5em;
-  font-family: Helvetica, Arial, sans-serif;
+  font-family: Lato, Helvetica, Arial, sans-serif;
   color: #ffffff;
   text-align: center;
   background-color: #232323;
