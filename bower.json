@@ -45,5 +45,8 @@
   "dependencies": {
     "underscore": "~1.8.3",
     "moment": "~2.10.2"
+  },
+  "devDependencies": {
+    "tabletop": "~1.4.0"
   }
 }
