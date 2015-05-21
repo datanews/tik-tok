@@ -42,7 +42,7 @@
 
     // Template.  This can be a function or string and the default will
     // be replace in the build process
-    template: '<div class="timeline-container">  <% if (typeof title !== \'undefined\' && title) { %>  <div class="timeline-header cf">  <div class="timeline-label">Timeline:</div>   <div class="timeline-title"><%= title %></div>  </div>  <% } %>   <div class="spine-background">  <div class="spine"></div>  </div>   <div class="spine-end spine-top">  <div><div class="spine-point"></div></div>  <div><div class="spine"></div></div>  </div>   <div class="group-container">  <% _.forEach(groups, function(g, gi) { %>  <div class="group">  <div class="group-label-container">  <div class="group-label">  <%= g.id %>  </div>  </div>   <div class="group-events">  <% _.forEach(g.events, function(e, ei) { %>  <div class="event">  <div class="event-date"><%= e.dateFormatted %></div>   <% if (e.title) { %>  <h3 class="event-title"><%= e.title %></h3>  <% } %>   <div class="event-content-container cf">  <% if (e.media) { %>  <div class="event-media-container <% if (e.body) { %>with-body<% } %>">  <div class="event-media <% if (e.source) { %>with-source<% } %>">  <% if (e.mediaType === \'youtube\') { %>  <iframe class="event-media-youtube" width="100%" height="350" src="<%= e.media %>" frameborder="0" allowfullscreen></iframe>   <% } else if (e.mediaType === \'soundcloud_large\') { %>  <iframe class="event-media-soundcloud" width="100%" height="350" scrolling="no" frameborder="no" src="<%= e.media %>"></iframe>   <% } else if (e.mediaType === \'soundcloud\') { %>  <iframe class="event-media-soundcloud" width="100%" height="166" scrolling="no" frameborder="no" src="<%= e.media %>"></iframe>   <% } else { %>  <img class="event-media-image" src="<%= e.media %>">  <% } %>  </div>   <% if (e.source) { %>  <div class="event-source">  <%= e.source %>  </div>  <% } %>  </div>  <% } %>   <% if (e.body) { %>  <div class="event-body-container <% if (e.media) { %>with-media<% } %>">  <div class="event-body"><%= e.body %></div>  </div>  <% } %>  </div>  </div>  <% }) %>  </div>  </div>  <% }) %>  </div>   <div class="spine-end spine-bottom">  <div><div class="spine-point"></div></div>  </div> </div> '
+    template: '<div class="timeline-container">  <% if (typeof title !== \'undefined\' && title) { %>  <div class="timeline-header cf">  <div class="timeline-label">Timeline:</div>   <div class="timeline-title"><%= title %></div>  </div>  <% } %>   <div class="spine-background">  <div class="spine"></div>  </div>   <div class="spine-end spine-top">  <div><div class="spine-point"></div></div>  <div><div class="spine"></div></div>  </div>   <div class="group-container">  <% _.forEach(groups, function(g, gi) { %>  <div class="group">  <div class="group-label-container">  <div class="group-label">  <%= g.display %>  </div>  </div>   <div class="group-events">  <% _.forEach(g.events, function(e, ei) { %>  <div class="event">  <div class="event-date"><%= e.dateFormatted %></div>   <% if (e.title) { %>  <h3 class="event-title"><%= e.title %></h3>  <% } %>   <div class="event-content-container cf">  <% if (e.media) { %>  <div class="event-media-container <% if (e.body) { %>with-body<% } %>">  <div class="event-media <% if (e.source) { %>with-source<% } %>">  <% if (e.mediaType === \'youtube\') { %>  <iframe class="event-media-youtube" width="100%" height="350" src="<%= e.media %>" frameborder="0" allowfullscreen></iframe>   <% } else if (e.mediaType === \'soundcloud_large\') { %>  <iframe class="event-media-soundcloud" width="100%" height="350" scrolling="no" frameborder="no" src="<%= e.media %>"></iframe>   <% } else if (e.mediaType === \'soundcloud\') { %>  <iframe class="event-media-soundcloud" width="100%" height="166" scrolling="no" frameborder="no" src="<%= e.media %>"></iframe>   <% } else { %>  <img class="event-media-image" src="<%= e.media %>">  <% } %>  </div>   <% if (e.source) { %>  <div class="event-source">  <%= e.source %>  </div>  <% } %>  </div>  <% } %>   <% if (e.body) { %>  <div class="event-body-container <% if (e.media) { %>with-media<% } %>">  <div class="event-body"><%= e.body %></div>  </div>  <% } %>  </div>  </div>  <% }) %>  </div>  </div>  <% }) %>  </div>   <div class="spine-end spine-bottom">  <div><div class="spine-point"></div></div>  </div> </div> '
   };
 
   // Constructior
@@ -185,7 +185,7 @@
 
     // Group events based on grouping function.  A grouping function
     // should take an event and return an object with the following
-    // properties: `id`, `date` (as moment object)
+    // properties: `id`, `date`, `display` (as moment object)
     groupEvents: function(events) {
       var groups = {};
       var groupByFunc;
@@ -218,7 +218,8 @@
     groupByMonths: function(event, moment) {
       return {
         id: event.date.format('YYYY-MM'),
-        date: moment(event.date.format('YYYY-MM'), 'YYYY-MM')
+        date: moment(event.date.format('YYYY-MM'), 'YYYY-MM'),
+        display: moment(event.date.format('YYYY-MM'), 'YYYY-MM').format('MMM, YYYY')
       };
     },
 
@@ -226,7 +227,8 @@
     groupByYears: function(event, moment) {
       return {
         id: event.date.format('YYYY'),
-        date: moment(event.date.format('YYYY'), 'YYYY')
+        date: moment(event.date.format('YYYY'), 'YYYY'),
+        display: moment(event.date.format('YYYY'), 'YYYY').format('YYYY')
       };
     },
 
@@ -235,7 +237,8 @@
       var decade = Math.floor(event.date.year() / 10) * 10;
       return {
         id: decade.toString(),
-        date: moment(decade.toString(), 'YYYY')
+        date: moment(decade.toString(), 'YYYY'),
+        display: moment(decade.toString(), 'YYYY').format('YYYY\'s')
       };
     },
 

@@ -179,7 +179,7 @@
 
     // Group events based on grouping function.  A grouping function
     // should take an event and return an object with the following
-    // properties: `id`, `date` (as moment object)
+    // properties: `id`, `date`, `display` (as moment object)
     groupEvents: function(events) {
       var groups = {};
       var groupByFunc;
@@ -212,7 +212,8 @@
     groupByMonths: function(event, moment) {
       return {
         id: event.date.format('YYYY-MM'),
-        date: moment(event.date.format('YYYY-MM'), 'YYYY-MM')
+        date: moment(event.date.format('YYYY-MM'), 'YYYY-MM'),
+        display: moment(event.date.format('YYYY-MM'), 'YYYY-MM').format('MMM, YYYY')
       };
     },
 
@@ -220,7 +221,8 @@
     groupByYears: function(event, moment) {
       return {
         id: event.date.format('YYYY'),
-        date: moment(event.date.format('YYYY'), 'YYYY')
+        date: moment(event.date.format('YYYY'), 'YYYY'),
+        display: moment(event.date.format('YYYY'), 'YYYY').format('YYYY')
       };
     },
 
@@ -229,7 +231,8 @@
       var decade = Math.floor(event.date.year() / 10) * 10;
       return {
         id: decade.toString(),
-        date: moment(decade.toString(), 'YYYY')
+        date: moment(decade.toString(), 'YYYY'),
+        display: moment(decade.toString(), 'YYYY').format('YYYY\'s')
       };
     },
 
