@@ -29,8 +29,13 @@
   margin: 0 auto 2em auto;
   font-family: @font-header;
   color: @color-default;
-  background-color: @bg-color-default;
   box-sizing: border-box;
+
+  // Allows the main background color to styled together
+  &.timeline-bg-color,
+  .timeline-bg-color {
+    background-color: @bg-color-default;
+  }
 
   div, span, section {
     box-sizing: border-box;
@@ -55,9 +60,7 @@
     z-index: 10;
     padding-top: 1.5em;
     font-family: @font-header;
-    color: @color-header;
     text-align: center;
-    background-color: @bg-color-header;
 
     .timeline-label {
       margin-bottom: 1em;
@@ -68,6 +71,19 @@
       margin-bottom: 0.5em;
       font-size: 2em;
     }
+  }
+
+  // Allow header colors to be styled together
+  .header-color {
+    color: @color-header;
+    background-color: @bg-color-header;
+  }
+
+  // Allow spine and grouping to have a single selector to
+  // change the color
+  .spine-color {
+    color: @color-grouping;
+    background-color: @bg-color-grouping;
   }
 
   .spine-background {
@@ -87,7 +103,6 @@
       display: inline-block;
       width: @spine-width;
       height: 100%;
-      background-color: @bg-color-grouping;
     }
   }
 
@@ -103,7 +118,6 @@
       height: @spine-width * 4;
       padding: 0;
       margin: 0;
-      background-color: @bg-color-grouping;
       border-radius: 50%;
     }
 
@@ -113,12 +127,10 @@
       height: 2em;
       padding: 0;
       margin: 0;
-      background-color: @bg-color-grouping;
     }
 
     &.spine-top {
       padding-top: 2em;
-      background-color: @bg-color-header;
 
       .spine-point {
         margin-bottom: -1px;
@@ -127,7 +139,6 @@
 
     &.spine-bottom {
       padding-bottom: 2em;
-      background-color: @bg-color-default;
     }
   }
 
@@ -147,8 +158,6 @@
       display: inline-block;
       padding: 0.5em 1em;
       margin: 0 auto 1em auto;
-      color: @color-grouping;
-      background-color: @bg-color-grouping;
     }
 
     .group-events {
@@ -216,6 +225,14 @@
         padding: 0.15em 0.25em;
         font-family: @font-mono;
         background-color: #ECECEC;
+
+        &.code-block {
+          display: block;
+          max-height: 15em;
+          padding: 0.5em 1em;
+          margin-bottom: 1em;
+          overflow: scroll;
+        }
       }
 
       abbr {

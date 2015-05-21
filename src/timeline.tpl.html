@@ -1,6 +1,6 @@
-<div class="timeline-container">
+<div class="timeline-container timeline-bg-color">
   <% if (typeof title !== 'undefined' && title) { %>
-    <div class="timeline-header cf">
+    <div class="timeline-header header-color cf">
       <div class="timeline-label">Timeline:</div>
 
       <div class="timeline-title"><%= title %></div>
@@ -8,19 +8,19 @@
   <% } %>
 
   <div class="spine-background">
-    <div class="spine"></div>
+    <div class="spine-color spine"></div>
   </div>
 
-  <div class="spine-end spine-top">
-    <div><div class="spine-point"></div></div>
-    <div><div class="spine"></div></div>
+  <div class="spine-end spine-top header-color">
+    <div><div class="spine-color spine-point"></div></div>
+    <div><div class="spine-color spine"></div></div>
   </div>
 
   <div class="group-container">
     <% _.forEach(groups, function(g, gi) { %>
       <div class="group">
         <div class="group-label-container">
-          <div class="group-label">
+          <div class="group-label spine-color">
             <%= g.display %>
           </div>
         </div>
@@ -73,7 +73,7 @@
     <% }) %>
   </div>
 
-  <div class="spine-end spine-bottom">
-    <div><div class="spine-point"></div></div>
+  <div class="spine-end spine-bottom timeline-bg-color">
+    <div><div class="spine-color spine-point"></div></div>
   </div>
 </div>

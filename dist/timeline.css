@@ -11,8 +11,11 @@
   margin: 0 auto 2em auto;
   font-family: Lato, Helvetica, Arial, sans-serif;
   color: #565656;
-  background-color: #ff6666;
   box-sizing: border-box;
+}
+.timeline-container.timeline-bg-color,
+.timeline-container .timeline-bg-color {
+  background-color: #ff6666;
 }
 .timeline-container div,
 .timeline-container span,
@@ -35,9 +38,7 @@
   z-index: 10;
   padding-top: 1.5em;
   font-family: Lato, Helvetica, Arial, sans-serif;
-  color: #ffffff;
   text-align: center;
-  background-color: #232323;
 }
 .timeline-container .timeline-header .timeline-label {
   margin-bottom: 1em;
@@ -46,6 +47,14 @@
 .timeline-container .timeline-header .timeline-title {
   margin-bottom: 0.5em;
   font-size: 2em;
+}
+.timeline-container .header-color {
+  color: #ffffff;
+  background-color: #232323;
+}
+.timeline-container .spine-color {
+  color: #232323;
+  background-color: #ffcc00;
 }
 .timeline-container .spine-background {
   position: absolute;
@@ -64,7 +73,6 @@
   display: inline-block;
   width: 4px;
   height: 100%;
-  background-color: #ffcc00;
 }
 .timeline-container .spine-end {
   position: relative;
@@ -78,7 +86,6 @@
   height: 16px;
   padding: 0;
   margin: 0;
-  background-color: #ffcc00;
   border-radius: 50%;
 }
 .timeline-container .spine-end .spine {
@@ -87,18 +94,15 @@
   height: 2em;
   padding: 0;
   margin: 0;
-  background-color: #ffcc00;
 }
 .timeline-container .spine-end.spine-top {
   padding-top: 2em;
-  background-color: #232323;
 }
 .timeline-container .spine-end.spine-top .spine-point {
   margin-bottom: -1px;
 }
 .timeline-container .spine-end.spine-bottom {
   padding-bottom: 2em;
-  background-color: #ff6666;
 }
 .timeline-container .group-container {
   position: relative;
@@ -112,8 +116,6 @@
   display: inline-block;
   padding: 0.5em 1em;
   margin: 0 auto 1em auto;
-  color: #232323;
-  background-color: #ffcc00;
 }
 .timeline-container .group .group-events {
   padding: 0 1em 1em 1em;
@@ -169,6 +171,14 @@
   padding: 0.15em 0.25em;
   font-family: monospace;
   background-color: #ECECEC;
+}
+.timeline-container .event .event-body code.code-block,
+.timeline-container .event .event-source code.code-block {
+  display: block;
+  max-height: 15em;
+  padding: 0.5em 1em;
+  margin-bottom: 1em;
+  overflow: scroll;
 }
 .timeline-container .event .event-body abbr,
 .timeline-container .event .event-source abbr {
