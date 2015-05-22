@@ -34,6 +34,10 @@
     // Date display format
     displayFormat: 'MMM DD, YYYY',
 
+    // Put order of events in descending order (newest to oldest).  The default
+    // is off, ascending (oldest to newest)
+    descending: false,
+
     // Template.  This can be a function or string and the default will
     // be replace in the build process
     template: 'REPLACE-DEFAULT-TEMPLATE'
@@ -68,6 +72,9 @@
       }
     }
 
+    // Force boolean on date order
+    this.options.descending = !!this.options.descending;
+
     // Determine if browser
     this.isBrowser = this.checkBrowser();
 
@@ -95,7 +102,7 @@
     this.groups = this.groupEvents(this.events);
 
     // Sort groups
-    this.groups = this.sortGroups(this.groups);
+    this.groups = this.sortGroups(this.groups, this.options.descending);
 
     // Render if browser
     if (this.isBrowser) {
@@ -160,12 +167,15 @@
       return (typeof window !== 'undefined' && document);
     },
 
-    // Sort groups (and events in groups)
-    sortGroups: function(groups) {
+    // Sort groups (and events in groups).  Sorts ascending (oldest to newest)
+    // by default, but can do descending.
+    sortGroups: function(groups, descending) {
+      descending = descending || false;
+
       // Sort events
       groups = _.map(groups, function(g) {
         g.events = _.sortBy(g.events, function(e) {
-          return e.date.unix();
+          return e.date.unix() * ((descending) ? -1 : 1);
         });
 
         return g;
@@ -173,7 +183,7 @@
 
       // Sort groups
       return _.sortBy(groups, function(g) {
-        return g.date.unix();
+        return g.date.unix() * ((descending) ? -1 : 1);
       });
     },
 

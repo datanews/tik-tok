@@ -51,6 +51,7 @@ You can use the following options when defining a timeline:
 
 * `dateFormats`: A string or array that Moment.js will use to parse dates.  The default is: `['MMM DD, YYYY', 'MM/DD/YYYY', 'M/D/YYYY', 'DD MMM YYYY', 'YYYY-MM-DD']`.  For more details see the Moment.js [parsing docs](http://momentjs.com/docs/#/parsing/string-formats/).
 * `displayFormat`: The [Moment.js format](http://momentjs.com/docs/#/displaying/format/) for how the event date will be displayed.  The default is `MMM DD, YYYY`.
+* `descending`: Boolean that will make the order of events descending (newest to oldest) if set to true.  The default is `false` which is ascending (oldest to newest).
 * `keyMapping`: If you have event data that is keyed differently, you can provide a basic object to convert when it is processed.  For instance:  
     ```
     {

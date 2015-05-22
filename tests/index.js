@@ -228,21 +228,55 @@ describe('Timeline', function() {
 
   // Sort groups
   describe('#sortGroups', function() {
-    // Group these events by months
-    it('should sort events by months', function() {
+    // Sort groups
+    it('should sort groups (ascending)', function() {
       var t;
       var events = [
         { date: '2014-05-01', title: 'Second', body: 'This is 2' },
         { date: '2014-06-01', title: 'Third', body: 'This is 3' },
         { date: '2014-03-01', title: 'First', body: 'This is 1' }
       ];
-      var expected = '2014-03';
 
       t = new Timeline({
         events: events
       });
 
-      assert.equal(t.sortGroups(t.groups)[0].id, expected);
+      assert.equal(t.sortGroups(t.groups)[0].id, '2014-03');
+      assert.equal(t.sortGroups(t.groups)[1].id, '2014-05');
+    });
+
+    // Sort events
+    it('should sort events (ascending)', function() {
+      var t;
+      var events = [
+        { date: '2014-05-02', title: 'Second', body: 'This is 2' },
+        { date: '2014-05-03', title: 'Third', body: 'This is 3' },
+        { date: '2014-05-01', title: 'First', body: 'This is 1' }
+      ];
+
+      t = new Timeline({
+        events: events
+      });
+
+      assert.equal(t.sortGroups(t.groups)[0].events[0].title, 'First');
+      assert.equal(t.sortGroups(t.groups)[0].events[1].title, 'Second');
+    });
+
+    // Sort groups (desc)
+    it('should sort groups (descending)', function() {
+      var t;
+      var events = [
+        { date: '2014-05-01', title: 'Second', body: 'This is 2' },
+        { date: '2014-06-01', title: 'Third', body: 'This is 3' },
+        { date: '2014-03-01', title: 'First', body: 'This is 1' }
+      ];
+
+      t = new Timeline({
+        events: events
+      });
+
+      assert.equal(t.sortGroups(t.groups, true)[0].id, '2014-06');
+      assert.equal(t.sortGroups(t.groups, true)[1].id, '2014-05');
     });
   });
 

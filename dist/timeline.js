@@ -40,6 +40,10 @@
     // Date display format
     displayFormat: 'MMM DD, YYYY',
 
+    // Put order of events in descending order (newest to oldest).  The default
+    // is off, ascending (oldest to newest)
+    descending: false,
+
     // Template.  This can be a function or string and the default will
     // be replace in the build process
     template: '<div class="timeline-container timeline-bg-color">  <% if (typeof title !== \'undefined\' && title) { %>  <div class="timeline-header header-color cf">  <div class="timeline-label">Timeline:</div>   <div class="timeline-title"><%= title %></div>  </div>  <% } %>   <div class="spine-background">  <div class="spine-color spine"></div>  </div>   <div class="spine-end spine-top header-color">  <div><div class="spine-color spine-point"></div></div>  <div><div class="spine-color spine"></div></div>  </div>   <div class="group-container">  <% _.forEach(groups, function(g, gi) { %>  <div class="group">  <div class="group-label-container">  <div class="group-label spine-color">  <%= g.display %>  </div>  </div>   <div class="group-events">  <% _.forEach(g.events, function(e, ei) { %>  <div class="event">  <div class="event-date"><%= e.dateFormatted %></div>   <% if (e.title) { %>  <h3 class="event-title"><%= e.title %></h3>  <% } %>   <div class="event-content-container cf">  <% if (e.media) { %>  <div class="event-media-container <% if (e.body) { %>with-body<% } %>">  <div class="event-media <% if (e.source) { %>with-source<% } %>">  <% if (e.mediaType === \'youtube\') { %>  <iframe class="event-media-youtube" width="100%" height="350" src="<%= e.media %>" frameborder="0" allowfullscreen></iframe>   <% } else if (e.mediaType === \'soundcloud_large\') { %>  <iframe class="event-media-soundcloud" width="100%" height="350" scrolling="no" frameborder="no" src="<%= e.media %>"></iframe>   <% } else if (e.mediaType === \'soundcloud\') { %>  <iframe class="event-media-soundcloud" width="100%" height="166" scrolling="no" frameborder="no" src="<%= e.media %>"></iframe>   <% } else { %>  <img class="event-media-image" src="<%= e.media %>">  <% } %>  </div>   <% if (e.source) { %>  <div class="event-source">  <%= e.source %>  </div>  <% } %>  </div>  <% } %>   <% if (e.body) { %>  <div class="event-body-container <% if (e.media) { %>with-media<% } %>">  <div class="event-body"><%= e.body %></div>  </div>  <% } %>  </div>  </div>  <% }) %>  </div>  </div>  <% }) %>  </div>   <div class="spine-end spine-bottom timeline-bg-color">  <div><div class="spine-color spine-point"></div></div>  </div> </div> '
@@ -74,6 +78,9 @@
       }
     }
 
+    // Force boolean on date order
+    this.options.descending = !!this.options.descending;
+
     // Determine if browser
     this.isBrowser = this.checkBrowser();
 
@@ -101,7 +108,7 @@
     this.groups = this.groupEvents(this.events);
 
     // Sort groups
-    this.groups = this.sortGroups(this.groups);
+    this.groups = this.sortGroups(this.groups, this.options.descending);
 
     // Render if browser
     if (this.isBrowser) {
@@ -166,12 +173,15 @@
       return (typeof window !== 'undefined' && document);
     },
 
-    // Sort groups (and events in groups)
-    sortGroups: function(groups) {
+    // Sort groups (and events in groups).  Sorts ascending (oldest to newest)
+    // by default, but can do descending.
+    sortGroups: function(groups, descending) {
+      descending = descending || false;
+
       // Sort events
       groups = _.map(groups, function(g) {
         g.events = _.sortBy(g.events, function(e) {
-          return e.date.unix();
+          return e.date.unix() * ((descending) ? -1 : 1);
         });
 
         return g;
@@ -179,7 +189,7 @@
 
       // Sort groups
       return _.sortBy(groups, function(g) {
-        return g.date.unix();
+        return g.date.unix() * ((descending) ? -1 : 1);
       });
     },
 
