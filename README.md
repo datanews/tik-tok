@@ -33,7 +33,9 @@ Timeline is simply a object your create and give it configuration:
 
 ### Events
 
-Event data should be an array of objects with the following keys, where only the `date` is absolutely necessary.
+Event data should be either an array of objects or a CSV with the following keys or column headings respectively.  The `date` field is the only absolutely necessary field, though, you probably want at least a title.
+
+JSON example:
 
     {
       date: '2014-04-01', // String date, see format option below for what is supported.
@@ -45,6 +47,12 @@ Event data should be an array of objects with the following keys, where only the
       source: 'This is a source line for your media'
     }
 
+CSV example:
+
+    date,title,body,media,source
+    2013-01-01,Great event,"Why not some <em>HTML</em>",,
+    2013-01-01,Awesome event,"This has a comma, in it.",http://url.com/to/image.png,Cool image
+
 ### Options
 
 You can use the following options when defining a timeline:
@@ -52,6 +60,8 @@ You can use the following options when defining a timeline:
 * `dateFormats`: A string or array that Moment.js will use to parse dates.  The default is: `['MMM DD, YYYY', 'MM/DD/YYYY', 'M/D/YYYY', 'DD MMM YYYY', 'YYYY-MM-DD']`.  For more details see the Moment.js [parsing docs](http://momentjs.com/docs/#/parsing/string-formats/).
 * `displayFormat`: The [Moment.js format](http://momentjs.com/docs/#/displaying/format/) for how the event date will be displayed.  The default is `MMM DD, YYYY`.
 * `descending`: Boolean that will make the order of events descending (newest to oldest) if set to true.  The default is `false` which is ascending (oldest to newest).
+* `csvDelimiter`: The delimiting chracter if you are using a CSV string.  The default is `,`.
+* `csvQuote`: The quote chracter if you are using a CSV string.  The default is `"`.
 * `keyMapping`: If you have event data that is keyed differently, you can provide a basic object to convert when it is processed.  For instance:  
     ```
     {
@@ -59,7 +69,7 @@ You can use the following options when defining a timeline:
       'date': 'this is our crazy keyed date field'
     }
     ```
-* `template`: If you want to override the HTML output of the timeline, use your own template.  See the `src/timeline.tpl.html` for a starting point.  You can provide a string that will be processed with [Underscore's template function](http://underscorejs.org/#template), or provide your own function.  The function will be passed the `groups` of events, `_` (Underscore), and the whole `timeline` object.
+* `template`: If you want to override the HTML output of the timeline, use your own template.  See the `src/timeline.tpl.html` for a starting point.  You can provide a string that will be processed with [Underscore's template function](http://underscorejs.org/#template), or provide your own templating function.  The function will be passed the `groups` of events, `_` (Underscore), and the whole `timeline` object.
 
 
 ## Development and contributing

@@ -44,6 +44,12 @@
     // is off, ascending (oldest to newest)
     descending: false,
 
+    // CSV delimiting character
+    csvDelimiter: ',',
+
+    // CSV quote character
+    csvQuote: '"',
+
     // Template.  This can be a function or string and the default will
     // be replace in the build process
     template: '<div class="timeline-container timeline-bg-color">  <% if (typeof title !== \'undefined\' && title) { %>  <div class="timeline-header header-color cf">  <div class="timeline-label">Timeline:</div>   <div class="timeline-title"><%= title %></div>  </div>  <% } %>   <div class="spine-background">  <div class="spine-color spine"></div>  </div>   <div class="spine-end spine-top header-color">  <div><div class="spine-color spine-point"></div></div>  <div><div class="spine-color spine"></div></div>  </div>   <div class="group-container">  <% _.forEach(groups, function(g, gi) { %>  <div class="group">  <div class="group-label-container">  <div class="group-label spine-color">  <%= g.display %>  </div>  </div>   <div class="group-events">  <% _.forEach(g.events, function(e, ei) { %>  <div class="event">  <div class="event-date"><%= e.dateFormatted %></div>   <% if (e.title) { %>  <h3 class="event-title"><%= e.title %></h3>  <% } %>   <div class="event-content-container cf">  <% if (e.media) { %>  <div class="event-media-container <% if (e.body) { %>with-body<% } %>">  <div class="event-media <% if (e.source) { %>with-source<% } %>">  <% if (e.mediaType === \'youtube\') { %>  <iframe class="event-media-youtube" width="100%" height="350" src="<%= e.media %>" frameborder="0" allowfullscreen></iframe>   <% } else if (e.mediaType === \'soundcloud_large\') { %>  <iframe class="event-media-soundcloud" width="100%" height="350" scrolling="no" frameborder="no" src="<%= e.media %>"></iframe>   <% } else if (e.mediaType === \'soundcloud\') { %>  <iframe class="event-media-soundcloud" width="100%" height="166" scrolling="no" frameborder="no" src="<%= e.media %>"></iframe>   <% } else { %>  <img class="event-media-image" src="<%= e.media %>">  <% } %>  </div>   <% if (e.source) { %>  <div class="event-source">  <%= e.source %>  </div>  <% } %>  </div>  <% } %>   <% if (e.body) { %>  <div class="event-body-container <% if (e.media) { %>with-media<% } %>">  <div class="event-body"><%= e.body %></div>  </div>  <% } %>  </div>  </div>  <% }) %>  </div>  </div>  <% }) %>  </div>   <div class="spine-end spine-bottom timeline-bg-color">  <div><div class="spine-color spine-point"></div></div>  </div> </div> '
@@ -53,9 +59,14 @@
   var Timeline = function(options) {
     this.options = _.extend({}, defaultOptions, options || {});
 
+    // Check event data
+    if (!_.isArray(this.options.events) && !_.isString(this.options.events)) {
+      throw new Error('"events" data should be provided as a string or array.');
+    }
+
     // Enusre there is data
-    if (!_.isArray(this.options.events)) {
-      throw new Error('"events" data was not provided as an array.');
+    if (_.isArray(this.options.events) && this.options.events.length < 1) {
+      throw new Error('"events" data was provided as an array with no values.');
     }
 
     // Ensure column mapping is an object
@@ -66,6 +77,16 @@
     // Ensure there is a template
     if (!_.isString(this.options.template) && !_.isFunction(this.options.template)) {
       throw new Error('"template" was not provided as a string or function.');
+    }
+
+    // Ensure CSV chracters are single characters, not that the parsing
+    // couldn't probably handle it, but why make it more complex
+    if (!_.isString(this.options.csvDelimiter) || this.options.csvDelimiter.length !== 1) {
+      throw new Error('"csvDelimiter" was not provided as a single chracter string.');
+    }
+
+    if (!_.isString(this.options.csvQuote) || this.options.csvQuote.length !== 1) {
+      throw new Error('"csvQuote" was not provided as a single chracter string.');
     }
 
     // Try to build template if string
@@ -95,6 +116,13 @@
     // Check that an element was found if in browser
     if (this.isBrowser && !this.el) {
       throw new Error('Could not find a valid element from the given "el" option.');
+    }
+
+    // If the event data was provided as a string, attempt to parse as
+    // CSV
+    if (_.isString(this.options.events)) {
+      this.options.events = this.parseCSV(this.options.events,
+        this.options.csvDelimiter, this.options.csvQuote);
     }
 
     // Map columns and attach events to object for easier access.
@@ -335,6 +363,102 @@
 
         return n;
       });
+    },
+
+    // This will parse a csv string into an array of array.  Default
+    // delimiter is a comma and quote character is double quote
+    //
+    // Inspired from: http://stackoverflow.com/a/1293163/2343
+    parseCSV: function(csv, delimiter, quote) {
+      delimiter = delimiter || ',';
+      quote = quote || '"';
+      var d = this.regexEscape(delimiter);
+      var q = this.regexEscape(quote);
+
+      // Remove any extra line breaks
+      csv = csv.replace(/^\s+|\s+$/g, '');
+
+      // Regular expression to parse the CSV values.
+      var pattern = new RegExp((
+
+        // Delimiters.
+        '(' + d + '|\\r?\\n|\\r|^)' +
+
+        // Quoted fields.
+        '(?:' + q + '([^' + q + ']*(?:' + q + q + '[^' + q + ']*)*)' + q + '|' +
+
+        // Standard fields.
+        '([^' + q + '' + d + '\\r\\n]*))'
+      ), 'gi');
+
+      // For holding match data
+      var parsed = [[]];
+      var matches = pattern.exec(csv);
+
+      // For getting properties
+      var headers;
+
+      // Keep looping over the regular expression matches
+      // until we can no longer find a match.
+      while (matches) {
+        var matchedDelimiter = matches[1];
+        var matchedValue;
+
+        // Check to see if the given delimiter has a length
+        // (is not the start of string) and if it matches
+        // field delimiter. If id does not, then we know
+        // that this delimiter is a row delimiter.
+        if (matchedDelimiter.length && matchedDelimiter !== delimiter) {
+          // Since we have reached a new row of data,
+          // add an empty row to our data array.
+          parsed.push([]);
+        }
+
+        // Now that we have our delimiter out of the way,
+        // let's check to see which kind of value we
+        // captured (quoted or unquoted).
+        if (matches[2]) {
+          // We found a quoted value. When we capture
+          // this value, reduce any double occurences to one.
+          matchedValue = matches[2].replace(new RegExp('' + q + q, 'g'), q);
+        }
+        else {
+
+          // We found a non-quoted value.
+          matchedValue = matches[3];
+        }
+
+        // Now that we have our value string, let's add
+        // it to the data array.
+        parsed[parsed.length - 1].push(matchedValue.trim());
+
+        // Try it again
+        matches = pattern.exec(csv);
+      }
+
+      // Check that we found some data
+      if (parsed.length <= 1 || !parsed[0].length) {
+        throw new Error('Unable to parse any data from the CSV string provided.');
+      }
+
+      // Put together with properties from first row
+      headers = parsed.shift();
+      parsed = _.map(parsed, function(p) {
+        var n = {};
+
+        _.each(headers, function(h, hi) {
+          n[h] = p[hi];
+        });
+
+        return n;
+      });
+
+      return parsed;
+    },
+
+    // Escape special regex character
+    regexEscape: function(input) {
+      return input.replace(/[-[\]{}()*+?.,\\^$|#\s]/g, '\\$&');
     }
   });
 

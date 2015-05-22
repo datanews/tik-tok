@@ -61,6 +61,32 @@ describe('Timeline', function() {
       });
     });
 
+    // Throws error with bad csvDelimiter
+    it('should throw an error if bad csvDelimiter string is given', function() {
+      var t;
+      var events = [{ date: '2015-01-03', title: 'Title!', body: 'Over here!' }];
+
+      assert.throws(function() {
+        t = new Timeline({
+          events: events,
+          csvDelimiter: 'too long'
+        });
+      });
+    });
+
+    // Throws error with bad csvQuote
+    it('should throw an error if bad csvQuote string is given', function() {
+      var t;
+      var events = [{ date: '2015-01-03', title: 'Title!', body: 'Over here!' }];
+
+      assert.throws(function() {
+        t = new Timeline({
+          events: events,
+          csvQuote: undefined
+        });
+      });
+    });
+
     // Throws error with bad template
     it('should throw an error if bad template string is given', function() {
       var t;
@@ -76,9 +102,27 @@ describe('Timeline', function() {
     });
 
     // Should not throw errors with valid data
-    it('should not throw an error with valid event data', function() {
+    it('should not throw an error with valid event (JSON) data', function() {
       var t;
       var events = [{ date: '2015-01-03', title: 'Title!', body: 'Over here!' }];
+
+      assert.doesNotThrow(function() {
+        t = new Timeline({
+          events: events
+        });
+      });
+    });
+
+    // Should not throw errors with valid csv data
+    it('should not throw an error with valid event (CSV) data', function() {
+      var t;
+      var events = 'date,title,body\r\n' +
+        '2014-04-04,title 1,body 1\r\n' +
+        '2000-04-04,title 2,body 2';
+
+      t = new Timeline({
+        events: events
+      });
 
       assert.doesNotThrow(function() {
         t = new Timeline({
@@ -355,6 +399,166 @@ describe('Timeline', function() {
     it('should return youtube for image URL', function() {
       var url = 'https://www.youtube.com/embed/4IP_E7efGWE';
       assert.equal(t.determineMediaType(url), 'youtube');
+    });
+  });
+
+  // Regex escapte
+  describe('#regexEscape', function() {
+    var events = [{ date: '2015-01-03', title: 'Title!', body: 'Over here!' }];
+    var t = new Timeline({
+      events: events
+    });
+
+    // Parse CSV
+    it('should escape Regex characters', function() {
+      var chars = ['[', '-', '[', '\\', ']', '{', '}', '(', ')', '*', '+', '?', '.', ',', '^', '$', '|', '#'];
+
+      chars.forEach(function(c) {
+        assert.equal(t.regexEscape(c), '\\' + c);
+      });
+    });
+  });
+
+  // Parse a CSV
+  describe('#parseCSV', function() {
+    var events = [{ date: '2015-01-03', title: 'Title!', body: 'Over here!' }];
+    var t = new Timeline({
+      events: events
+    });
+
+    // Parse CSV
+    it('should parse a CSV', function() {
+      var csv = 'date,title,body\r\n' +
+        '2012-01-01,"title 1","body with a ,"\r\n' +
+        '2012/04/22, TITLE, body stuff';
+
+      var expected = [
+        { date: '2012-01-01', title: 'title 1', body: 'body with a ,' },
+        { date: '2012/04/22', title: 'TITLE', body: 'body stuff' }
+      ];
+
+      assert.deepEqual(t.parseCSV(csv), expected);
+    });
+
+    // Different delimiter
+    it('should parse a CSV (with a | delimiter)', function() {
+      var csv = 'date|title|body\r\n' +
+        '2012-01-01|"title 1"|"body with a | and double ""."\r\n' +
+        '2012/04/22| TITLE| body stuff';
+
+      var expected = [
+        { date: '2012-01-01', title: 'title 1', body: 'body with a | and double ".' },
+        { date: '2012/04/22', title: 'TITLE', body: 'body stuff' }
+      ];
+
+      assert.deepEqual(t.parseCSV(csv, '|'), expected);
+    });
+
+    // Different delimiter
+    it('should parse a CSV (with a ? delimiter)', function() {
+      var csv = 'date?title?body\r\n' +
+        '2012-01-01?"title 1"?"body with a ?"\r\n' +
+        '2012/04/22? TITLE? body stuff';
+
+      var expected = [
+        { date: '2012-01-01', title: 'title 1', body: 'body with a ?' },
+        { date: '2012/04/22', title: 'TITLE', body: 'body stuff' }
+      ];
+
+      assert.deepEqual(t.parseCSV(csv, '?'), expected);
+    });
+
+    // Different delimiter
+    it('should parse a CSV (with a @ delimiter)', function() {
+      var csv = 'date@title@body\r\n' +
+        '2012-01-01@"title 1"@"body with a @"\r\n' +
+        '2012/04/22@ TITLE@ body stuff';
+
+      var expected = [
+        { date: '2012-01-01', title: 'title 1', body: 'body with a @' },
+        { date: '2012/04/22', title: 'TITLE', body: 'body stuff' }
+      ];
+
+      assert.deepEqual(t.parseCSV(csv, '@'), expected);
+    });
+
+    // Different quote
+    it('should parse a CSV (with a : quote)', function() {
+      var csv = 'date@title@body\r\n' +
+        '2012-01-01@:title 1:@:body with a @:\r\n' +
+        '2012/04/22@ TITLE@ body stuff';
+
+      var expected = [
+        { date: '2012-01-01', title: 'title 1', body: 'body with a @' },
+        { date: '2012/04/22', title: 'TITLE', body: 'body stuff' }
+      ];
+
+      assert.deepEqual(t.parseCSV(csv, '@', ':'), expected);
+    });
+
+    // Different quote
+    it('should parse a CSV (with a % quote)', function() {
+      var csv = 'date@title@body\r\n' +
+        '2012-01-01@%title 1%@%body with a @%\r\n' +
+        '2012/04/22@ TITLE@ body stuff';
+
+      var expected = [
+        { date: '2012-01-01', title: 'title 1', body: 'body with a @' },
+        { date: '2012/04/22', title: 'TITLE', body: 'body stuff' }
+      ];
+
+      assert.deepEqual(t.parseCSV(csv, '@', '%'), expected);
+    });
+
+    // Different line breaks
+    it('should parse a CSV (with a different line break)', function() {
+      var csv = 'date,title,body\r' +
+        '2012-01-01,"title 1","body with a ,"\r' +
+        '2012/04/22, TITLE, body stuff';
+
+      var expected = [
+        { date: '2012-01-01', title: 'title 1', body: 'body with a ,' },
+        { date: '2012/04/22', title: 'TITLE', body: 'body stuff' }
+      ];
+
+      assert.deepEqual(t.parseCSV(csv), expected);
+    });
+
+    // Throw an error
+    it('should throw an error given bad data', function() {
+      var csv = 'this is not useful data';
+
+      assert.throws(function() {
+        t.parseCSV(csv);
+      });
+    });
+
+    // Parse CSV extra line breaks
+    it('should parse a CSV with extra line breaks', function() {
+      var csv = 'date,title,body\r\n' +
+        '2012-01-01,"title 1","body with a ,"\r\n' +
+        '2012/04/22, TITLE, body stuff\r\n';
+
+      var expected = [
+        { date: '2012-01-01', title: 'title 1', body: 'body with a ,' },
+        { date: '2012/04/22', title: 'TITLE', body: 'body stuff' }
+      ];
+
+      assert.deepEqual(t.parseCSV(csv), expected);
+    });
+
+    // Parse CSV with extra columns
+    it('should parse a CSV with extra columns', function() {
+      var csv = 'date,title,body,media,source\r\n' +
+        '2012-01-01,"title 1","body with a ,"\r\n' +
+        '2012/04/22, TITLE, body stuff';
+
+      var expected = [
+        { date: '2012-01-01', title: 'title 1', body: 'body with a ,', media: undefined, source: undefined },
+        { date: '2012/04/22', title: 'TITLE', body: 'body stuff', media: undefined, source: undefined }
+      ];
+
+      assert.deepEqual(t.parseCSV(csv), expected);
     });
   });
 });
