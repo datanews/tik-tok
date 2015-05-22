@@ -419,6 +419,28 @@ describe('Timeline', function() {
     });
   });
 
+  // Make identifier
+  describe('#makeIdentifier', function() {
+    var events = [{ date: '2015-01-03', title: 'Title!', body: 'Over here!' }];
+    var t = new Timeline({
+      events: events
+    });
+
+    // Parse CSV
+    it('should make identifiers', function() {
+      var sets = [
+        ['      ', ''],
+        ['This is a title.', 'this-is-a-title'],
+        ['CAPS and $%^&* 123456', 'caps-and-123456'],
+        [' \r\n thing    ', 'thing']
+      ];
+
+      sets.forEach(function(s) {
+        assert.equal(t.makeIdentifier(s[0]), s[1]);
+      });
+    });
+  });
+
   // Parse a CSV
   describe('#parseCSV', function() {
     var events = [{ date: '2015-01-03', title: 'Title!', body: 'Over here!' }];

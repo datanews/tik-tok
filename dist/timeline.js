@@ -52,7 +52,7 @@
 
     // Template.  This can be a function or string and the default will
     // be replace in the build process
-    template: '<div class="timeline-container timeline-bg-color">  <% if (typeof title !== \'undefined\' && title) { %>  <div class="timeline-header header-color cf">  <div class="timeline-label">Timeline:</div>   <div class="timeline-title"><%= title %></div>  </div>  <% } %>   <div class="spine-background">  <div class="spine-color spine"></div>  </div>   <div class="spine-end spine-top header-color">  <div><div class="spine-color spine-point"></div></div>  <div><div class="spine-color spine"></div></div>  </div>   <div class="group-container">  <% _.forEach(groups, function(g, gi) { %>  <div class="group">  <div class="group-label-container">  <div class="group-label spine-color">  <%= g.display %>  </div>  </div>   <div class="group-events">  <% _.forEach(g.events, function(e, ei) { %>  <div class="event">  <div class="event-date"><%= e.dateFormatted %></div>   <% if (e.title) { %>  <h3 class="event-title"><%= e.title %></h3>  <% } %>   <div class="event-content-container cf">  <% if (e.media) { %>  <div class="event-media-container <% if (e.body) { %>with-body<% } %>">  <div class="event-media <% if (e.source) { %>with-source<% } %>">  <% if (e.mediaType === \'youtube\') { %>  <iframe class="event-media-youtube" width="100%" height="350" src="<%= e.media %>" frameborder="0" allowfullscreen></iframe>   <% } else if (e.mediaType === \'soundcloud_large\') { %>  <iframe class="event-media-soundcloud" width="100%" height="350" scrolling="no" frameborder="no" src="<%= e.media %>"></iframe>   <% } else if (e.mediaType === \'soundcloud\') { %>  <iframe class="event-media-soundcloud" width="100%" height="166" scrolling="no" frameborder="no" src="<%= e.media %>"></iframe>   <% } else { %>  <img class="event-media-image" src="<%= e.media %>">  <% } %>  </div>   <% if (e.source) { %>  <div class="event-source">  <%= e.source %>  </div>  <% } %>  </div>  <% } %>   <% if (e.body) { %>  <div class="event-body-container <% if (e.media) { %>with-media<% } %>">  <div class="event-body"><%= e.body %></div>  </div>  <% } %>  </div>  </div>  <% }) %>  </div>  </div>  <% }) %>  </div>   <div class="spine-end spine-bottom timeline-bg-color">  <div><div class="spine-color spine-point"></div></div>  </div> </div> '
+    template: '<div class="timeline-container timeline-bg-color">  <% if (typeof title !== \'undefined\' && title) { %>  <div class="timeline-header header-color cf">  <div class="timeline-label">Timeline:</div>   <div class="timeline-title"><%= title %></div>  </div>  <% } %>   <div class="spine-background">  <div class="spine-color spine"></div>  </div>   <div class="spine-end spine-top header-color">  <div><div class="spine-color spine-point"></div></div>  <div><div class="spine-color spine"></div></div>  </div>   <div class="group-container">  <% _.forEach(groups, function(g, gi) { %>  <div class="group">  <div class="group-label-container">  <div class="group-label spine-color">  <%= g.display %>  </div>  </div>   <div class="group-events">  <% _.forEach(g.events, function(e, ei) { %>  <div class="event" id="<%= timeline.id %>-<%= e.id %>">  <div class="event-date"><%= e.dateFormatted %></div>   <% if (e.title) { %>  <h3 class="event-title"><%= e.title %></h3>  <% } %>   <div class="event-content-container cf">  <% if (e.media) { %>  <div class="event-media-container <% if (e.body) { %>with-body<% } %>">  <div class="event-media <% if (e.source) { %>with-source<% } %>">  <% if (e.mediaType === \'youtube\') { %>  <iframe class="event-media-youtube" width="100%" height="350" src="<%= e.media %>" frameborder="0" allowfullscreen></iframe>   <% } else if (e.mediaType === \'soundcloud_large\') { %>  <iframe class="event-media-soundcloud" width="100%" height="350" scrolling="no" frameborder="no" src="<%= e.media %>"></iframe>   <% } else if (e.mediaType === \'soundcloud\') { %>  <iframe class="event-media-soundcloud" width="100%" height="166" scrolling="no" frameborder="no" src="<%= e.media %>"></iframe>   <% } else { %>  <img class="event-media-image" src="<%= e.media %>">  <% } %>  </div>   <% if (e.source) { %>  <div class="event-source">  <%= e.source %>  </div>  <% } %>  </div>  <% } %>   <% if (e.body) { %>  <div class="event-body-container <% if (e.media) { %>with-media<% } %>">  <div class="event-body"><%= e.body %></div>  </div>  <% } %>  </div>  </div>  <% }) %>  </div>  </div>  <% }) %>  </div>   <div class="spine-end spine-bottom timeline-bg-color">  <div><div class="spine-color spine-point"></div></div>  </div> </div> '
   };
 
   // Constructior
@@ -117,6 +117,11 @@
     if (this.isBrowser && !this.el) {
       throw new Error('Could not find a valid element from the given "el" option.');
     }
+
+    // Get the id from the element or create an id for the timeline
+    // as there may be multiple timelines on the same page
+    this.id = this.el.id || _.uniqueId('timeline-');
+    this.el.id = this.id;
 
     // If the event data was provided as a string, attempt to parse as
     // CSV
@@ -305,6 +310,9 @@
 
         e.date = d;
 
+        // Create an ID
+        e.id = _.uniqueId(this.makeIdentifier(e.title) + '-');
+
         // Determine type of media from media url if mediaType has not
         // been provided
         e.mediaType = e.mediaType || this.determineMediaType(e.media);
@@ -459,6 +467,11 @@
     // Escape special regex character
     regexEscape: function(input) {
       return input.replace(/[-[\]{}()*+?.,\\^$|#\s]/g, '\\$&');
+    },
+
+    // Create identifier (slug)
+    makeIdentifier: function(input) {
+      return input.toLowerCase().trim().replace(/[^\w ]+/g, '').replace(/ +/g, '-');
     }
   });
 

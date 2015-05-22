@@ -112,6 +112,11 @@
       throw new Error('Could not find a valid element from the given "el" option.');
     }
 
+    // Get the id from the element or create an id for the timeline
+    // as there may be multiple timelines on the same page
+    this.id = this.el.id || _.uniqueId('timeline-');
+    this.el.id = this.id;
+
     // If the event data was provided as a string, attempt to parse as
     // CSV
     if (_.isString(this.options.events)) {
@@ -299,6 +304,9 @@
 
         e.date = d;
 
+        // Create an ID
+        e.id = _.uniqueId(this.makeIdentifier(e.title) + '-');
+
         // Determine type of media from media url if mediaType has not
         // been provided
         e.mediaType = e.mediaType || this.determineMediaType(e.media);
@@ -453,6 +461,11 @@
     // Escape special regex character
     regexEscape: function(input) {
       return input.replace(/[-[\]{}()*+?.,\\^$|#\s]/g, '\\$&');
+    },
+
+    // Create identifier (slug)
+    makeIdentifier: function(input) {
+      return input.toLowerCase().trim().replace(/[^\w ]+/g, '').replace(/ +/g, '-');
     }
   });
 

@@ -27,7 +27,7 @@
 
         <div class="group-events">
           <% _.forEach(g.events, function(e, ei) { %>
-            <div class="event">
+            <div class="event" id="<%= timeline.id %>-<%= e.id %>">
               <div class="event-date"><%= e.dateFormatted %></div>
 
               <% if (e.title) { %>
