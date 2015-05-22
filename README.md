@@ -33,7 +33,7 @@ Timeline is simply a object your create and give it configuration:
 
 ### Events
 
-Event data should be either an array of objects or a CSV with the following keys or column headings respectively.  The `date` field is the only absolutely necessary field, though, you probably want at least a title.
+Event data should be either an array of objects or a CSV string with the following keys or column headings respectively.  The `date` field is the only absolutely necessary field, though, you probably want at least a title.
 
 JSON example:
 
