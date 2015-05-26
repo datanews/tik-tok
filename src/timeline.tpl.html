@@ -28,6 +28,8 @@
         <div class="group-events">
           <% _.forEach(g.events, function(e, ei) { %>
             <div class="event" id="<%= timeline.id %>-<%= e.id %>">
+              <a class="event-link" href="#<%= timeline.id %>-<%= e.id %>">link</a>
+
               <div class="event-date"><%= e.dateFormatted %></div>
 
               <% if (e.title) { %>

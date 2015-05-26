@@ -26,6 +26,9 @@
     throw new Error('Moment is a necessary dependency of Timeline.');
   }
 
+  // Place to hold ID generation counts
+  var idCounts = {};
+
   // Default options
   var defaultOptions = {
     // Date formates used by moment
@@ -112,11 +115,6 @@
       throw new Error('Could not find a valid element from the given "el" option.');
     }
 
-    // Get the id from the element or create an id for the timeline
-    // as there may be multiple timelines on the same page
-    this.id = this.el.id || _.uniqueId('timeline-');
-    this.el.id = this.id;
-
     // If the event data was provided as a string, attempt to parse as
     // CSV
     if (_.isString(this.options.events)) {
@@ -137,8 +135,14 @@
     // Sort groups
     this.groups = this.sortGroups(this.groups, this.options.descending);
 
-    // Render if browser
+    // If browser, do some DOM things and render
     if (this.isBrowser) {
+      // Get the id from the element or create an id for the timeline
+      // as there may be multiple timelines on the same page
+      this.id = this.el.id || this.uniqueId('timeline');
+      this.el.id = this.id;
+
+      // Render
       this.render();
     }
   };
@@ -305,7 +309,7 @@
         e.date = d;
 
         // Create an ID
-        e.id = _.uniqueId(this.makeIdentifier(e.title) + '-');
+        e.id = this.uniqueId(this.makeIdentifier(e.title));
 
         // Determine type of media from media url if mediaType has not
         // been provided
@@ -466,6 +470,20 @@
     // Create identifier (slug)
     makeIdentifier: function(input) {
       return input.toLowerCase().trim().replace(/[^\w ]+/g, '').replace(/ +/g, '-');
+    },
+
+    // Make an unique (across timelines) ID.  The underscore uniqueId
+    // function uses a global counter which can be a problem if the order
+    // of rendering is not consistent
+    uniqueId: function(prefix) {
+      if (idCounts[prefix]) {
+        idCounts[prefix]++;
+        return prefix + '-' + idCounts[prefix];
+      }
+      else {
+        idCounts[prefix] = 0;
+        return prefix;
+      }
     }
   });
 

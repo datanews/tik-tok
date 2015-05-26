@@ -132,6 +132,21 @@
   color: #ff6666;
   text-transform: uppercase;
 }
+.timeline-container .event .event-link {
+  display: block;
+  float: right;
+  padding: 1em 1em;
+  margin-top: -1.17647059em;
+  margin-right: -1.17647059em;
+  font-size: 0.85em;
+  color: #ffffff;
+  text-decoration: none;
+  text-transform: lowercase;
+  background-color: #e51133;
+}
+.timeline-container .event .event-link:hover {
+  text-decoration: underline;
+}
 .timeline-container .event .event-title {
   padding: 0;
   margin: 0 0 0.75em 0;
