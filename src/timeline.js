@@ -151,11 +151,30 @@
   _.extend(Timeline.prototype, {
     // Main renderer
     render: function() {
+      var _this = this;
+
       this.el.innerHTML = this.options.template({
         _: _,
         groups: this.groups,
         title: this.options.title,
         timeline: this
+      });
+
+      // Go to specific event, check if part of this timeline.  This check
+      // is not perfect
+      if (window.location.hash && window.location.hash.indexOf('#' + this.id) === 0) {
+        this.scrollTo(window.location.hash);
+      }
+
+      // Add events to scroll to specific event when link is
+      // clicked.  This is a bit nicer and consistent with load.
+      _.each(this.el.querySelectorAll('a.event-link'), function(a) {
+        a.addEventListener('click', function(e) {
+          e.preventDefault();
+          var hash = this.getAttribute('href');
+          history.pushState(null, null, hash);
+          _this.scrollTo(hash);
+        });
       });
     },
 
@@ -472,18 +491,41 @@
       return input.toLowerCase().trim().replace(/[^\w ]+/g, '').replace(/ +/g, '-');
     },
 
+    // Scroll to an element.
+    scrollTo: function(selector, duration) {
+      duration = duration || 500;
+      var el = this.getElement(selector);
+
+      if (!el) {
+        return;
+      }
+
+      var scroller = document.body;
+      var start = scroller.scrollTop;
+      var to = Math.max(0, el.getBoundingClientRect().top + window.pageYOffset - 30);
+      var change = to - start;
+      var currentTime = 0;
+      var increment = 1000  / 25;
+
+      // Create animation funciton
+      var animateScroll = function() {
+        currentTime += increment;
+        scroller.scrollTop = start + (Math.min(1, (currentTime / duration)) * change);
+
+        if (currentTime < duration) {
+          setTimeout(animateScroll, increment);
+        }
+      };
+
+      animateScroll();
+    },
+
     // Make an unique (across timelines) ID.  The underscore uniqueId
     // function uses a global counter which can be a problem if the order
-    // of rendering is not consistent
+    // of rendering is not consistent.
     uniqueId: function(prefix) {
-      if (idCounts[prefix]) {
-        idCounts[prefix]++;
-        return prefix + '-' + idCounts[prefix];
-      }
-      else {
-        idCounts[prefix] = 0;
-        return prefix;
-      }
+      idCounts[prefix] = (!_.isUndefined(idCounts[prefix])) ? idCounts[prefix] + 1 : 0;
+      return prefix + '-' + idCounts[prefix];
     }
   });
 
