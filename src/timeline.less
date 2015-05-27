@@ -16,6 +16,8 @@
 @color-link: #FFFFFF;
 @bg-color-link: #E51133;
 @color-body-link: #E51133;
+@bg-color-mini: #565656;
+@bg-color-mini-progress: #FFCC00;
 
 @spine-width: 4px;
 
@@ -280,6 +282,29 @@
       .event-body-container.with-media {
         padding-right: 1em;
       }
+    }
+  }
+
+  .mini-timeline {
+    position: fixed;
+    top: 0;
+    right: 0;
+    left: 0;
+    z-index: 10000;
+    width: 100%;
+    height: 0;
+    background-color: @bg-color-mini;
+    transition: height 200ms linear;
+
+    &.enabled {
+      height: 0.5em;
+    }
+
+    .mini-timeline-progress {
+      position: relative;
+      width: 50%;
+      height: 100%;
+      background-color: @bg-color-mini-progress;
     }
   }
 }

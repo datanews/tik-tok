@@ -176,6 +176,30 @@
           _this.scrollTo(hash);
         });
       });
+
+      // Gather placement of events and timeline in order to determine
+      // where the user is on the timeline
+      this.determinePlacements();
+
+      // Get mini timeline elements
+      this.miniEl = this.getElement('#' + this.id + ' .mini-timeline');
+      this.progressEl = this.getElement('#' + this.id + ' .mini-timeline-progress');
+
+      // Watch scrolling to update progress bar
+      document.addEventListener('scroll', _.bind(this.updateProgress, this));
+    },
+
+    // Update progress bar
+    updateProgress: function() {
+      var currentView = document.body.scrollTop;
+
+      // Determine if in timeline at all
+      if (currentView >= this.top && currentView <= this.bottom) {
+        this.miniEl.classList.add('enabled');
+      }
+      else {
+        this.miniEl.classList.remove('enabled');
+      }
     },
 
     // Get element from some sort of selector or element.  Inspiration
@@ -368,6 +392,28 @@
       else {
         return 'image';
       }
+    },
+
+    // For each event, determine where it is on the page
+    // so that we can know where the user is in the timeline.
+    //
+    // Top and bottom of elements can be inaccurate as items,
+    // like images may not be loaded yet.
+    determinePlacements: function() {
+      var _this = this;
+
+      // Determine top and bottom of timeline
+      this.top = this.el.getBoundingClientRect().top + window.pageYOffset;
+      this.bottom = this.el.getBoundingClientRect().bottom + window.pageYOffset;
+
+      // Determine top and bottom of events
+      this.events = _.map(this.events, function(e) {
+        e.el = _this.getElement(_this.id + '-' + e.id);
+        e.top = e.el.getBoundingClientRect().top + window.pageYOffset;
+        e.bottom = e.el.getBoundingClientRect().bottom + window.pageYOffset;
+
+        return e;
+      });
     },
 
     // Map columns
