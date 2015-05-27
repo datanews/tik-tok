@@ -269,7 +269,7 @@
 
     // Group events based on grouping function.  A grouping function
     // should take an event and return an object with the following
-    // properties: `id`, `date`, `display` (as moment object)
+    // properties: `id`, `date`  (as moment object), `display`
     groupEvents: function(events) {
       var groups = {};
       var groupByFunc;

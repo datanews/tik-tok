@@ -11,7 +11,7 @@ The easiest way to get the code is to use [Bower](https://bower.io); this will a
 
     bower install https://github.com/datanews/mobile-timeline.git
 
-You can also download the code from Github.
+You can also download the code from Github (TODO: include link and example).
 
 ## Include
 
@@ -78,19 +78,6 @@ Instructions on how to do development and make contributions to the project.
 
 ### Environment
 
-#### Code style and quality
-
-Use the following to get your development environment setup.  Having consistent code style leads to smoother contributions, easier reviewing, and better and more stable code.
-
-1. Install an [Editorconfig plugin for your favorite code editor](http://editorconfig.org/#download).
-    * [Editorconfig](http://editorconfig.org/) helps to standardize editor settings like indent spacing.
-1. (optinal) Install a [JSCS plugin for your favorite code editor](http://jscs.info/overview.html).
-    * [JSCS](http://jscs.info/) is a JS code style enforcer.
-    * This is optional since the main build task will run this.
-1. (optional) Install a [JSHint plugin for your favorite code editor](http://jshint.com/install/)
-    * [JSHint](http://jshint.com/) is a JS error detecion tool.
-    * This is optional since the main build task will run this.
-
 #### Dependencies
 
 Install dependencies.  All commands are assumed to be from the [Command Line](http://en.wikipedia.org/wiki/Command-line_interface) and from the root directory of the project (except for the initial getting of the code).
@@ -110,7 +97,7 @@ Install dependencies.  All commands are assumed to be from the [Command Line](ht
 
 ### Development
 
-Edit files in the `src` directory; these need to get built into the `dist`.  Use these handy Gulp tasks to ease in development:
+Edit files in the `src` directory; these need to get built into the `dist` directory.  Use these handy Gulp tasks to ease in development:
 
 * `gulp server`
     * Runs (and opens) a basic, local web server at port `8089`.
@@ -140,3 +127,16 @@ After edits are made, run checks and create build version with the following com
 ### Release
 
 (TODO)
+
+#### Code style and quality
+
+Use the following to get your development environment setup.  Having consistent code style leads to smoother contributions, easier reviewing, and better and more stable code.
+
+1. Install an [Editorconfig plugin for your favorite code editor](http://editorconfig.org/#download).
+    * [Editorconfig](http://editorconfig.org/) helps to standardize editor settings like indent spacing.
+1. (optinal) Install a [JSCS plugin for your favorite code editor](http://jscs.info/overview.html).
+    * [JSCS](http://jscs.info/) is a JS code style enforcer.
+    * This is optional since the main build task will run this.
+1. (optional) Install a [JSHint plugin for your favorite code editor](http://jshint.com/install/)
+    * [JSHint](http://jshint.com/) is a JS error detection tool.
+    * This is optional since the main build task will run this.
