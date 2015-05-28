@@ -25,11 +25,11 @@
 })(typeof window !== 'undefined' ? window : this, function(_, moment) {
   // Check depdencies
   if (typeof _ === 'undefined') {
-    throw new Error('Underscore is a necessary dependency of Timeline.');
+    throw new Error('Underscore is a necessary dependency of Timeline: http://underscorejs.org/');
   }
 
   if (typeof moment === 'undefined') {
-    throw new Error('Moment is a necessary dependency of Timeline.');
+    throw new Error('Moment is a necessary dependency of Timeline: http://momentjs.com/');
   }
 
   // Place to hold ID generation counts
@@ -37,8 +37,8 @@
 
   // Default options
   var defaultOptions = {
-    // Date formates used by moment
-    dateFormats: ['MMM DD, YYYY', 'MM/DD/YYYY', 'M/D/YYYY', 'DD MMM YYYY', 'YYYY-MM-DD'],
+    // Date formats used by moment
+    dateFormat: ['MMM DD, YYYY', 'MM/DD/YYYY', 'M/D/YYYY', 'DD MMM YYYY', 'YYYY-MM-DD'],
 
     // Date display format
     displayFormat: 'MMM DD, YYYY',
@@ -67,11 +67,6 @@
       throw new Error('"events" data should be provided as a string or array.');
     }
 
-    // Enusre there is data
-    if (_.isArray(this.options.events) && this.options.events.length < 1) {
-      throw new Error('"events" data was provided as an array with no values.');
-    }
-
     // Ensure column mapping is an object
     if (this.options.keyMapping && !_.isObject(this.options.keyMapping)) {
       throw new Error('"keyMapping" was not provided as an object.');
@@ -82,14 +77,14 @@
       throw new Error('"template" was not provided as a string or function.');
     }
 
-    // Ensure CSV chracters are single characters, not that the parsing
+    // Ensure CSV characters are single characters, not that the parsing
     // couldn't probably handle it, but why make it more complex
     if (!_.isString(this.options.csvDelimiter) || this.options.csvDelimiter.length !== 1) {
-      throw new Error('"csvDelimiter" was not provided as a single chracter string.');
+      throw new Error('"csvDelimiter" was not provided as a single character string.');
     }
 
     if (!_.isString(this.options.csvQuote) || this.options.csvQuote.length !== 1) {
-      throw new Error('"csvQuote" was not provided as a single chracter string.');
+      throw new Error('"csvQuote" was not provided as a single character string.');
     }
 
     // Try to build template if string
@@ -213,7 +208,7 @@
     getElement: function(input) {
       var output;
 
-      // Check if we are in a brower
+      // Check if we are in a browser
       if (!this.isBrowser || !input) {
         return null;
       }
