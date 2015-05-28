@@ -206,6 +206,11 @@
       this.miniEl = this.getElement('#' + this.id + ' .mini-timeline');
       this.progressEl = this.getElement('#' + this.id + ' .mini-timeline-progress');
 
+      // Make a throttled determinePlacements (see updateProgress)
+      this.determinePlacementsThrottled = _.throttle(_.bind(function() {
+        this.determinePlacements();
+      }, this), 200);
+
       // Watch scrolling to update progress bar
       document.addEventListener('scroll', _.bind(this.updateProgress, this));
     },
@@ -215,6 +220,11 @@
       var currentView = document.body.scrollTop;
       var currentEntry = 0;
       var o = this.viewOffset;
+
+      // This is a bit hackish, but helps with a few situations like on
+      // any movements of the elements through image loading or window
+      // resize.  Use throttle verstion
+      this.determinePlacementsThrottled();
 
       // Determine if in timeline at all
       if (currentView >= this.top - o && currentView <= this.bottom - o) {
