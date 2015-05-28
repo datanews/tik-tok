@@ -154,8 +154,15 @@
 
   // Add methods and properties
   _.extend(Timeline.prototype, {
-    // Initiate some properties
+    // What group types are valid; this should correspond with the
+    // relevant functions.
     validGroupTypes: ['months', 'years', 'decade'],
+
+    // Anchors and otherwise checking for things at the top of
+    // the page is not accurate to where people are looking, as they
+    // are usually looking/reading more in the middle.  This should
+    // probably be variable based on screen height.
+    viewOffset: 40,
 
     // Main renderer
     render: function() {
@@ -201,9 +208,10 @@
     updateProgress: function() {
       var currentView = document.body.scrollTop;
       var currentEntry = 0;
+      var o = this.viewOffset;
 
       // Determine if in timeline at all
-      if (currentView >= this.top && currentView <= this.bottom) {
+      if (currentView >= this.top - o && currentView <= this.bottom - o) {
         this.miniEl.classList.add('enabled');
 
         // Determine which entry we are in
@@ -211,7 +219,7 @@
           var bottom = (this.entries[ei + 1]) ? this.entries[ei + 1].top :
             this.bottom;
 
-          if (currentView >= e.top && currentView < bottom) {
+          if (currentView >= e.top - o && currentView < bottom - o) {
             currentEntry = ei;
           }
         }, this));
@@ -586,7 +594,7 @@
 
       var scroller = document.body;
       var start = scroller.scrollTop;
-      var to = Math.max(0, el.getBoundingClientRect().top + window.pageYOffset - 30);
+      var to = Math.max(0, el.getBoundingClientRect().top + window.pageYOffset - this.viewOffset);
       var change = to - start;
       var currentTime = 0;
       var increment = 1000  / 25;
