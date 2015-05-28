@@ -341,7 +341,7 @@
         // Parse date
         var d = moment(e.date, this.options.dateFormat);
         if (!d.isValid()) {
-          throw new Error('Error parsing date from "' + e.date + '"');
+          this.warn('Error parsing date from "' + e.date + '"', e);
         }
 
         e.date = d;
@@ -567,6 +567,19 @@
     uniqueId: function(prefix) {
       idCounts[prefix] = (!_.isUndefined(idCounts[prefix])) ? idCounts[prefix] + 1 : 0;
       return prefix + '-' + idCounts[prefix];
+    },
+
+    // Wrapper to handle a warning.  JS doesn't really have warnings,
+    // but we output to the console so that users may be able to find it.
+    warn: function(output) {
+      if (console && console.warn) {
+        console.warn(output);
+      }
+      else if (console && console.log) {
+        console.log(output);
+      }
+
+      return;
     }
   });
 
