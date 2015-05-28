@@ -41,7 +41,7 @@
     dateFormat: ['MMM DD, YYYY', 'MM/DD/YYYY', 'M/D/YYYY', 'DD MMM YYYY', 'YYYY-MM-DD'],
 
     // Date display format
-    displayFormat: 'MMM DD, YYYY',
+    dateDisplay: 'MMM DD, YYYY',
 
     // Put order of events in descending order (newest to oldest).  The default
     // is off, ascending (oldest to newest)
@@ -360,7 +360,7 @@
         e.mediaType = e.mediaType || this.determineMediaType(e.media);
 
         // Create a formatted version of date for template
-        e.dateFormatted = d.format(this.options.displayFormat);
+        e.dateFormatted = d.format(this.options.dateDisplay);
 
         return e;
       }, this));

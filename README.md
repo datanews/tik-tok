@@ -58,7 +58,7 @@ CSV example:
 You can use the following options when defining a timeline:
 
 * `dateFormat`: A string or array of strings that will be used to parse dates.  The default is: `['MMM DD, YYYY', 'MM/DD/YYYY', 'M/D/YYYY', 'DD MMM YYYY', 'YYYY-MM-DD']`.  For more details see the Moment.js [parsing docs](http://momentjs.com/docs/#/parsing/string-formats/).
-* `displayFormat`: The [Moment.js format](http://momentjs.com/docs/#/displaying/format/) for how the event date will be displayed.  The default is `MMM DD, YYYY`.
+* `dateDisplay`: A string for how the event date will be displayed for each event.  See the docs [Moment.js formating](http://momentjs.com/docs/#/displaying/format/) for a complete list of options.  The default is `MMM DD, YYYY`.
 * `descending`: Boolean that will make the order of events descending (newest to oldest) if set to true.  The default is `false` which is ascending (oldest to newest).
 * `csvDelimiter`: The delimiting chracter if you are using a CSV string.  The default is `,`.
 * `csvQuote`: The quote chracter if you are using a CSV string.  The default is `"`.
