@@ -345,7 +345,7 @@
     parseEvents: function(events) {
       return _.map(events, _.bind(function(e) {
         // Parse date
-        var d = moment(e.date, this.options.dateFormats);
+        var d = moment(e.date, this.options.dateFormat);
         if (!d.isValid()) {
           throw new Error('Error parsing date from "' + e.date + '"');
         }

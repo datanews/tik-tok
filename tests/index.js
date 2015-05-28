@@ -130,6 +130,19 @@ describe('Timeline', function() {
         });
       });
     });
+
+    // Parses unique date
+    it('should not throw an error when parsing unique date with dateFormat option', function() {
+      var t;
+      var events = [{ date: '1988-------10/1', title: 'Title!', body: 'Over here!' }];
+
+      assert.doesNotThrow(function() {
+        t = new Timeline({
+          events: events,
+          dateFormat: 'YYYYY-------MM/D'
+        });
+      });
+    });
   });
 
   // Check browser
