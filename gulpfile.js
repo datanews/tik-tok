@@ -121,6 +121,7 @@ gulp.task('styles', function() {
 gulp.task('watch', function() {
   gulp.watch(['gulpfile.js', 'tests/**/*.js'], ['support-js']);
   gulp.watch(['src/**/*.js', 'src/**/*.html'], ['js', 'test']);
+  gulp.watch(['tests/**/*.js'], ['test']);
   gulp.watch('src/**/*.less', ['styles']);
 });
 
