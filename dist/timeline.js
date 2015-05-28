@@ -43,7 +43,7 @@
     // Date display format
     dateDisplay: 'MMM DD, YYYY',
 
-    // Put order of events in descending order (newest to oldest).  The default
+    // Put order of entries in descending order (newest to oldest).  The default
     // is off, ascending (oldest to newest)
     descending: false,
 
@@ -55,7 +55,7 @@
 
     // Template.  This can be a function or string and the default will
     // be replace in the build process
-    template: '<div class="timeline-container timeline-bg-color">  <div class="mini-timeline">  <div class="mini-timeline-progress"></div>  </div>   <% if (typeof title !== \'undefined\' && title) { %>  <div class="timeline-header header-color cf">  <div class="timeline-label">Timeline:</div>   <div class="timeline-title"><%= title %></div>  </div>  <% } %>   <div class="spine-background">  <div class="spine-color spine"></div>  </div>   <div class="spine-end spine-top header-color">  <div><div class="spine-color spine-point"></div></div>  <div><div class="spine-color spine"></div></div>  </div>   <div class="group-container">  <% _.forEach(groups, function(g, gi) { %>  <div class="group">  <div class="group-label-container">  <div class="group-label spine-color">  <%= g.display %>  </div>  </div>   <div class="group-events">  <% _.forEach(g.events, function(e, ei) { %>  <div class="event" id="<%= timeline.id %>-<%= e.id %>">  <a class="event-link" href="#<%= timeline.id %>-<%= e.id %>">link</a>   <div class="event-date"><%= e.dateFormatted %></div>   <% if (e.title) { %>  <h3 class="event-title"><%= e.title %></h3>  <% } %>   <div class="event-content-container cf">  <% if (e.media) { %>  <div class="event-media-container <% if (e.body) { %>with-body<% } %>">  <div class="event-media <% if (e.source) { %>with-source<% } %>">  <% if (e.mediaType === \'youtube\') { %>  <iframe class="event-media-youtube" width="100%" height="350" src="<%= e.media %>" frameborder="0" allowfullscreen></iframe>   <% } else if (e.mediaType === \'soundcloud_large\') { %>  <iframe class="event-media-soundcloud" width="100%" height="350" scrolling="no" frameborder="no" src="<%= e.media %>"></iframe>   <% } else if (e.mediaType === \'soundcloud\') { %>  <iframe class="event-media-soundcloud" width="100%" height="166" scrolling="no" frameborder="no" src="<%= e.media %>"></iframe>   <% } else { %>  <img class="event-media-image" src="<%= e.media %>">  <% } %>  </div>   <% if (e.source) { %>  <div class="event-source">  <%= e.source %>  </div>  <% } %>  </div>  <% } %>   <% if (e.body) { %>  <div class="event-body-container <% if (e.media) { %>with-media<% } %>">  <div class="event-body"><%= e.body %></div>  </div>  <% } %>  </div>  </div>  <% }) %>  </div>  </div>  <% }) %>  </div>   <div class="spine-end spine-bottom timeline-bg-color">  <div><div class="spine-color spine-point"></div></div>  </div> </div> '
+    template: '<div class="timeline-container timeline-bg-color">  <div class="mini-timeline">  <div class="mini-timeline-progress"></div>  </div>   <% if (typeof title !== \'undefined\' && title) { %>  <div class="timeline-header header-color cf">  <div class="timeline-label">Timeline:</div>   <div class="timeline-title"><%= title %></div>  </div>  <% } %>   <div class="spine-background">  <div class="spine-color spine"></div>  </div>   <div class="spine-end spine-top header-color">  <div><div class="spine-color spine-point"></div></div>  <div><div class="spine-color spine"></div></div>  </div>   <div class="group-container">  <% _.forEach(groups, function(g, gi) { %>  <div class="group">  <div class="group-label-container">  <div class="group-label spine-color">  <%= g.display %>  </div>  </div>   <div class="group-entries">  <% _.forEach(g.entries, function(e, ei) { %>  <div class="entry" id="<%= timeline.id %>-<%= e.id %>">  <a class="entry-link" href="#<%= timeline.id %>-<%= e.id %>">link</a>   <div class="entry-date"><%= e.dateFormatted %></div>   <% if (e.title) { %>  <h3 class="entry-title"><%= e.title %></h3>  <% } %>   <div class="entry-content-container cf">  <% if (e.media) { %>  <div class="entry-media-container <% if (e.body) { %>with-body<% } %>">  <div class="entry-media <% if (e.source) { %>with-source<% } %>">  <% if (e.mediaType === \'youtube\') { %>  <iframe class="entry-media-youtube" width="100%" height="350" src="<%= e.media %>" frameborder="0" allowfullscreen></iframe>   <% } else if (e.mediaType === \'soundcloud_large\') { %>  <iframe class="entry-media-soundcloud" width="100%" height="350" scrolling="no" frameborder="no" src="<%= e.media %>"></iframe>   <% } else if (e.mediaType === \'soundcloud\') { %>  <iframe class="entry-media-soundcloud" width="100%" height="166" scrolling="no" frameborder="no" src="<%= e.media %>"></iframe>   <% } else { %>  <img class="entry-media-image" src="<%= e.media %>">  <% } %>  </div>   <% if (e.source) { %>  <div class="entry-source">  <%= e.source %>  </div>  <% } %>  </div>  <% } %>   <% if (e.body) { %>  <div class="entry-body-container <% if (e.media) { %>with-media<% } %>">  <div class="entry-body"><%= e.body %></div>  </div>  <% } %>  </div>  </div>  <% }) %>  </div>  </div>  <% }) %>  </div>   <div class="spine-end spine-bottom timeline-bg-color">  <div><div class="spine-color spine-point"></div></div>  </div> </div> '
   };
 
   // Constructior
@@ -63,8 +63,8 @@
     this.options = _.extend({}, defaultOptions, options || {});
 
     // Check event data
-    if (!_.isArray(this.options.events) && !_.isString(this.options.events)) {
-      throw new Error('"events" data should be provided as a string or array.');
+    if (!_.isArray(this.options.entries) && !_.isString(this.options.entries)) {
+      throw new Error('"entries" data should be provided as a string or array.');
     }
 
     // Ensure column mapping is an object
@@ -118,20 +118,20 @@
 
     // If the event data was provided as a string, attempt to parse as
     // CSV
-    if (_.isString(this.options.events)) {
-      this.options.events = this.parseCSV(this.options.events,
+    if (_.isString(this.options.entries)) {
+      this.options.entries = this.parseCSV(this.options.entries,
         this.options.csvDelimiter, this.options.csvQuote);
     }
 
-    // Map columns and attach events to object for easier access.
+    // Map columns and attach entries to object for easier access.
     // Should be in format { needed: provided }
-    this.events = this.mapKeys(this.options.events, this.options.keyMapping);
+    this.entries = this.mapKeys(this.options.entries, this.options.keyMapping);
 
-    // Parse events like dates
-    this.events = this.parseEvents(this.events);
+    // Parse entries like dates
+    this.entries = this.parseEntries(this.entries);
 
-    // Group events.
-    this.groups = this.groupEvents(this.events);
+    // Group entries.
+    this.groups = this.groupEntries(this.entries);
 
     // Sort groups
     this.groups = this.sortGroups(this.groups, this.options.descending);
@@ -167,7 +167,7 @@
         this.scrollTo(window.location.hash);
       }
 
-      // Add events to scroll to specific event when link is
+      // Add entries to scroll to specific event when link is
       // clicked.  This is a bit nicer and consistent with load.
       _.each(this.el.querySelectorAll('a.event-link'), function(a) {
         a.addEventListener('click', function(e) {
@@ -178,7 +178,7 @@
         });
       });
 
-      // Gather placement of events and timeline in order to determine
+      // Gather placement of entries and timeline in order to determine
       // where the user is on the timeline
       this.determinePlacements();
 
@@ -248,14 +248,14 @@
       return (typeof window !== 'undefined' && document);
     },
 
-    // Sort groups (and events in groups).  Sorts ascending (oldest to newest)
+    // Sort groups (and entries in groups).  Sorts ascending (oldest to newest)
     // by default, but can do descending.
     sortGroups: function(groups, descending) {
       descending = descending || false;
 
-      // Sort events
+      // Sort entries
       groups = _.map(groups, function(g) {
-        g.events = _.sortBy(g.events, function(e) {
+        g.entries = _.sortBy(g.entries, function(e) {
           return e.date.unix() * ((descending) ? -1 : 1);
         });
 
@@ -268,15 +268,15 @@
       });
     },
 
-    // Group events based on grouping function.  A grouping function
+    // Group entries based on grouping function.  A grouping function
     // should take an event and return an object with the following
     // properties: `id`, `date`  (as moment object), `display`
-    groupEvents: function(events) {
+    groupEntries: function(entries) {
       var groups = {};
       var groupByFunc;
 
       // Determine group
-      this.groupType = this.determineGroups(this.events);
+      this.groupType = this.determineGroups(this.entries);
 
       // Get grouping function
       groupByFunc = 'groupBy' + this.groupType.charAt(0).toUpperCase() +
@@ -284,15 +284,15 @@
       groupByFunc = this[groupByFunc];
 
       // Go through each event and create or add to group
-      _.each(events, function(e) {
+      _.each(entries, function(e) {
         var g = _.bind(groupByFunc, this)(e, moment);
 
         if (groups[g.id]) {
-          groups[g.id].events.push(e);
+          groups[g.id].entries.push(e);
         }
         else {
           groups[g.id] = g;
-          groups[g.id].events = [e];
+          groups[g.id].entries = [e];
         }
       });
 
@@ -328,22 +328,22 @@
     },
 
     // Determine groups
-    determineGroups: function(events) {
+    determineGroups: function(entries) {
       // Some functions
       var getDate = function(e) { return e.date.unix(); };
 
       // Determine span and grouping
-      var min = _.min(events, getDate);
-      var max = _.max(events, getDate);
+      var min = _.min(entries, getDate);
+      var max = _.max(entries, getDate);
       var diff = max.date.diff(min.date, 'years');
 
       return (diff < 2) ? 'months' :
         (diff < 10) ? 'years' : 'decades';
     },
 
-    // Parse events
-    parseEvents: function(events) {
-      return _.map(events, _.bind(function(e) {
+    // Parse entries
+    parseEntries: function(entries) {
+      return _.map(entries, _.bind(function(e) {
         // Parse date
         var d = moment(e.date, this.options.dateFormat);
         if (!d.isValid()) {
@@ -407,8 +407,8 @@
       this.top = this.el.getBoundingClientRect().top + window.pageYOffset;
       this.bottom = this.el.getBoundingClientRect().bottom + window.pageYOffset;
 
-      // Determine top and bottom of events
-      this.events = _.map(this.events, function(e) {
+      // Determine top and bottom of entries
+      this.entries = _.map(this.entries, function(e) {
         e.el = _this.getElement(_this.id + '-' + e.id);
         e.top = e.el.getBoundingClientRect().top + window.pageYOffset;
         e.bottom = e.el.getBoundingClientRect().bottom + window.pageYOffset;
@@ -418,11 +418,11 @@
     },
 
     // Map columns
-    mapKeys: function(events, mapping) {
+    mapKeys: function(entries, mapping) {
       mapping = mapping || {};
 
       // Go through each event, clone, change mappings, and remove old
-      return _.map(events, function(e) {
+      return _.map(entries, function(e) {
         var n = _.clone(e);
 
         // Find a mapping

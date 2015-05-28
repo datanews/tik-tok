@@ -27,7 +27,7 @@ describe('Timeline', function() {
   // Constructor
   describe('#constructor', function() {
     // Throws and error with no event data
-    it('should throw an error without any events', function() {
+    it('should throw an error without any entries', function() {
       var t;
 
       assert.throws(function() {
@@ -40,11 +40,11 @@ describe('Timeline', function() {
     /*
     it('should throw an error if bad dates are given', function() {
       var t;
-      var events = [{ date: 'this is not valid', title: 'Title!', body: 'Over here!' }];
+      var entries = [{ date: 'this is not valid', title: 'Title!', body: 'Over here!' }];
 
       assert.throws(function() {
         t = new Timeline({
-          events: events
+          entries: entries
         });
       });
     });
@@ -53,12 +53,12 @@ describe('Timeline', function() {
     // Throws error with bad key mapping
     it('should throw an error if bad key mapping are given', function() {
       var t;
-      var events = [{ date: '2015-01-03', title: 'Title!', body: 'Over here!' }];
+      var entries = [{ date: '2015-01-03', title: 'Title!', body: 'Over here!' }];
       var keyMapping = 'key-mapping';
 
       assert.throws(function() {
         t = new Timeline({
-          events: events,
+          entries: entries,
           keyMapping: keyMapping
         });
       });
@@ -67,11 +67,11 @@ describe('Timeline', function() {
     // Throws error with bad csvDelimiter
     it('should throw an error if bad csvDelimiter string is given', function() {
       var t;
-      var events = [{ date: '2015-01-03', title: 'Title!', body: 'Over here!' }];
+      var entries = [{ date: '2015-01-03', title: 'Title!', body: 'Over here!' }];
 
       assert.throws(function() {
         t = new Timeline({
-          events: events,
+          entries: entries,
           csvDelimiter: 'too long'
         });
       });
@@ -80,11 +80,11 @@ describe('Timeline', function() {
     // Throws error with bad csvQuote
     it('should throw an error if bad csvQuote string is given', function() {
       var t;
-      var events = [{ date: '2015-01-03', title: 'Title!', body: 'Over here!' }];
+      var entries = [{ date: '2015-01-03', title: 'Title!', body: 'Over here!' }];
 
       assert.throws(function() {
         t = new Timeline({
-          events: events,
+          entries: entries,
           csvQuote: undefined
         });
       });
@@ -93,12 +93,12 @@ describe('Timeline', function() {
     // Throws error with bad template
     it('should throw an error if bad template string is given', function() {
       var t;
-      var events = [{ date: '2015-01-03', title: 'Title!', body: 'Over here!' }];
+      var entries = [{ date: '2015-01-03', title: 'Title!', body: 'Over here!' }];
       var template = '<% if x %>';
 
       assert.throws(function() {
         t = new Timeline({
-          events: events,
+          entries: entries,
           template: template
         });
       });
@@ -107,11 +107,11 @@ describe('Timeline', function() {
     // Should not throw errors with valid data
     it('should not throw an error with valid event (JSON) data', function() {
       var t;
-      var events = [{ date: '2015-01-03', title: 'Title!', body: 'Over here!' }];
+      var entries = [{ date: '2015-01-03', title: 'Title!', body: 'Over here!' }];
 
       assert.doesNotThrow(function() {
         t = new Timeline({
-          events: events
+          entries: entries
         });
       });
     });
@@ -119,17 +119,17 @@ describe('Timeline', function() {
     // Should not throw errors with valid csv data
     it('should not throw an error with valid event (CSV) data', function() {
       var t;
-      var events = 'date,title,body\r\n' +
+      var entries = 'date,title,body\r\n' +
         '2014-04-04,title 1,body 1\r\n' +
         '2000-04-04,title 2,body 2';
 
       t = new Timeline({
-        events: events
+        entries: entries
       });
 
       assert.doesNotThrow(function() {
         t = new Timeline({
-          events: events
+          entries: entries
         });
       });
     });
@@ -137,11 +137,11 @@ describe('Timeline', function() {
     // Parses unique date
     it('should not throw an error when parsing unique date with dateFormat option', function() {
       var t;
-      var events = [{ date: '1988-------10/1', title: 'Title!', body: 'Over here!' }];
+      var entries = [{ date: '1988-------10/1', title: 'Title!', body: 'Over here!' }];
 
       assert.doesNotThrow(function() {
         t = new Timeline({
-          events: events,
+          entries: entries,
           dateFormat: 'YYYYY-------MM/D'
         });
       });
@@ -152,7 +152,7 @@ describe('Timeline', function() {
   describe('#checkBrowser', function() {
     it('should (not) be browser', function() {
       var isBrowser = !(module && module.exports);
-      var events = [
+      var entries = [
         { date: '2014-05-01', title: 'Second', body: 'This is 2' },
         { date: '2014-06-01', title: 'Third', body: 'This is 3' },
         { date: '2014-03-01', title: 'First', body: 'This is 1' }
@@ -160,7 +160,7 @@ describe('Timeline', function() {
       var t;
 
       t = new Timeline({
-        events: events
+        entries: entries
       });
 
       assert.equal(t.checkBrowser(), isBrowser);
@@ -170,7 +170,7 @@ describe('Timeline', function() {
   // Method key mapping
   describe('#mapKeys', function() {
     it('should map different keys', function() {
-      var events = [
+      var entries = [
         {
           'this is a date': '2014-05-01',
           'this is out title': 'Title!',
@@ -190,16 +190,16 @@ describe('Timeline', function() {
         body: 'and our body is here'
       };
       var t = new Timeline({
-        events: events,
+        entries: entries,
         keyMapping: keyMapping
       });
 
-      assert.deepEqual(t.mapKeys(events, keyMapping), expected);
+      assert.deepEqual(t.mapKeys(entries, keyMapping), expected);
     });
 
     // Should be fine if keys are what they should be
     it('should map same keys', function() {
-      var events = [
+      var entries = [
         {
           date: '2014-05-01',
           title: 'Title!',
@@ -207,71 +207,71 @@ describe('Timeline', function() {
         }
       ];
       var t = new Timeline({
-        events: events,
+        entries: entries,
         keyMapping: {}
       });
 
-      assert.deepEqual(t.mapKeys(events, {}), events);
+      assert.deepEqual(t.mapKeys(entries, {}), entries);
     });
   });
 
   // Determine groups
   describe('#determineGroups', function() {
-    // Group these events by months
+    // Group these entries by months
     it('should determine group to be months', function() {
       var t;
-      var events = [
+      var entries = [
         { date: '2014-05-01', title: 'Second', body: 'This is 2' },
         { date: '2014-06-01', title: 'Third', body: 'This is 3' },
         { date: '2014-03-01', title: 'First', body: 'This is 1' }
       ];
 
       t = new Timeline({
-        events: events
+        entries: entries
       });
 
       assert.equal(t.groupType, 'months');
     });
 
-    // Group these events by years
+    // Group these entries by years
     it('should determine group to be years', function() {
       var t;
-      var events = [
+      var entries = [
         { date: '2014-05-01', title: 'Second', body: 'This is 2' },
         { date: '2015-06-01', title: 'Third', body: 'This is 3' },
         { date: '2013-03-01', title: 'First', body: 'This is 1' }
       ];
 
       t = new Timeline({
-        events: events
+        entries: entries
       });
 
       assert.equal(t.groupType, 'years');
     });
 
-    // Group these events by decades
+    // Group these entries by decades
     it('should determine group to be decades', function() {
       var t;
-      var events = [
+      var entries = [
         { date: '1990-05-01', title: 'Second', body: 'This is 2' },
         { date: '2000-06-01', title: 'Third', body: 'This is 3' },
         { date: '1980-03-01', title: 'First', body: 'This is 1' }
       ];
 
       t = new Timeline({
-        events: events
+        entries: entries
       });
 
       assert.equal(t.groupType, 'decades');
     });
   });
 
-  // Group events
-  describe('#groupEvents', function() {
-    // Group these events by months
-    it('should group events by months', function() {
+  // Group entries
+  describe('#groupEntries', function() {
+    // Group these entries by months
+    it('should group entries by months', function() {
       var t;
-      var events = [
+      var entries = [
         { date: '2014-05-01', title: 'Second', body: 'This is 2' },
         { date: '2014-06-01', title: 'Third', body: 'This is 3' },
         { date: '2014-03-01', title: 'First', body: 'This is 1' }
@@ -279,10 +279,10 @@ describe('Timeline', function() {
       var expected = '2014-05';
 
       t = new Timeline({
-        events: events
+        entries: entries
       });
 
-      assert.equal(t.groupEvents(t.events)[0].id, expected);
+      assert.equal(t.groupEntries(t.entries)[0].id, expected);
     });
   });
 
@@ -291,48 +291,48 @@ describe('Timeline', function() {
     // Sort groups
     it('should sort groups (ascending)', function() {
       var t;
-      var events = [
+      var entries = [
         { date: '2014-05-01', title: 'Second', body: 'This is 2' },
         { date: '2014-06-01', title: 'Third', body: 'This is 3' },
         { date: '2014-03-01', title: 'First', body: 'This is 1' }
       ];
 
       t = new Timeline({
-        events: events
+        entries: entries
       });
 
       assert.equal(t.sortGroups(t.groups)[0].id, '2014-03');
       assert.equal(t.sortGroups(t.groups)[1].id, '2014-05');
     });
 
-    // Sort events
-    it('should sort events (ascending)', function() {
+    // Sort entries
+    it('should sort entries (ascending)', function() {
       var t;
-      var events = [
+      var entries = [
         { date: '2014-05-02', title: 'Second', body: 'This is 2' },
         { date: '2014-05-03', title: 'Third', body: 'This is 3' },
         { date: '2014-05-01', title: 'First', body: 'This is 1' }
       ];
 
       t = new Timeline({
-        events: events
+        entries: entries
       });
 
-      assert.equal(t.sortGroups(t.groups)[0].events[0].title, 'First');
-      assert.equal(t.sortGroups(t.groups)[0].events[1].title, 'Second');
+      assert.equal(t.sortGroups(t.groups)[0].entries[0].title, 'First');
+      assert.equal(t.sortGroups(t.groups)[0].entries[1].title, 'Second');
     });
 
     // Sort groups (desc)
     it('should sort groups (descending)', function() {
       var t;
-      var events = [
+      var entries = [
         { date: '2014-05-01', title: 'Second', body: 'This is 2' },
         { date: '2014-06-01', title: 'Third', body: 'This is 3' },
         { date: '2014-03-01', title: 'First', body: 'This is 1' }
       ];
 
       t = new Timeline({
-        events: events
+        entries: entries
       });
 
       assert.equal(t.sortGroups(t.groups, true)[0].id, '2014-06');
@@ -345,7 +345,7 @@ describe('Timeline', function() {
     // Not in browser
     it('should return null if not in browser', function() {
       var t;
-      var events = [
+      var entries = [
         { date: '2014-05-01', title: 'Second', body: 'This is 2' },
         { date: '2014-06-01', title: 'Third', body: 'This is 3' },
         { date: '2014-03-01', title: 'First', body: 'This is 1' }
@@ -354,7 +354,7 @@ describe('Timeline', function() {
 
       // Create object
       t = new Timeline({
-        events: events
+        entries: entries
       });
 
       assert.equal(t.getElement(element), null);
@@ -363,7 +363,7 @@ describe('Timeline', function() {
     // Use fake element
     it('should find element in browser', function() {
       var t;
-      var events = [
+      var entries = [
         { date: '2014-05-01', title: 'Second', body: 'This is 2' },
         { date: '2014-06-01', title: 'Third', body: 'This is 3' },
         { date: '2014-03-01', title: 'First', body: 'This is 1' }
@@ -372,7 +372,7 @@ describe('Timeline', function() {
 
       // Create object
       t = new Timeline({
-        events: events
+        entries: entries
       });
       t.isBrowser = true;
 
@@ -382,9 +382,9 @@ describe('Timeline', function() {
 
   // Media type
   describe('#determineMediaType', function() {
-    var events = [{ date: '2015-01-03', title: 'Title!', body: 'Over here!' }];
+    var entries = [{ date: '2015-01-03', title: 'Title!', body: 'Over here!' }];
     var t = new Timeline({
-      events: events
+      entries: entries
     });
 
     // No URL
@@ -420,9 +420,9 @@ describe('Timeline', function() {
 
   // Regex escapte
   describe('#regexEscape', function() {
-    var events = [{ date: '2015-01-03', title: 'Title!', body: 'Over here!' }];
+    var entries = [{ date: '2015-01-03', title: 'Title!', body: 'Over here!' }];
     var t = new Timeline({
-      events: events
+      entries: entries
     });
 
     // Parse CSV
@@ -437,9 +437,9 @@ describe('Timeline', function() {
 
   // Make identifier
   describe('#makeIdentifier', function() {
-    var events = [{ date: '2015-01-03', title: 'Title!', body: 'Over here!' }];
+    var entries = [{ date: '2015-01-03', title: 'Title!', body: 'Over here!' }];
     var t = new Timeline({
-      events: events
+      entries: entries
     });
 
     // Parse CSV
@@ -459,9 +459,9 @@ describe('Timeline', function() {
 
   // Parse a CSV
   describe('#parseCSV', function() {
-    var events = [{ date: '2015-01-03', title: 'Title!', body: 'Over here!' }];
+    var entries = [{ date: '2015-01-03', title: 'Title!', body: 'Over here!' }];
     var t = new Timeline({
-      events: events
+      entries: entries
     });
 
     // Parse CSV

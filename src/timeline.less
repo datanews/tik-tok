@@ -10,7 +10,7 @@
 @color-header: #FFFFFF;
 @bg-color-grouping: #FFCC00;
 @color-grouping: #232323;
-@bg-color-event: #FFFFFF;
+@bg-color-entry: #FFFFFF;
 @color-date: #FF6666;
 @color-source: #8B8B8B;
 @color-link: #FFFFFF;
@@ -164,25 +164,25 @@
       margin: 0 auto 1em auto;
     }
 
-    .group-events {
+    .group-entries {
       padding: 0 1em 1em 1em;
       margin-bottom: 1em;
     }
   }
 
-  .event {
+  .entry {
     padding: 1em;
     margin-bottom: 1em;
-    background-color: @bg-color-event;
+    background-color: @bg-color-entry;
 
-    .event-date {
+    .entry-date {
       margin-bottom: 1em;
       font-size: 0.85em;
       color: @color-date;
       text-transform: uppercase;
     }
 
-    .event-link {
+    .entry-link {
       display: block;
       float: right;
       padding: 1em 1em;
@@ -199,14 +199,14 @@
       }
     }
 
-    .event-title {
+    .entry-title {
       padding: 0;
       margin: 0 0 0.75em 0;
       font-size: 1.5em;
       font-weight: normal;
     }
 
-    .event-media {
+    .entry-media {
       margin: 0 -1em 1em -1em;
 
       &.with-source {
@@ -218,20 +218,20 @@
       }
     }
 
-    .event-source {
+    .entry-source {
       margin-bottom: 1em;
       font-family: @font-content;
       font-size: 0.85em;
       color: @color-source;
     }
 
-    .event-body {
+    .entry-body {
       margin-bottom: 0;
       font-family: @font-content;
     }
 
-    .event-body,
-    .event-source {
+    .entry-body,
+    .entry-source {
 
       a {
         color: @color-body-link;
@@ -264,22 +264,22 @@
 
     // On larger screens split media and body
     @media (min-width: @width-medium) {
-      .event-media-container.with-body,
-      .event-body-container.with-media {
+      .entry-media-container.with-body,
+      .entry-body-container.with-media {
         width: 50%;
         float: right;
       }
 
-      .event-media-container.with-body {
+      .entry-media-container.with-body {
         padding-left: 1em;
 
-        .event-media {
+        .entry-media {
           margin-left: 0;
           margin-right: 0;
         }
       }
 
-      .event-body-container.with-media {
+      .entry-body-container.with-media {
         padding-right: 1em;
       }
     }

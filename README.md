@@ -28,12 +28,12 @@ Timeline is simply a object your create and give it configuration:
 
     var t = new Timeline({
       el: '.example-timeline-container',
-      events: [ ... event data here ... ]
+      entries: [ ... entries data here (see below) ... ]
     });
 
-### Events
+### Entries
 
-Event data should be either an array of objects or a CSV string with the following keys or column headings respectively.  The `date` field is the only absolutely necessary field, though, you probably want at least a title.
+Entry data should be either an array of objects or a CSV string with the following keys or column headings respectively.  The `date` field is the only absolutely necessary field, though, you probably want at least a title.
 
 JSON example:
 
@@ -53,23 +53,25 @@ CSV example:
     2013-01-01,Great event,"Why not some <em>HTML</em>",,
     2013-01-01,Awesome event,"This has a comma, in it.",http://url.com/to/image.png,Cool image
 
+The term "entry" is used instead of "event" as JS uses the same term for many things.
+
 ### Options
 
 You can use the following options when defining a timeline:
 
 * `dateFormat`: A string or array of strings that will be used to parse dates.  The default is: `['MMM DD, YYYY', 'MM/DD/YYYY', 'M/D/YYYY', 'DD MMM YYYY', 'YYYY-MM-DD']`.  For more details see the Moment.js [parsing docs](http://momentjs.com/docs/#/parsing/string-formats/).
-* `dateDisplay`: A string for how the event date will be displayed for each event.  See the docs [Moment.js formating](http://momentjs.com/docs/#/displaying/format/) for a complete list of options.  The default is `MMM DD, YYYY`.
-* `descending`: Boolean that will make the order of events descending (newest to oldest) if set to true.  The default is `false` which is ascending (oldest to newest).
+* `dateDisplay`: A string for how the entry date will be displayed for each entry in the timeline.  See the docs [Moment.js formating](http://momentjs.com/docs/#/displaying/format/) for a complete list of options.  The default is `MMM DD, YYYY`.
+* `descending`: Boolean that will make the order of entries descending (newest to oldest) by date if set to true.  The default is `false` which is ascending (oldest to newest).
 * `csvDelimiter`: The delimiting chracter if you are using a CSV string.  The default is `,`.
 * `csvQuote`: The quote chracter if you are using a CSV string.  The default is `"`.
-* `keyMapping`: If you have event data that is keyed differently, you can provide a basic object to convert when it is processed.  For instance:  
+* `keyMapping`: If you have entry data that is keyed differently, you can provide a basic object to convert when it is processed.  For instance:  
     ```
     {
       'needed-key': 'provided-key',
       'date': 'this is our crazy keyed date field'
     }
     ```
-* `template`: If you want to override the HTML output of the timeline, use your own template.  See the `src/timeline.tpl.html` for a starting point.  You can provide a string that will be processed with [Underscore's template function](http://underscorejs.org/#template), or provide your own templating function.  The function will be passed the `groups` of events, `_` (Underscore), and the whole `timeline` object.
+* `template`: If you want to override the HTML output of the timeline, use your own template.  See the `src/timeline.tpl.html` for a starting point.  You can provide a string that will be processed with [Underscore's template function](http://underscorejs.org/#template), or provide your own templating function.  The function will be passed the `groups` of entries, `_` (Underscore), the timeline `title`, and the whole `timeline` object.
 
 
 ## Development and contributing

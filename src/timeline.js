@@ -37,7 +37,7 @@
     // Date display format
     dateDisplay: 'MMM DD, YYYY',
 
-    // Put order of events in descending order (newest to oldest).  The default
+    // Put order of entries in descending order (newest to oldest).  The default
     // is off, ascending (oldest to newest)
     descending: false,
 
@@ -57,8 +57,8 @@
     this.options = _.extend({}, defaultOptions, options || {});
 
     // Check event data
-    if (!_.isArray(this.options.events) && !_.isString(this.options.events)) {
-      throw new Error('"events" data should be provided as a string or array.');
+    if (!_.isArray(this.options.entries) && !_.isString(this.options.entries)) {
+      throw new Error('"entries" data should be provided as a string or array.');
     }
 
     // Ensure column mapping is an object
@@ -112,20 +112,20 @@
 
     // If the event data was provided as a string, attempt to parse as
     // CSV
-    if (_.isString(this.options.events)) {
-      this.options.events = this.parseCSV(this.options.events,
+    if (_.isString(this.options.entries)) {
+      this.options.entries = this.parseCSV(this.options.entries,
         this.options.csvDelimiter, this.options.csvQuote);
     }
 
-    // Map columns and attach events to object for easier access.
+    // Map columns and attach entries to object for easier access.
     // Should be in format { needed: provided }
-    this.events = this.mapKeys(this.options.events, this.options.keyMapping);
+    this.entries = this.mapKeys(this.options.entries, this.options.keyMapping);
 
-    // Parse events like dates
-    this.events = this.parseEvents(this.events);
+    // Parse entries like dates
+    this.entries = this.parseEntries(this.entries);
 
-    // Group events.
-    this.groups = this.groupEvents(this.events);
+    // Group entries.
+    this.groups = this.groupEntries(this.entries);
 
     // Sort groups
     this.groups = this.sortGroups(this.groups, this.options.descending);
@@ -161,7 +161,7 @@
         this.scrollTo(window.location.hash);
       }
 
-      // Add events to scroll to specific event when link is
+      // Add entries to scroll to specific event when link is
       // clicked.  This is a bit nicer and consistent with load.
       _.each(this.el.querySelectorAll('a.event-link'), function(a) {
         a.addEventListener('click', function(e) {
@@ -172,7 +172,7 @@
         });
       });
 
-      // Gather placement of events and timeline in order to determine
+      // Gather placement of entries and timeline in order to determine
       // where the user is on the timeline
       this.determinePlacements();
 
@@ -242,14 +242,14 @@
       return (typeof window !== 'undefined' && document);
     },
 
-    // Sort groups (and events in groups).  Sorts ascending (oldest to newest)
+    // Sort groups (and entries in groups).  Sorts ascending (oldest to newest)
     // by default, but can do descending.
     sortGroups: function(groups, descending) {
       descending = descending || false;
 
-      // Sort events
+      // Sort entries
       groups = _.map(groups, function(g) {
-        g.events = _.sortBy(g.events, function(e) {
+        g.entries = _.sortBy(g.entries, function(e) {
           return e.date.unix() * ((descending) ? -1 : 1);
         });
 
@@ -262,15 +262,15 @@
       });
     },
 
-    // Group events based on grouping function.  A grouping function
+    // Group entries based on grouping function.  A grouping function
     // should take an event and return an object with the following
     // properties: `id`, `date`  (as moment object), `display`
-    groupEvents: function(events) {
+    groupEntries: function(entries) {
       var groups = {};
       var groupByFunc;
 
       // Determine group
-      this.groupType = this.determineGroups(this.events);
+      this.groupType = this.determineGroups(this.entries);
 
       // Get grouping function
       groupByFunc = 'groupBy' + this.groupType.charAt(0).toUpperCase() +
@@ -278,15 +278,15 @@
       groupByFunc = this[groupByFunc];
 
       // Go through each event and create or add to group
-      _.each(events, function(e) {
+      _.each(entries, function(e) {
         var g = _.bind(groupByFunc, this)(e, moment);
 
         if (groups[g.id]) {
-          groups[g.id].events.push(e);
+          groups[g.id].entries.push(e);
         }
         else {
           groups[g.id] = g;
-          groups[g.id].events = [e];
+          groups[g.id].entries = [e];
         }
       });
 
@@ -322,22 +322,22 @@
     },
 
     // Determine groups
-    determineGroups: function(events) {
+    determineGroups: function(entries) {
       // Some functions
       var getDate = function(e) { return e.date.unix(); };
 
       // Determine span and grouping
-      var min = _.min(events, getDate);
-      var max = _.max(events, getDate);
+      var min = _.min(entries, getDate);
+      var max = _.max(entries, getDate);
       var diff = max.date.diff(min.date, 'years');
 
       return (diff < 2) ? 'months' :
         (diff < 10) ? 'years' : 'decades';
     },
 
-    // Parse events
-    parseEvents: function(events) {
-      return _.map(events, _.bind(function(e) {
+    // Parse entries
+    parseEntries: function(entries) {
+      return _.map(entries, _.bind(function(e) {
         // Parse date
         var d = moment(e.date, this.options.dateFormat);
         if (!d.isValid()) {
@@ -401,8 +401,8 @@
       this.top = this.el.getBoundingClientRect().top + window.pageYOffset;
       this.bottom = this.el.getBoundingClientRect().bottom + window.pageYOffset;
 
-      // Determine top and bottom of events
-      this.events = _.map(this.events, function(e) {
+      // Determine top and bottom of entries
+      this.entries = _.map(this.entries, function(e) {
         e.el = _this.getElement(_this.id + '-' + e.id);
         e.top = e.el.getBoundingClientRect().top + window.pageYOffset;
         e.bottom = e.el.getBoundingClientRect().bottom + window.pageYOffset;
@@ -412,11 +412,11 @@
     },
 
     // Map columns
-    mapKeys: function(events, mapping) {
+    mapKeys: function(entries, mapping) {
       mapping = mapping || {};
 
       // Go through each event, clone, change mappings, and remove old
-      return _.map(events, function(e) {
+      return _.map(entries, function(e) {
         var n = _.clone(e);
 
         // Find a mapping
