@@ -234,7 +234,9 @@
 }
 .timeline-container .mini-timeline .mini-timeline-progress {
   position: relative;
-  width: 50%;
+  width: 0;
   height: 100%;
   background-color: #ffcc00;
+  -webkit-transition: width 200ms linear;
+          transition: width 200ms linear;
 }

@@ -290,7 +290,7 @@ describe('Timeline', function() {
         { date: '2014-06-01', title: 'Third', body: 'This is 3' },
         { date: '2014-03-01', title: 'First', body: 'This is 1' }
       ];
-      var expected = '2014-05';
+      var expected = '2014-03';
 
       t = new Timeline({
         entries: entries
@@ -325,7 +325,7 @@ describe('Timeline', function() {
         { date: '2014-06-01', title: 'Third', body: 'This is 3' },
         { date: '2014-03-01', title: 'First', body: 'This is 1' }
       ];
-      var expected = '2014-05';
+      var expected = '2014-03';
 
       t = new Timeline({
         entries: entries,

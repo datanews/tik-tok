@@ -136,6 +136,10 @@
     // Parse entries like dates
     this.entries = this.parseEntries(this.entries);
 
+    // Sort entries.  The entries as a single array is
+    // used for easy access too all entries
+    this.entries = this.sortEntries(this.entries, this.options.descending);
+
     // Group entries.
     this.groups = this.groupEntries(this.entries);
 
@@ -202,10 +206,24 @@
     // Update progress bar
     updateProgress: function() {
       var currentView = document.body.scrollTop;
+      var currentEntry = 0;
 
       // Determine if in timeline at all
       if (currentView >= this.top && currentView <= this.bottom) {
         this.miniEl.classList.add('enabled');
+
+        // Determine which entry we are in
+        _.each(this.entries, _.bind(function(e, ei) {
+          var bottom = (this.entries[ei + 1]) ? this.entries[ei + 1].top :
+            this.bottom;
+
+          if (currentView >= e.top && currentView < bottom) {
+            currentEntry = ei;
+          }
+        }, this));
+
+        // Move progress accordingly.
+        this.progressEl.style.width = (currentEntry / (this.entries.length - 1) * 100) + '%';
       }
       else {
         this.miniEl.classList.remove('enabled');
@@ -274,6 +292,17 @@
       // Sort groups
       return _.sortBy(groups, function(g) {
         return g.date.unix() * ((descending) ? -1 : 1);
+      });
+    },
+
+    // Sort entries.  Sorts ascending (oldest to newest)
+    // by default, but can do descending.
+    sortEntries: function(entries, descending) {
+      descending = descending || false;
+
+      // Sort entries
+      return _.sortBy(entries, function(e) {
+        return e.date.unix() * ((descending) ? -1 : 1);
       });
     },
 
@@ -355,7 +384,7 @@
         (diff < 20) ? 'years' : 'decades';
     },
 
-    // Parse entries
+    // Parse and sort entries
     parseEntries: function(entries) {
       return _.map(entries, _.bind(function(e) {
         // Parse date
