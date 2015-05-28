@@ -61,6 +61,7 @@ gulp.task('support-js', function() {
 // Run tests
 gulp.task('test', function() {
   return gulp.src('tests/**/*.js', { read: false })
+    .pipe(plumber(plumberHandler))
     .pipe(mocha({
       ui: 'bdd',
       reporter: 'spec'
