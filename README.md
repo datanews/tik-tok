@@ -106,11 +106,17 @@ Edit files in the `src` directory; these need to get built into the `dist` direc
     * Automatically builds the source files when they are changes.
     * Runs [Livereload](http://livereload.com/) and will update the browser when changes are made.  Requires installation of the Livereload application or the browser extensions.
 * `gulp watch`
-    * Running tasks that automatically builds the source files when they are changes.
+    * Running tasks that automatically builds the source files when they are changes.  The `server` command does this as well.
+
+### Build
+
+After edits are made, run checks and create build version with the following command.  Note that building will happen automatically with the above Development tasks.
+
+    gulp
 
 ### Testing
 
-Test should be run within the watch tasks described above, but you can run the tests manually with the following:
+Test should be run within the watch tasks described above, but you can run the tests manually with the following.  Do note that the Development tasks above will run these on save, and note that tests are run against the build (`dist`), not the source.
 
     gulp test
 
@@ -120,11 +126,6 @@ The project is setup to use [Testling](https://ci.testling.com/) for basic cross
 
     testling
 
-### Build
-
-After edits are made, run checks and create build version with the following command:
-
-    gulp
 
 ### Release
 
