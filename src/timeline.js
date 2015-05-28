@@ -56,7 +56,7 @@
   var Timeline = function(options) {
     this.options = _.extend({}, defaultOptions, options || {});
 
-    // Check event data
+    // Check entry data
     if (!_.isArray(this.options.entries) && !_.isString(this.options.entries)) {
       throw new Error('"entries" data should be provided as a string or array.');
     }
@@ -116,7 +116,7 @@
       throw new Error('Could not find a valid element from the given "el" option.');
     }
 
-    // If the event data was provided as a string, attempt to parse as
+    // If the entry data was provided as a string, attempt to parse as
     // CSV
     if (_.isString(this.options.entries)) {
       this.options.entries = this.parseCSV(this.options.entries,
@@ -175,15 +175,15 @@
         timeline: this
       });
 
-      // Go to specific event, check if part of this timeline.  This check
+      // Go to specific entry, check if part of this timeline.  This check
       // is not perfect
       if (window.location.hash && window.location.hash.indexOf('#' + this.id) === 0) {
         this.scrollTo(window.location.hash);
       }
 
-      // Add entries to scroll to specific event when link is
+      // Add entries to scroll to specific entry when link is
       // clicked.  This is a bit nicer and consistent with load.
-      _.each(this.el.querySelectorAll('a.event-link'), function(a) {
+      _.each(this.el.querySelectorAll('a.entry-link'), function(a) {
         a.addEventListener('click', function(e) {
           e.preventDefault();
           var hash = this.getAttribute('href');
@@ -213,7 +213,10 @@
     updateProgress: function() {
       var currentView = document.body.scrollTop;
       var currentEntry = 0;
-      var o = this.viewOffset;
+
+      // Offset view.  Adjust just a bit so that when scrolling to
+      // a specific entry, the progress will udpate.
+      var o = this.viewOffset + 2;
 
       // This is a bit hackish, but helps with a few situations like on
       // any movements of the elements through image loading or window
@@ -319,7 +322,7 @@
     },
 
     // Group entries based on grouping function.  A grouping function
-    // should take an event and return an object with the following
+    // should take an entry and return an object with the following
     // properties: `id`, `date`  (as moment object), `display`
     groupEntries: function(entries) {
       var groups = {};
@@ -335,7 +338,7 @@
         this.groupType.slice(1);
       groupByFunc = this[groupByFunc];
 
-      // Go through each event and create or add to group
+      // Go through each entry and create or add to group
       _.each(entries, function(e) {
         var g = _.bind(groupByFunc, this)(e, moment);
 
@@ -352,26 +355,26 @@
     },
 
     // Group by for months
-    groupByMonths: function(event, moment) {
+    groupByMonths: function(entry, moment) {
       return {
-        id: event.date.format('YYYY-MM'),
-        date: moment(event.date.format('YYYY-MM'), 'YYYY-MM'),
-        display: moment(event.date.format('YYYY-MM'), 'YYYY-MM').format('MMM, YYYY')
+        id: entry.date.format('YYYY-MM'),
+        date: moment(entry.date.format('YYYY-MM'), 'YYYY-MM'),
+        display: moment(entry.date.format('YYYY-MM'), 'YYYY-MM').format('MMM, YYYY')
       };
     },
 
     // Group by for years
-    groupByYears: function(event, moment) {
+    groupByYears: function(entry, moment) {
       return {
-        id: event.date.format('YYYY'),
-        date: moment(event.date.format('YYYY'), 'YYYY'),
-        display: moment(event.date.format('YYYY'), 'YYYY').format('YYYY')
+        id: entry.date.format('YYYY'),
+        date: moment(entry.date.format('YYYY'), 'YYYY'),
+        display: moment(entry.date.format('YYYY'), 'YYYY').format('YYYY')
       };
     },
 
     // Group by for decades
-    groupByDecades: function(event, moment) {
-      var decade = Math.floor(event.date.year() / 10) * 10;
+    groupByDecades: function(entry, moment) {
+      var decade = Math.floor(entry.date.year() / 10) * 10;
       return {
         id: decade.toString(),
         date: moment(decade.toString(), 'YYYY'),
@@ -450,7 +453,7 @@
       }
     },
 
-    // For each event, determine where it is on the page
+    // For each entry, determine where it is on the page
     // so that we can know where the user is in the timeline.
     //
     // Top and bottom of elements can be inaccurate as items,
@@ -476,7 +479,7 @@
     mapKeys: function(entries, mapping) {
       mapping = mapping || {};
 
-      // Go through each event, clone, change mappings, and remove old
+      // Go through each entry, clone, change mappings, and remove old
       return _.map(entries, function(e) {
         var n = _.clone(e);
 
