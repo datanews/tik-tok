@@ -71,6 +71,12 @@
       throw new Error('"template" was not provided as a string or function.');
     }
 
+    // Ensure groupBy is valid
+    if (!_.isUndefined(this.options.groupBy) &&
+      this.validGroupTypes.indexOf(this.options.groupBy) === -1) {
+      throw new Error('"groupBy" was provided but not a valid value.');
+    }
+
     // Ensure CSV characters are single characters, not that the parsing
     // couldn't probably handle it, but why make it more complex
     if (!_.isString(this.options.csvDelimiter) || this.options.csvDelimiter.length !== 1) {
@@ -142,8 +148,11 @@
     }
   };
 
-  // Add methods
+  // Add methods and properties
   _.extend(Timeline.prototype, {
+    // Initiate some properties
+    validGroupTypes: ['months', 'years', 'decade'],
+
     // Main renderer
     render: function() {
       var _this = this;
@@ -269,8 +278,10 @@
       var groups = {};
       var groupByFunc;
 
-      // Determine group
-      this.groupType = this.determineGroups(this.entries);
+      // Determine group.  Allow this to be overriden with option.
+      this.groupType = (this.options.groupType &&
+        this.validGroupTypes.indexOf(this.options.groupType) !== -1) ?
+        this.options.groupType : this.determineGroups(this.entries);
 
       // Get grouping function
       groupByFunc = 'groupBy' + this.groupType.charAt(0).toUpperCase() +
@@ -331,8 +342,11 @@
       var max = _.max(entries, getDate);
       var diff = max.date.diff(min.date, 'years');
 
+      // These breaks are an attempt to be a sane default
+      // but there's not really a way to make this perfect for
+      // everyone, hence why it can be overriden
       return (diff < 2) ? 'months' :
-        (diff < 10) ? 'years' : 'decades';
+        (diff < 20) ? 'years' : 'decades';
     },
 
     // Parse entries

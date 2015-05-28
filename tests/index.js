@@ -64,6 +64,20 @@ describe('Timeline', function() {
       });
     });
 
+    // Throws error with bad grouBy option
+    it('should throw an error if bad groupBy option is given', function() {
+      var t;
+      var entries = [{ date: '2015-01-03', title: 'Title!', body: 'Over here!' }];
+      var groupBy = 'this should not work';
+
+      assert.throws(function() {
+        t = new Timeline({
+          entries: entries,
+          groupBy: groupBy
+        });
+      });
+    });
+
     // Throws error with bad csvDelimiter
     it('should throw an error if bad csvDelimiter string is given', function() {
       var t;
@@ -254,7 +268,7 @@ describe('Timeline', function() {
       var t;
       var entries = [
         { date: '1990-05-01', title: 'Second', body: 'This is 2' },
-        { date: '2000-06-01', title: 'Third', body: 'This is 3' },
+        { date: '2005-06-01', title: 'Third', body: 'This is 3' },
         { date: '1980-03-01', title: 'First', body: 'This is 1' }
       ];
 
@@ -280,6 +294,42 @@ describe('Timeline', function() {
 
       t = new Timeline({
         entries: entries
+      });
+
+      assert.equal(t.groupEntries(t.entries)[0].id, expected);
+    });
+
+    // Option to override group by function
+    it('should group entries by years with a groupType option', function() {
+      var t;
+      var entries = [
+        { date: '2014-05-01', title: 'Second', body: 'This is 2' },
+        { date: '2014-06-01', title: 'Third', body: 'This is 3' },
+        { date: '2014-03-01', title: 'First', body: 'This is 1' }
+      ];
+      var expected = '2014';
+
+      t = new Timeline({
+        entries: entries,
+        groupType: 'years'
+      });
+
+      assert.equal(t.groupEntries(t.entries)[0].id, expected);
+    });
+
+    // Option to override group by function
+    it('should group entries by months with a bad groupType option', function() {
+      var t;
+      var entries = [
+        { date: '2014-05-01', title: 'Second', body: 'This is 2' },
+        { date: '2014-06-01', title: 'Third', body: 'This is 3' },
+        { date: '2014-03-01', title: 'First', body: 'This is 1' }
+      ];
+      var expected = '2014-05';
+
+      t = new Timeline({
+        entries: entries,
+        groupType: 'This is a bad option'
       });
 
       assert.equal(t.groupEntries(t.entries)[0].id, expected);
