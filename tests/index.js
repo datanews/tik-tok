@@ -11,7 +11,7 @@
 // Dependencies.  See the following for assert reference
 // https://nodejs.org/api/assert.html
 var assert = require('assert');
-var TikTok = require('../dist/tiktok');
+var TikTok = require('../dist/tik-tok');
 
 // Tests for TikTok object
 describe('TikTok', function() {
