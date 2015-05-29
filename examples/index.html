@@ -4,7 +4,7 @@
     <meta charset="utf-8">
     <meta http-equiv="x-ua-compatible" content="ie=edge">
 
-    <title>Tik Tok example</title>
+    <title>Tik Tok examples</title>
 
     <meta name="viewport" content="width=device-width, initial-scale=1">
 
@@ -58,33 +58,33 @@
       }
 
       /* Example styling for tabletop */
-      .tabletop-timeline-container .tt-bg-color {
+      #tik-tok-tabletop .tt-bg-color {
         background-color: #BDBDBD;
       }
 
-      .tabletop-timeline-container .tt-spine-color {
+      #tik-tok-tabletop .tt-spine-color {
         background-color: #6A6A6A;
         color: #FFFFFF;
       }
 
-      .tabletop-timeline-container .tt-header-color {
+      #tik-tok-tabletop .tt-header-color {
         background-color: #282828;
       }
 
-      .tabletop-timeline-container .tt-entry .tt-entry-date {
+      #tik-tok-tabletop .tt-entry .tt-entry-date {
         color: #282828;
       }
 
-      .tabletop-timeline-container .tt-entry .tt-entry-link {
+      #tik-tok-tabletop .tt-entry .tt-entry-link {
         background-color: #282828;
       }
 
-      .tabletop-timeline-container .tt-entry .tt-entry-body a {
+      #tik-tok-tabletop .tt-entry .tt-entry-body a {
         color: #282828;
         font-weight: bold;
       }
 
-      .tabletop-timeline-container .tt-progress-bar .tt-progress {
+      #tik-tok-tabletop .tt-progress-bar .tt-progress {
         background-color: #A4A4A4;
       }
     </style>
@@ -94,12 +94,12 @@
     <div class="section-ban">
       <div class="section-wrapper">
         <div class="intro">
-          Timeline is a simple, mobile-friendly, vertical timeline library that makes it easy to turn your entry data into something fun.  Check out the examples below.
+          Tik Tok is a simple, mobile-friendly, vertical timeline Javascript library that makes it easy to turn your timely data into something fun.  Check out the examples below.
         </div>
       </div>
     </div>
 
-    <div class="welcome-timeline-container">
+    <div id="welcome-tik-tok">
       <div class="temp-loading">Loading...</div>
     </div>
 
@@ -151,7 +151,7 @@ var welcomeTimeline = new Timeline({
       </div>
     </div>
 
-    <div class="tabletop-timeline-container"></div>
+    <div id="tik-tok-tabletop"></div>
 
 
     <!-- Dependencies -->
@@ -164,12 +164,12 @@ var welcomeTimeline = new Timeline({
     <!-- Main library JS -->
     <script src="../dist/tik-tok.js"></script>
 
-    <!-- Make timeline -->
+    <!-- Make examples -->
     <script>
       // Welcome timeline
       var welcomeTimeline = new TikTok({
-        el: '.welcome-timeline-container',
-        title: 'Welcome to Timeline',
+        el: 'welcome-tik-tok',
+        title: 'Welcome to Tik Tok',
         entries: [
           { date: '2009-06-03', title: 'Welcome to the timeline',
             body: 'Timeline lets you create a simple, mobile-friendly, vertical timeline easily.  Just give it some entry data and it will do the rest.  This timeline will walk you through some of the features of Timeline, all with some cute kitten pictures.' },
@@ -202,13 +202,13 @@ var welcomeTimeline = new Timeline({
         ]
       });
 
-      // Tabletop timeline container
+      // Tabletop example
       Tabletop.init({
         key: '1aZuK7Hn_THzCGE0fujCV93CSozfT2FxDtSMaVG3ltiA',
         simpleSheet: true,
         callback: function(data, tabletop) {
           var tabletopTimeline = new TikTok({
-            el: '.tabletop-timeline-container',
+            el: '#tik-tok-tabletop',
             title: 'Getting data from Google Spreadsheets',
             entries: data
           });
