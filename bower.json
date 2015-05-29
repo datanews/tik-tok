@@ -1,7 +1,8 @@
 {
-  "name": "mobile-timeline",
+  "name": "tik-tok",
   "version": "0.0.1",
-  "homepage": "https://github.com/datanews/mobile-timeline",
+  "homepage": "https://github.com/datanews/tik-tok",
+  "description": "Tik Tok is a Javascript tool to easily create beautiful, mobile-friendly, vertical timelines",
   "authors": [
     {
       "name": "Alan Palazzolo",
@@ -24,8 +25,7 @@
       "url": "http://wnyc.org"
     }
   ],
-  "description": "A timeline focused on a mobile-first strategy (i.e. vertical)",
-  "main": "dist/timeline.js",
+  "main": "dist/tik-tok.js",
   "moduleType": [
     "amd",
     "globals",

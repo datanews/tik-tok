@@ -1,14 +1,14 @@
 {
-  "name": "mobile-timeline",
+  "name": "tik-tok",
   "version": "0.0.1",
-  "description": "A timeline focused on a mobile-first strategy (i.e. vertical)",
+  "description": "Tik Tok is a Javascript tool to easily create beautiful, mobile-friendly, vertical timelines.",
   "main": "gulpfile.js",
   "scripts": {
     "test": "gulp test"
   },
   "repository": {
     "type": "git",
-    "url": "https://github.com/datanews/mobile-timeline.git"
+    "url": "https://github.com/datanews/tik-tok.git"
   },
   "keywords": [
     "timeline"
@@ -37,9 +37,9 @@
   ],
   "license": "MIT",
   "bugs": {
-    "url": "https://github.com/datanews/mobile-timeline/issues"
+    "url": "https://github.com/datanews/tik-tok/issues"
   },
-  "homepage": "https://github.com/datanews/mobile-timeline",
+  "homepage": "https://github.com/datanews/tik-tok",
   "devDependencies": {
     "gulp": "^3.8.11",
     "gulp-autoprefixer": "^2.2.0",
