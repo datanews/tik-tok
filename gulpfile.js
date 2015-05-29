@@ -1,5 +1,5 @@
 /**
- * Gulp file for the timeline project.  This handles tasks like building,
+ * Gulp file for the Tik Tok project.  This handles tasks like building,
  * linting, and other helpful development things.
  */
 'use strict';
@@ -68,14 +68,14 @@ gulp.task('test', function() {
     }));
 });
 
-// Main JS task for timeline library.  Takes in files from src and outputs
+// Main JS task for TikTok library.  Takes in files from src and outputs
 // to dist.  Gets template and uses JSHint, JSCS, add header, minify
 gulp.task('js', function() {
   gulp.src('src/**/*.js')
     .pipe(plumber(plumberHandler))
     .pipe(replace(
       'REPLACE-DEFAULT-TEMPLATE',
-      fs.readFileSync('src/timeline.tpl.html', {
+      fs.readFileSync('src/tiktok.tpl.html', {
         encoding: 'utf-8'
       }).replace(/'/g, '\\\'').replace(/(\r\n|\n|\r|\s+)/g, ' ')
     ))
