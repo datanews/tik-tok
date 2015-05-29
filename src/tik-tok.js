@@ -329,9 +329,9 @@
       var groupByFunc;
 
       // Determine group.  Allow this to be overriden with option.
-      this.groupType = (this.options.groupType &&
-        this.validGroupTypes.indexOf(this.options.groupType) !== -1) ?
-        this.options.groupType : this.determineGroups(this.entries);
+      this.groupType = (this.options.groupBy &&
+        this.validGroupTypes.indexOf(this.options.groupBy) !== -1) ?
+        this.options.groupBy : this.determineGroups(this.entries);
 
       // Get grouping function
       groupByFunc = 'groupBy' + this.groupType.charAt(0).toUpperCase() +
