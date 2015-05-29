@@ -59,7 +59,7 @@ gulp.task('support-js', function() {
 });
 
 // Run tests
-gulp.task('test', function() {
+gulp.task('test', ['js', 'support-js'], function() {
   return gulp.src('tests/**/*.js', { read: false })
     .pipe(plumber(plumberHandler))
     .pipe(mocha({
@@ -71,7 +71,7 @@ gulp.task('test', function() {
 // Main JS task.  Takes in files from src and outputs
 // to dist.  Gets template and uses JSHint, JSCS, add header, minify
 gulp.task('js', function() {
-  gulp.src('src/**/*.js')
+  return gulp.src('src/**/*.js')
     .pipe(plumber(plumberHandler))
     .pipe(replace(
       'REPLACE-DEFAULT-TEMPLATE',
@@ -95,7 +95,7 @@ gulp.task('js', function() {
 
 // Styles.  Recess linting, Convert LESS to CSS, minify
 gulp.task('styles', function() {
-  gulp.src('src/**/*.less')
+  return gulp.src('src/**/*.less')
     .pipe(plumber(plumberHandler))
     .pipe(recess({
       noOverqualifying: false
@@ -127,7 +127,7 @@ gulp.task('watch', function() {
 
 // Web server for conveinence
 gulp.task('webserver', function() {
-  gulp.src('./')
+  return gulp.src('./')
     .pipe(webserver({
       port: 8089,
       livereload: {
