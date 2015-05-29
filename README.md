@@ -7,20 +7,27 @@ Tik Tok is a Javascript tool to easily create beautiful, mobile-friendly, vertic
 
 ## Install
 
-The easiest way to get the code is to use [Bower](https://bower.io); this will also get the **[Underscore](http://underscorejs.org/) and [Moment.js](http://momentjs.com/docs/) dependencies**.
+The easiest way to get the code is to use [Bower](https://bower.io) or [npm](https://www.npmjs.com/); this will also get the **[Underscore](http://underscorejs.org/) and [Moment.js](http://momentjs.com/docs/) dependencies**.
 
     bower install tik-tok
 
-You can also [download](https://github.com/datanews/tik-tok/archive/master.zip) the code from Github.
+or
+
+    npm install tik-tok (coming soon)
+
+You can also [download](https://github.com/datanews/tik-tok/archive/master.zip) the code from Github and separately download the dependencies.
 
 ## Include
 
 Include the files on your page
 
+    <!-- Optionally include the Lato font for headings. -->
+    <link href="http://fonts.googleapis.com/css?family=Lato&subset=latin,latin-ext" rel="stylesheet" type="text/css">
+
     <script src="moment.js"></script>
     <script src="underscore.js"></script>
 
-    <link rel="stylesheet" href="dist/tik-tok.css">
+    <link href="dist/tik-tok.css" rel="stylesheet" type="text/css">
     <script src="dist/tik-tok.js"></script>
 
 The library also supports module loaders like RequireJS, AMD, or Browserify.
