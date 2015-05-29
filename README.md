@@ -1,33 +1,36 @@
-# mobile-timeline (DRAFT)
+# Tik Tok (DRAFT)
 
-A timeline focused on a mobile-first strategy (i.e. vertical)
+Tik Tok is a Javascript tool to easily create beautiful, mobile-friendly, vertical timelines.
 
-[![Testling browser support](https://ci.testling.com/datanews/mobile-timeline.png)
-](https://ci.testling.com/datanews/mobile-timeline)
+[![Testling browser support](https://ci.testling.com/datanews/tik-tok.png)
+](https://ci.testling.com/datanews/tik-tok)
 
 ## Install
 
 The easiest way to get the code is to use [Bower](https://bower.io); this will also get the **[Underscore](http://underscorejs.org/) and [Moment.js](http://momentjs.com/docs/) dependencies**.
 
-    bower install https://github.com/datanews/mobile-timeline.git
+    bower install tik-tok
 
-You can also download the code from Github (TODO: include link and example).
+You can also [download](https://github.com/datanews/tik-tok/archive/master.zip) the code from Github.
 
 ## Include
 
-You can manually include the files:
+Include the files on your page
 
-    <link rel="stylesheet" href="timeline/dist/timeline.css">
-    <script src="timeline/dist/timeline.js"></script>
+    <script src="moment.js"></script>
+    <script src="underscore.js"></script>
+
+    <link rel="stylesheet" href="dist/tik-tok.css">
+    <script src="dist/tik-tok.js"></script>
 
 The library also supports module loaders like RequireJS, AMD, or Browserify.
 
 ## Use
 
-Timeline is simply a object your create and give it configuration:
+Tik Tok is simply a object your create and give it configuration:
 
-    var t = new Timeline({
-      el: '.example-timeline-container',
+    var t = new TikTok({
+      el: 'example-tik-tok-container',
       entries: [ ... entries data here (see below) ... ]
     });
 
@@ -53,12 +56,13 @@ CSV example:
     2013-01-01,Great event,"Why not some <em>HTML</em>",,
     2013-01-01,Awesome event,"This has a comma, in it.",http://url.com/to/image.png,Cool image
 
-The term "entry" is used instead of "event" as JS uses the same term for many things.
+The term "entry" is used instead of "event" as JS uses the term "event" for many things internally.
 
 ### Options
 
-You can use the following options when defining a timeline:
+You can use the following options when defining a Tik Tok timeline:
 
+* `el`: The ID string of the DOM element to put your Tik Tok container in.  This is required.  You can also use CSS selectors if you want.
 * `dateFormat`: A string or array of strings that will be used to parse dates.  The default is: `['MMM DD, YYYY', 'MM/DD/YYYY', 'M/D/YYYY', 'DD MMM YYYY', 'YYYY-MM-DD']`.  For more details see the Moment.js [parsing docs](http://momentjs.com/docs/#/parsing/string-formats/).
 * `dateDisplay`: A string for how the entry date will be displayed for each entry in the timeline.  See the docs [Moment.js formating](http://momentjs.com/docs/#/displaying/format/) for a complete list of options.  The default is `MMM DD, YYYY`.
 * `descending`: Boolean that will make the order of entries descending (newest to oldest) by date if set to true.  The default is `false` which is ascending (oldest to newest).
@@ -71,7 +75,7 @@ You can use the following options when defining a timeline:
       'date': 'this is our crazy keyed date field'
     }
     ```
-* `template`: If you want to override the HTML output of the timeline, use your own template.  See the `src/timeline.tpl.html` for a starting point.  You can provide a string that will be processed with [Underscore's template function](http://underscorejs.org/#template), or provide your own templating function.  The function will be passed the `groups` of entries, `_` (Underscore), the timeline `title`, and the whole `timeline` object.
+* `template`: If you want to override the HTML output of the timeline, use your own template.  See the `src/tik-tok.tpl.html` for a starting point.  You can provide a string that will be processed with [Underscore's template function](http://underscorejs.org/#template), or provide your own templating function.  The function will be passed the `groups` of entries, `_` (Underscore), the timeline `title`, and the whole `tiktok` object.
 
 
 ## Development and contributing
@@ -93,7 +97,7 @@ Install dependencies.  All commands are assumed to be from the [Command Line](ht
 1. Install [Gulp](http://gulpjs.com/) command line tool: `npm install gulp -g`
 1. Install [Bower](http://bower.cio/) command line tool: `npm install bower -g`
 1. (optional, see below) Install [Testling](https://ci.testling.com/) command line tool: `npm install -g testling`
-1. Get the code (replace with your fork's repository URL) and enter into the code directory: `git clone https://github.com/datanews/mobile-timeline.git && cd mobile-timeline`
+1. Get the code (replace with your fork's repository URL) and enter into the code directory: `git clone https://github.com/datanews/tik-tok.git && cd tik-tok`
 1. Install Node dependencies: `npm install`
 1. Install Bower dependencies: `bower install`
 
