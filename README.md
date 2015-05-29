@@ -75,6 +75,7 @@ You can use the following options when defining a Tik Tok timeline:
 * `descending`: Boolean that will make the order of entries descending (newest to oldest) by date if set to true.  The default is `false` which is ascending (oldest to newest).
 * `csvDelimiter`: The delimiting chracter if you are using a CSV string.  The default is `,`.
 * `csvQuote`: The quote chracter if you are using a CSV string.  The default is `"`.
+* `groupBy`: Tik Tok will automatically group your entries depending on what kind of time they all span.  This may not be exactly what you want, so you can override it with this option.  Use one of the following values: `'hours', 'days', 'months', 'years', or 'decades'`.  Default is `undefined`.
 * `keyMapping`: If you have entry data that is keyed differently, you can provide a basic object to convert when it is processed.  For instance:  
     ```
     {

@@ -335,9 +335,9 @@
       var groupByFunc;
 
       // Determine group.  Allow this to be overriden with option.
-      this.groupType = (this.options.groupType &&
-        this.validGroupTypes.indexOf(this.options.groupType) !== -1) ?
-        this.options.groupType : this.determineGroups(this.entries);
+      this.groupType = (this.options.groupBy &&
+        this.validGroupTypes.indexOf(this.options.groupBy) !== -1) ?
+        this.options.groupBy : this.determineGroups(this.entries);
 
       // Get grouping function
       groupByFunc = 'groupBy' + this.groupType.charAt(0).toUpperCase() +
@@ -358,6 +358,24 @@
       });
 
       return _.values(groups);
+    },
+
+    // Group by for hours
+    groupByHours: function(entry, moment) {
+      return {
+        id: entry.date.format('YYYY-MM-DD-HH'),
+        date: moment(entry.date.format('YYYY-MM-DD-HH'), 'YYYY-MM-DD-HH'),
+        display: moment(entry.date.format('YYYY-MM-DD-HH'), 'YYYY-MM-DD-HH').format('H a')
+      };
+    },
+
+    // Group by for days
+    groupByDays: function(entry, moment) {
+      return {
+        id: entry.date.format('YYYY-MM-DD'),
+        date: moment(entry.date.format('YYYY-MM-DD'), 'YYYY-MM-DD'),
+        display: moment(entry.date.format('YYYY-MM-DD'), 'YYYY-MM-DD').format('dddd')
+      };
     },
 
     // Group by for months
@@ -396,13 +414,17 @@
       // Determine span and grouping
       var min = _.min(entries, getDate);
       var max = _.max(entries, getDate);
-      var diff = max.date.diff(min.date, 'years');
+      var years = max.date.diff(min.date, 'years');
+      var days = max.date.diff(min.date, 'days');
 
       // These breaks are an attempt to be a sane default
       // but there's not really a way to make this perfect for
       // everyone, hence why it can be overriden
-      return (diff < 2) ? 'months' :
-        (diff < 20) ? 'years' : 'decades';
+      return (days <= 1) ? 'hours' :
+        (days <= 7) ? 'days' :
+        (years < 2) ? 'months' :
+        (years < 20) ? 'years' :
+        'decades';
     },
 
     // Parse and sort entries
