@@ -55,7 +55,7 @@
 
     // Template.  This can be a function or string and the default will
     // be replace in the build process
-    template: '<div class="tik-tok-container timeline-bg-color">  <div class="mini-timeline">  <div class="mini-timeline-progress"></div>  </div>   <% if (typeof title !== \'undefined\' && title) { %>  <div class="timeline-header header-color cf">  <div class="timeline-label">Timeline:</div>   <div class="timeline-title"><%= title %></div>  </div>  <% } %>   <div class="spine-background">  <div class="spine-color spine"></div>  </div>   <div class="spine-end spine-top header-color">  <div><div class="spine-color spine-point"></div></div>  <div><div class="spine-color spine"></div></div>  </div>   <div class="group-container">  <% _.forEach(groups, function(g, gi) { %>  <div class="group">  <div class="group-label-container">  <div class="group-label spine-color">  <%= g.display %>  </div>  </div>   <div class="group-entries">  <% _.forEach(g.entries, function(e, ei) { %>  <div class="entry" id="<%= tiktok.id %>-<%= e.id %>">  <a class="entry-link" href="#<%= tiktok.id %>-<%= e.id %>">link</a>   <div class="entry-date"><%= e.dateFormatted %></div>   <% if (e.title) { %>  <h3 class="entry-title"><%= e.title %></h3>  <% } %>   <div class="entry-content-container cf">  <% if (e.media) { %>  <div class="entry-media-container <% if (e.body) { %>with-body<% } %>">  <div class="entry-media <% if (e.source) { %>with-source<% } %>">  <% if (e.mediaType === \'youtube\') { %>  <iframe class="entry-media-youtube" width="100%" height="350" src="<%= e.media %>" frameborder="0" allowfullscreen></iframe>   <% } else if (e.mediaType === \'soundcloud_large\') { %>  <iframe class="entry-media-soundcloud" width="100%" height="350" scrolling="no" frameborder="no" src="<%= e.media %>"></iframe>   <% } else if (e.mediaType === \'soundcloud\') { %>  <iframe class="entry-media-soundcloud" width="100%" height="166" scrolling="no" frameborder="no" src="<%= e.media %>"></iframe>   <% } else { %>  <img class="entry-media-image" src="<%= e.media %>">  <% } %>  </div>   <% if (e.source) { %>  <div class="entry-source">  <%= e.source %>  </div>  <% } %>  </div>  <% } %>   <% if (e.body) { %>  <div class="entry-body-container <% if (e.media) { %>with-media<% } %>">  <div class="entry-body"><%= e.body %></div>  </div>  <% } %>  </div>  </div>  <% }) %>  </div>  </div>  <% }) %>  </div>   <div class="spine-end spine-bottom timeline-bg-color">  <div><div class="spine-color spine-point"></div></div>  </div> </div> '
+    template: '<div class="tik-tok-container tt-bg-color">  <div class="tt-progress-bar">  <div class="tt-progress"></div>  </div>   <% if (typeof title !== \'undefined\' && title) { %>  <div class="tt-header tt-header-color cf">  <div class="tt-label">Timeline:</div>   <div class="tt-title"><%= title %></div>  </div>  <% } %>   <div class="tt-spine-background">  <div class="tt-spine tt-spine-color"></div>  </div>   <div class="tt-spine-end tt-spine-top tt-header-color">  <div><div class="tt-spine-point tt-spine-color"></div></div>  <div><div class="tt-spine tt-spine-color"></div></div>  </div>   <div class="tt-groups">  <% _.forEach(groups, function(g, gi) { %>  <div class="tt-group">  <div class="tt-group-label-wrapper">  <div class="tt-group-label tt-spine-color">  <%= g.display %>  </div>  </div>   <div class="tt-entries">  <% _.forEach(g.entries, function(e, ei) { %>  <div class="tt-entry" id="<%= tiktok.id %>-<%= e.id %>">  <a class="tt-entry-link" href="#<%= tiktok.id %>-<%= e.id %>">link</a>   <div class="tt-entry-date"><%= e.dateFormatted %></div>   <% if (e.title) { %>  <h3 class="tt-entry-title"><%= e.title %></h3>  <% } %>   <div class="tt-entry-content-wrapper cf">  <% if (e.media) { %>  <div class="tt-entry-media-wrapper <% if (e.body) { %>with-body<% } %>">  <div class="tt-entry-media <% if (e.source) { %>with-source<% } %>">  <% if (e.mediaType === \'youtube\') { %>  <iframe class="tt-entry-media-youtube" width="100%" height="350" src="<%= e.media %>" frameborder="0" allowfullscreen></iframe>   <% } else if (e.mediaType === \'soundcloud_large\') { %>  <iframe class="tt-entry-media-soundcloud" width="100%" height="350" scrolling="no" frameborder="no" src="<%= e.media %>"></iframe>   <% } else if (e.mediaType === \'soundcloud\') { %>  <iframe class="tt-entry-media-soundcloud" width="100%" height="166" scrolling="no" frameborder="no" src="<%= e.media %>"></iframe>   <% } else { %>  <img class="tt-entry-media-image" src="<%= e.media %>">  <% } %>  </div>   <% if (e.source) { %>  <div class="tt-entry-source">  <%= e.source %>  </div>  <% } %>  </div>  <% } %>   <% if (e.body) { %>  <div class="tt-entry-body-wrapper <% if (e.media) { %>with-media<% } %>">  <div class="tt-entry-body"><%= e.body %></div>  </div>  <% } %>  </div>  </div>  <% }) %>  </div>  </div>  <% }) %>  </div>   <div class="tt-spine-end tt-spine-bottom tt-bg-color">  <div><div class="tt-spine-point tt-spine-color"></div></div>  </div> </div> '
   };
 
   // Constructior
@@ -189,7 +189,7 @@
 
       // Add entries to scroll to specific entry when link is
       // clicked.  This is a bit nicer and consistent with load.
-      _.each(this.el.querySelectorAll('a.entry-link'), function(a) {
+      _.each(this.el.querySelectorAll('a.tt-entry-link'), function(a) {
         a.addEventListener('click', function(e) {
           e.preventDefault();
           var hash = this.getAttribute('href');
@@ -203,8 +203,8 @@
       this.determinePlacements();
 
       // Get mini timeline elements
-      this.miniEl = this.getElement('#' + this.id + ' .mini-timeline');
-      this.progressEl = this.getElement('#' + this.id + ' .mini-timeline-progress');
+      this.barEl = this.getElement('#' + this.id + ' .tt-progress-bar');
+      this.progressEl = this.getElement('#' + this.id + ' .tt-progress');
 
       // Make a throttled determinePlacements (see updateProgress)
       this.determinePlacementsThrottled = _.throttle(_.bind(function() {
@@ -231,7 +231,7 @@
 
       // Determine if in timeline at all
       if (currentView >= this.top - o && currentView <= this.bottom - o) {
-        this.miniEl.classList.add('enabled');
+        this.barEl.classList.add('enabled');
 
         // Determine which entry we are in
         _.each(this.entries, _.bind(function(e, ei) {
@@ -247,7 +247,7 @@
         this.progressEl.style.width = (currentEntry / (this.entries.length - 1) * 100) + '%';
       }
       else {
-        this.miniEl.classList.remove('enabled');
+        this.barEl.classList.remove('enabled');
       }
     },
 

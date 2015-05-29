@@ -183,7 +183,7 @@
 
       // Add entries to scroll to specific entry when link is
       // clicked.  This is a bit nicer and consistent with load.
-      _.each(this.el.querySelectorAll('a.entry-link'), function(a) {
+      _.each(this.el.querySelectorAll('a.tt-entry-link'), function(a) {
         a.addEventListener('click', function(e) {
           e.preventDefault();
           var hash = this.getAttribute('href');
@@ -197,8 +197,8 @@
       this.determinePlacements();
 
       // Get mini timeline elements
-      this.miniEl = this.getElement('#' + this.id + ' .mini-timeline');
-      this.progressEl = this.getElement('#' + this.id + ' .mini-timeline-progress');
+      this.barEl = this.getElement('#' + this.id + ' .tt-progress-bar');
+      this.progressEl = this.getElement('#' + this.id + ' .tt-progress');
 
       // Make a throttled determinePlacements (see updateProgress)
       this.determinePlacementsThrottled = _.throttle(_.bind(function() {
@@ -225,7 +225,7 @@
 
       // Determine if in timeline at all
       if (currentView >= this.top - o && currentView <= this.bottom - o) {
-        this.miniEl.classList.add('enabled');
+        this.barEl.classList.add('enabled');
 
         // Determine which entry we are in
         _.each(this.entries, _.bind(function(e, ei) {
@@ -241,7 +241,7 @@
         this.progressEl.style.width = (currentEntry / (this.entries.length - 1) * 100) + '%';
       }
       else {
-        this.miniEl.classList.remove('enabled');
+        this.barEl.classList.remove('enabled');
       }
     },
 

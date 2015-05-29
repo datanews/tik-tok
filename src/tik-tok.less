@@ -16,8 +16,8 @@
 @color-link: #FFFFFF;
 @bg-color-link: #E51133;
 @color-body-link: #E51133;
-@bg-color-mini: #565656;
-@bg-color-mini-progress: #FFCC00;
+@bg-color-progress-bar: #565656;
+@bg-color-progress: #FFCC00;
 
 @spine-width: 4px;
 
@@ -36,8 +36,8 @@
   box-sizing: border-box;
 
   // Allows the main background color to styled together
-  &.timeline-bg-color,
-  .timeline-bg-color {
+  &.tt-bg-color,
+  .tt-bg-color {
     background-color: @bg-color-default;
   }
 
@@ -59,38 +59,38 @@
     *zoom: 1;
   }
 
-  .timeline-header {
+  .tt-header {
     position: relative;
     z-index: 10;
     padding-top: 1.5em;
     font-family: @font-header;
     text-align: center;
 
-    .timeline-label {
+    .tt-label {
       margin-bottom: 1em;
       font-size: 1.25em;
     }
 
-    .timeline-title {
+    .tt-title {
       margin-bottom: 0.5em;
       font-size: 2em;
     }
   }
 
   // Allow header colors to be styled together
-  .header-color {
+  .tt-header-color {
     color: @color-header;
     background-color: @bg-color-header;
   }
 
   // Allow spine and grouping to have a single selector to
   // change the color
-  .spine-color {
+  .tt-spine-color {
     color: @color-grouping;
     background-color: @bg-color-grouping;
   }
 
-  .spine-background {
+  .tt-spine-background {
     position: absolute;
     top: 0;
     right: 0;
@@ -101,7 +101,7 @@
     height: 100%;
     text-align: center;
 
-    .spine {
+    .tt-spine {
       top: 0;
       bottom: 0;
       display: inline-block;
@@ -110,13 +110,13 @@
     }
   }
 
-  .spine-end {
+  .tt-spine-end {
     position: relative;
     padding: 0;
     line-height: 0.5em;
     text-align: center;
 
-    .spine-point {
+    .tt-spine-point {
       display: inline-block;
       width: @spine-width * 4;
       height: @spine-width * 4;
@@ -125,7 +125,7 @@
       border-radius: 50%;
     }
 
-    .spine {
+    .tt-spine {
       display: inline-block;
       width: @spine-width;
       height: 2em;
@@ -133,56 +133,56 @@
       margin: 0;
     }
 
-    &.spine-top {
+    &.tt-spine-top {
       padding-top: 2em;
 
-      .spine-point {
+      .tt-spine-point {
         margin-bottom: -1px;
       }
     }
 
-    &.spine-bottom {
+    &.tt-spine-bottom {
       padding-bottom: 2em;
     }
   }
 
-  .group-container {
+  .tt-groups {
     position: relative;
     z-index: 10;
     padding-top: 1em;
   }
 
-  .group {
+  .tt-group {
 
-    .group-label-container {
+    .tt-group-label-wrapper {
       text-align: center;
     }
 
-    .group-label {
+    .tt-group-label {
       display: inline-block;
       padding: 0.5em 1em;
       margin: 0 auto 1em auto;
     }
-
-    .group-entries {
-      padding: 0 1em 1em 1em;
-      margin-bottom: 1em;
-    }
   }
 
-  .entry {
+  .tt-entries {
+    padding: 0 1em 1em 1em;
+    margin-bottom: 1em;
+  }
+
+  .tt-entry {
     padding: 1em;
     margin-bottom: 1em;
     background-color: @bg-color-entry;
 
-    .entry-date {
+    .tt-entry-date {
       margin-bottom: 1em;
       font-size: 0.85em;
       color: @color-date;
       text-transform: uppercase;
     }
 
-    .entry-link {
+    .tt-entry-link {
       display: block;
       float: right;
       padding: 1em 1em;
@@ -199,14 +199,14 @@
       }
     }
 
-    .entry-title {
+    .tt-entry-title {
       padding: 0;
       margin: 0 0 0.75em 0;
       font-size: 1.5em;
       font-weight: normal;
     }
 
-    .entry-media {
+    .tt-entry-media {
       margin: 0 -1em 1em -1em;
 
       &.with-source {
@@ -218,20 +218,20 @@
       }
     }
 
-    .entry-source {
+    .tt-entry-source {
       margin-bottom: 1em;
       font-family: @font-content;
       font-size: 0.85em;
       color: @color-source;
     }
 
-    .entry-body {
+    .tt-entry-body {
       margin-bottom: 0;
       font-family: @font-content;
     }
 
-    .entry-body,
-    .entry-source {
+    .tt-entry-body,
+    .tt-entry-source {
 
       a {
         color: @color-body-link;
@@ -264,28 +264,28 @@
 
     // On larger screens split media and body
     @media (min-width: @width-medium) {
-      .entry-media-container.with-body,
-      .entry-body-container.with-media {
+      .tt-entry-media-wrapper.with-body,
+      .tt-entry-body-wrapper.with-media {
         width: 50%;
         float: right;
       }
 
-      .entry-media-container.with-body {
+      .tt-entry-media-wrapper.with-body {
         padding-left: 1em;
 
-        .entry-media {
+        .tt-entry-media {
           margin-left: 0;
           margin-right: 0;
         }
       }
 
-      .entry-body-container.with-media {
+      .tt-entry-body-wrapper.with-media {
         padding-right: 1em;
       }
     }
   }
 
-  .mini-timeline {
+  .tt-progress-bar {
     position: fixed;
     top: 0;
     right: 0;
@@ -293,18 +293,18 @@
     z-index: 10000;
     width: 100%;
     height: 0;
-    background-color: @bg-color-mini;
+    background-color: @bg-color-progress-bar;
     transition: height 200ms linear;
 
     &.enabled {
       height: 0.5em;
     }
 
-    .mini-timeline-progress {
+    .tt-progress {
       position: relative;
       width: 0;
       height: 100%;
-      background-color: @bg-color-mini-progress;
+      background-color: @bg-color-progress;
       transition: width 200ms linear;
     }
   }
