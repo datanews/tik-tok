@@ -4,7 +4,7 @@
     <meta charset="utf-8">
     <meta http-equiv="x-ua-compatible" content="ie=edge">
 
-    <title>Timeline example</title>
+    <title>Tik Tok example</title>
 
     <meta name="viewport" content="width=device-width, initial-scale=1">
 
@@ -58,34 +58,33 @@
       }
 
       /* Example styling for tabletop */
-      .tabletop-timeline-container .timeline-container.timeline-bg-color,
-      .tabletop-timeline-container .timeline-container .timeline-bg-color {
+      .tabletop-timeline-container .timeline-bg-color {
         background-color: #BDBDBD;
       }
 
-      .tabletop-timeline-container .timeline-container .spine-color {
+      .tabletop-timeline-container .spine-color {
         background-color: #6A6A6A;
         color: #FFFFFF;
       }
 
-      .tabletop-timeline-container .timeline-container .header-color {
+      .tabletop-timeline-container .header-color {
         background-color: #282828;
       }
 
-      .tabletop-timeline-container .timeline-container .entry .entry-date {
+      .tabletop-timeline-container .entry .entry-date {
         color: #282828;
       }
 
-      .tabletop-timeline-container .timeline-container .entry .entry-link {
+      .tabletop-timeline-container .entry .entry-link {
         background-color: #282828;
       }
 
-      .tabletop-timeline-container .timeline-container .entry .entry-body a {
+      .tabletop-timeline-container .entry .entry-body a {
         color: #282828;
         font-weight: bold;
       }
 
-      .tabletop-timeline-container .mini-timeline .mini-timeline-progress {
+      .tabletop-timeline-container .mini-timeline-progress {
         background-color: #A4A4A4;
       }
     </style>
@@ -168,7 +167,7 @@ var welcomeTimeline = new Timeline({
     <!-- Make timeline -->
     <script>
       // Welcome timeline
-      var welcomeTimeline = new Timeline({
+      var welcomeTimeline = new TikTok({
         el: '.welcome-timeline-container',
         title: 'Welcome to Timeline',
         entries: [
@@ -208,7 +207,7 @@ var welcomeTimeline = new Timeline({
         key: '1aZuK7Hn_THzCGE0fujCV93CSozfT2FxDtSMaVG3ltiA',
         simpleSheet: true,
         callback: function(data, tabletop) {
-          var tabletopTimeline = new Timeline({
+          var tabletopTimeline = new TikTok({
             el: '.tabletop-timeline-container',
             title: 'Getting data from Google Spreadsheets',
             entries: data

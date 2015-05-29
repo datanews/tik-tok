@@ -14,16 +14,16 @@
   }
   else {
     // Brower global
-    root.Timeline = factory(root._, root.moment);
+    root.TikTok = factory(root._, root.moment);
   }
 })(typeof window !== 'undefined' ? window : this, function(_, moment) {
   // Check depdencies
   if (typeof _ === 'undefined') {
-    throw new Error('Underscore is a necessary dependency of Timeline: http://underscorejs.org/');
+    throw new Error('Underscore is a necessary dependency of TikTok: http://underscorejs.org/');
   }
 
   if (typeof moment === 'undefined') {
-    throw new Error('Moment is a necessary dependency of Timeline: http://momentjs.com/');
+    throw new Error('Moment is a necessary dependency of TikTok: http://momentjs.com/');
   }
 
   // Place to hold ID generation counts
@@ -53,7 +53,7 @@
   };
 
   // Constructior
-  var Timeline = function(options) {
+  var TikTok = function(options) {
     this.options = _.extend({}, defaultOptions, options || {});
 
     // Check entry data
@@ -144,7 +144,7 @@
     if (this.isBrowser) {
       // Get the id from the element or create an id for the timeline
       // as there may be multiple timelines on the same page
-      this.id = this.el.id || this.uniqueId('timeline');
+      this.id = this.el.id || this.uniqueId('tik-tok-timeline');
       this.el.id = this.id;
 
       // Render
@@ -153,7 +153,7 @@
   };
 
   // Add methods and properties
-  _.extend(Timeline.prototype, {
+  _.extend(TikTok.prototype, {
     // What group types are valid; this should correspond with the
     // relevant functions.
     validGroupTypes: ['months', 'years', 'decade'],
@@ -172,7 +172,7 @@
         _: _,
         groups: this.groups,
         title: this.options.title,
-        timeline: this
+        tiktok: this
       });
 
       // Go to specific entry, check if part of this timeline.  This check
@@ -647,5 +647,5 @@
     }
   });
 
-  return Timeline;
+  return TikTok;
 });

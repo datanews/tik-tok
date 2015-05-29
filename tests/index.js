@@ -11,16 +11,16 @@
 // Dependencies.  See the following for assert reference
 // https://nodejs.org/api/assert.html
 var assert = require('assert');
-var Timeline = require('../dist/timeline');
+var TikTok = require('../dist/timeline');
 
-// Tests for Timeline object
-describe('Timeline', function() {
+// Tests for TikTok object
+describe('TikTok', function() {
 
-  // Timeline object itself
+  // TikTok object itself
   describe('#class', function() {
     it('should be a function', function() {
-      assert.equal(true, (typeof Timeline !== 'undefined'));
-      assert.equal(true, (typeof Timeline === 'function'));
+      assert.equal(true, (typeof TikTok !== 'undefined'));
+      assert.equal(true, (typeof TikTok === 'function'));
     });
   });
 
@@ -31,7 +31,7 @@ describe('Timeline', function() {
       var t;
 
       assert.throws(function() {
-        t = new Timeline();
+        t = new TikTok();
       });
     });
 
@@ -43,7 +43,7 @@ describe('Timeline', function() {
       var entries = [{ date: 'this is not valid', title: 'Title!', body: 'Over here!' }];
 
       assert.throws(function() {
-        t = new Timeline({
+        t = new TikTok({
           entries: entries
         });
       });
@@ -57,7 +57,7 @@ describe('Timeline', function() {
       var keyMapping = 'key-mapping';
 
       assert.throws(function() {
-        t = new Timeline({
+        t = new TikTok({
           entries: entries,
           keyMapping: keyMapping
         });
@@ -71,7 +71,7 @@ describe('Timeline', function() {
       var groupBy = 'this should not work';
 
       assert.throws(function() {
-        t = new Timeline({
+        t = new TikTok({
           entries: entries,
           groupBy: groupBy
         });
@@ -84,7 +84,7 @@ describe('Timeline', function() {
       var entries = [{ date: '2015-01-03', title: 'Title!', body: 'Over here!' }];
 
       assert.throws(function() {
-        t = new Timeline({
+        t = new TikTok({
           entries: entries,
           csvDelimiter: 'too long'
         });
@@ -97,7 +97,7 @@ describe('Timeline', function() {
       var entries = [{ date: '2015-01-03', title: 'Title!', body: 'Over here!' }];
 
       assert.throws(function() {
-        t = new Timeline({
+        t = new TikTok({
           entries: entries,
           csvQuote: undefined
         });
@@ -111,7 +111,7 @@ describe('Timeline', function() {
       var template = '<% if x %>';
 
       assert.throws(function() {
-        t = new Timeline({
+        t = new TikTok({
           entries: entries,
           template: template
         });
@@ -124,7 +124,7 @@ describe('Timeline', function() {
       var entries = [{ date: '2015-01-03', title: 'Title!', body: 'Over here!' }];
 
       assert.doesNotThrow(function() {
-        t = new Timeline({
+        t = new TikTok({
           entries: entries
         });
       });
@@ -137,12 +137,12 @@ describe('Timeline', function() {
         '2014-04-04,title 1,body 1\r\n' +
         '2000-04-04,title 2,body 2';
 
-      t = new Timeline({
+      t = new TikTok({
         entries: entries
       });
 
       assert.doesNotThrow(function() {
-        t = new Timeline({
+        t = new TikTok({
           entries: entries
         });
       });
@@ -154,7 +154,7 @@ describe('Timeline', function() {
       var entries = [{ date: '1988-------10/1', title: 'Title!', body: 'Over here!' }];
 
       assert.doesNotThrow(function() {
-        t = new Timeline({
+        t = new TikTok({
           entries: entries,
           dateFormat: 'YYYYY-------MM/D'
         });
@@ -173,7 +173,7 @@ describe('Timeline', function() {
       ];
       var t;
 
-      t = new Timeline({
+      t = new TikTok({
         entries: entries
       });
 
@@ -203,7 +203,7 @@ describe('Timeline', function() {
         title: 'this is out title',
         body: 'and our body is here'
       };
-      var t = new Timeline({
+      var t = new TikTok({
         entries: entries,
         keyMapping: keyMapping
       });
@@ -220,7 +220,7 @@ describe('Timeline', function() {
           body: 'Over here!'
         }
       ];
-      var t = new Timeline({
+      var t = new TikTok({
         entries: entries,
         keyMapping: {}
       });
@@ -240,7 +240,7 @@ describe('Timeline', function() {
         { date: '2014-03-01', title: 'First', body: 'This is 1' }
       ];
 
-      t = new Timeline({
+      t = new TikTok({
         entries: entries
       });
 
@@ -256,7 +256,7 @@ describe('Timeline', function() {
         { date: '2013-03-01', title: 'First', body: 'This is 1' }
       ];
 
-      t = new Timeline({
+      t = new TikTok({
         entries: entries
       });
 
@@ -272,7 +272,7 @@ describe('Timeline', function() {
         { date: '1980-03-01', title: 'First', body: 'This is 1' }
       ];
 
-      t = new Timeline({
+      t = new TikTok({
         entries: entries
       });
 
@@ -292,7 +292,7 @@ describe('Timeline', function() {
       ];
       var expected = '2014-03';
 
-      t = new Timeline({
+      t = new TikTok({
         entries: entries
       });
 
@@ -309,7 +309,7 @@ describe('Timeline', function() {
       ];
       var expected = '2014';
 
-      t = new Timeline({
+      t = new TikTok({
         entries: entries,
         groupType: 'years'
       });
@@ -327,7 +327,7 @@ describe('Timeline', function() {
       ];
       var expected = '2014-03';
 
-      t = new Timeline({
+      t = new TikTok({
         entries: entries,
         groupType: 'This is a bad option'
       });
@@ -347,7 +347,7 @@ describe('Timeline', function() {
         { date: '2014-03-01', title: 'First', body: 'This is 1' }
       ];
 
-      t = new Timeline({
+      t = new TikTok({
         entries: entries
       });
 
@@ -364,7 +364,7 @@ describe('Timeline', function() {
         { date: '2014-05-01', title: 'First', body: 'This is 1' }
       ];
 
-      t = new Timeline({
+      t = new TikTok({
         entries: entries
       });
 
@@ -381,7 +381,7 @@ describe('Timeline', function() {
         { date: '2014-03-01', title: 'First', body: 'This is 1' }
       ];
 
-      t = new Timeline({
+      t = new TikTok({
         entries: entries
       });
 
@@ -403,7 +403,7 @@ describe('Timeline', function() {
       var element = { nodeType: true };
 
       // Create object
-      t = new Timeline({
+      t = new TikTok({
         entries: entries
       });
 
@@ -421,7 +421,7 @@ describe('Timeline', function() {
       var element = { nodeType: true };
 
       // Create object
-      t = new Timeline({
+      t = new TikTok({
         entries: entries
       });
       t.isBrowser = true;
@@ -433,7 +433,7 @@ describe('Timeline', function() {
   // Media type
   describe('#determineMediaType', function() {
     var entries = [{ date: '2015-01-03', title: 'Title!', body: 'Over here!' }];
-    var t = new Timeline({
+    var t = new TikTok({
       entries: entries
     });
 
@@ -471,7 +471,7 @@ describe('Timeline', function() {
   // Regex escapte
   describe('#regexEscape', function() {
     var entries = [{ date: '2015-01-03', title: 'Title!', body: 'Over here!' }];
-    var t = new Timeline({
+    var t = new TikTok({
       entries: entries
     });
 
@@ -488,7 +488,7 @@ describe('Timeline', function() {
   // Make identifier
   describe('#makeIdentifier', function() {
     var entries = [{ date: '2015-01-03', title: 'Title!', body: 'Over here!' }];
-    var t = new Timeline({
+    var t = new TikTok({
       entries: entries
     });
 
@@ -510,7 +510,7 @@ describe('Timeline', function() {
   // Parse a CSV
   describe('#parseCSV', function() {
     var entries = [{ date: '2015-01-03', title: 'Title!', body: 'Over here!' }];
-    var t = new Timeline({
+    var t = new TikTok({
       entries: entries
     });
 

@@ -20,16 +20,16 @@
   }
   else {
     // Brower global
-    root.Timeline = factory(root._, root.moment);
+    root.TikTok = factory(root._, root.moment);
   }
 })(typeof window !== 'undefined' ? window : this, function(_, moment) {
   // Check depdencies
   if (typeof _ === 'undefined') {
-    throw new Error('Underscore is a necessary dependency of Timeline: http://underscorejs.org/');
+    throw new Error('Underscore is a necessary dependency of TikTok: http://underscorejs.org/');
   }
 
   if (typeof moment === 'undefined') {
-    throw new Error('Moment is a necessary dependency of Timeline: http://momentjs.com/');
+    throw new Error('Moment is a necessary dependency of TikTok: http://momentjs.com/');
   }
 
   // Place to hold ID generation counts
@@ -55,11 +55,11 @@
 
     // Template.  This can be a function or string and the default will
     // be replace in the build process
-    template: '<div class="timeline-container timeline-bg-color">  <div class="mini-timeline">  <div class="mini-timeline-progress"></div>  </div>   <% if (typeof title !== \'undefined\' && title) { %>  <div class="timeline-header header-color cf">  <div class="timeline-label">Timeline:</div>   <div class="timeline-title"><%= title %></div>  </div>  <% } %>   <div class="spine-background">  <div class="spine-color spine"></div>  </div>   <div class="spine-end spine-top header-color">  <div><div class="spine-color spine-point"></div></div>  <div><div class="spine-color spine"></div></div>  </div>   <div class="group-container">  <% _.forEach(groups, function(g, gi) { %>  <div class="group">  <div class="group-label-container">  <div class="group-label spine-color">  <%= g.display %>  </div>  </div>   <div class="group-entries">  <% _.forEach(g.entries, function(e, ei) { %>  <div class="entry" id="<%= timeline.id %>-<%= e.id %>">  <a class="entry-link" href="#<%= timeline.id %>-<%= e.id %>">link</a>   <div class="entry-date"><%= e.dateFormatted %></div>   <% if (e.title) { %>  <h3 class="entry-title"><%= e.title %></h3>  <% } %>   <div class="entry-content-container cf">  <% if (e.media) { %>  <div class="entry-media-container <% if (e.body) { %>with-body<% } %>">  <div class="entry-media <% if (e.source) { %>with-source<% } %>">  <% if (e.mediaType === \'youtube\') { %>  <iframe class="entry-media-youtube" width="100%" height="350" src="<%= e.media %>" frameborder="0" allowfullscreen></iframe>   <% } else if (e.mediaType === \'soundcloud_large\') { %>  <iframe class="entry-media-soundcloud" width="100%" height="350" scrolling="no" frameborder="no" src="<%= e.media %>"></iframe>   <% } else if (e.mediaType === \'soundcloud\') { %>  <iframe class="entry-media-soundcloud" width="100%" height="166" scrolling="no" frameborder="no" src="<%= e.media %>"></iframe>   <% } else { %>  <img class="entry-media-image" src="<%= e.media %>">  <% } %>  </div>   <% if (e.source) { %>  <div class="entry-source">  <%= e.source %>  </div>  <% } %>  </div>  <% } %>   <% if (e.body) { %>  <div class="entry-body-container <% if (e.media) { %>with-media<% } %>">  <div class="entry-body"><%= e.body %></div>  </div>  <% } %>  </div>  </div>  <% }) %>  </div>  </div>  <% }) %>  </div>   <div class="spine-end spine-bottom timeline-bg-color">  <div><div class="spine-color spine-point"></div></div>  </div> </div> '
+    template: '<div class="tik-tok-container timeline-bg-color">  <div class="mini-timeline">  <div class="mini-timeline-progress"></div>  </div>   <% if (typeof title !== \'undefined\' && title) { %>  <div class="timeline-header header-color cf">  <div class="timeline-label">Timeline:</div>   <div class="timeline-title"><%= title %></div>  </div>  <% } %>   <div class="spine-background">  <div class="spine-color spine"></div>  </div>   <div class="spine-end spine-top header-color">  <div><div class="spine-color spine-point"></div></div>  <div><div class="spine-color spine"></div></div>  </div>   <div class="group-container">  <% _.forEach(groups, function(g, gi) { %>  <div class="group">  <div class="group-label-container">  <div class="group-label spine-color">  <%= g.display %>  </div>  </div>   <div class="group-entries">  <% _.forEach(g.entries, function(e, ei) { %>  <div class="entry" id="<%= tiktok.id %>-<%= e.id %>">  <a class="entry-link" href="#<%= tiktok.id %>-<%= e.id %>">link</a>   <div class="entry-date"><%= e.dateFormatted %></div>   <% if (e.title) { %>  <h3 class="entry-title"><%= e.title %></h3>  <% } %>   <div class="entry-content-container cf">  <% if (e.media) { %>  <div class="entry-media-container <% if (e.body) { %>with-body<% } %>">  <div class="entry-media <% if (e.source) { %>with-source<% } %>">  <% if (e.mediaType === \'youtube\') { %>  <iframe class="entry-media-youtube" width="100%" height="350" src="<%= e.media %>" frameborder="0" allowfullscreen></iframe>   <% } else if (e.mediaType === \'soundcloud_large\') { %>  <iframe class="entry-media-soundcloud" width="100%" height="350" scrolling="no" frameborder="no" src="<%= e.media %>"></iframe>   <% } else if (e.mediaType === \'soundcloud\') { %>  <iframe class="entry-media-soundcloud" width="100%" height="166" scrolling="no" frameborder="no" src="<%= e.media %>"></iframe>   <% } else { %>  <img class="entry-media-image" src="<%= e.media %>">  <% } %>  </div>   <% if (e.source) { %>  <div class="entry-source">  <%= e.source %>  </div>  <% } %>  </div>  <% } %>   <% if (e.body) { %>  <div class="entry-body-container <% if (e.media) { %>with-media<% } %>">  <div class="entry-body"><%= e.body %></div>  </div>  <% } %>  </div>  </div>  <% }) %>  </div>  </div>  <% }) %>  </div>   <div class="spine-end spine-bottom timeline-bg-color">  <div><div class="spine-color spine-point"></div></div>  </div> </div> '
   };
 
   // Constructior
-  var Timeline = function(options) {
+  var TikTok = function(options) {
     this.options = _.extend({}, defaultOptions, options || {});
 
     // Check entry data
@@ -150,7 +150,7 @@
     if (this.isBrowser) {
       // Get the id from the element or create an id for the timeline
       // as there may be multiple timelines on the same page
-      this.id = this.el.id || this.uniqueId('timeline');
+      this.id = this.el.id || this.uniqueId('tik-tok-timeline');
       this.el.id = this.id;
 
       // Render
@@ -159,7 +159,7 @@
   };
 
   // Add methods and properties
-  _.extend(Timeline.prototype, {
+  _.extend(TikTok.prototype, {
     // What group types are valid; this should correspond with the
     // relevant functions.
     validGroupTypes: ['months', 'years', 'decade'],
@@ -178,7 +178,7 @@
         _: _,
         groups: this.groups,
         title: this.options.title,
-        timeline: this
+        tiktok: this
       });
 
       // Go to specific entry, check if part of this timeline.  This check
@@ -653,5 +653,5 @@
     }
   });
 
-  return Timeline;
+  return TikTok;
 });
