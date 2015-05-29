@@ -231,6 +231,38 @@ describe('TikTok', function() {
 
   // Determine groups
   describe('#determineGroups', function() {
+    // Group these entries by hours
+    it('should determine group to be hours', function() {
+      var t;
+      var entries = [
+        { date: '2014-05-01 11:00 AM', title: 'Second', body: 'This is 2' },
+        { date: '2014-05-01 12:00 PM', title: 'Third', body: 'This is 3' },
+        { date: '2014-05-01 10:00 AM', title: 'First', body: 'This is 1' }
+      ];
+
+      t = new TikTok({
+        entries: entries
+      });
+
+      assert.equal(t.groupType, 'hours');
+    });
+
+    // Group these entries by days
+    it('should determine group to be days', function() {
+      var t;
+      var entries = [
+        { date: '2014-05-02', title: 'Second', body: 'This is 2' },
+        { date: '2014-05-03', title: 'Third', body: 'This is 3' },
+        { date: '2014-05-01', title: 'First', body: 'This is 1' }
+      ];
+
+      t = new TikTok({
+        entries: entries
+      });
+
+      assert.equal(t.groupType, 'days');
+    });
+
     // Group these entries by months
     it('should determine group to be months', function() {
       var t;
@@ -358,6 +390,8 @@ describe('TikTok', function() {
     // Sort entries
     it('should sort entries (ascending)', function() {
       var t;
+
+      // Will group by week
       var entries = [
         { date: '2014-05-02', title: 'Second', body: 'This is 2' },
         { date: '2014-05-03', title: 'Third', body: 'This is 3' },
@@ -369,7 +403,7 @@ describe('TikTok', function() {
       });
 
       assert.equal(t.sortGroups(t.groups)[0].entries[0].title, 'First');
-      assert.equal(t.sortGroups(t.groups)[0].entries[1].title, 'Second');
+      assert.equal(t.sortGroups(t.groups)[1].entries[0].title, 'Second');
     });
 
     // Sort groups (desc)
