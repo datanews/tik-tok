@@ -2,8 +2,7 @@
 
 Tik Tok is a Javascript tool to easily create beautiful, mobile-friendly, vertical timelines.
 
-[![Testling browser support](https://ci.testling.com/datanews/tik-tok.png)
-](https://ci.testling.com/datanews/tik-tok)
+[![Build Status](https://travis-ci.org/datanews/tik-tok.svg?branch=master)](https://travis-ci.org/datanews/tik-tok)
 
 ## Install
 
