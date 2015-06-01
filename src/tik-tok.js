@@ -52,104 +52,9 @@
     template: 'REPLACE-DEFAULT-TEMPLATE'
   };
 
-  // Constructior
+  // Constructor.  This just calls the update function.
   var TikTok = function(options) {
-    this.options = _.extend({}, defaultOptions, options || {});
-
-    // Check entry data
-    if (!_.isArray(this.options.entries) && !_.isString(this.options.entries)) {
-      throw new Error('"entries" data should be provided as a string or array.');
-    }
-
-    // Ensure column mapping is an object
-    if (this.options.keyMapping && !_.isObject(this.options.keyMapping)) {
-      throw new Error('"keyMapping" was not provided as an object.');
-    }
-
-    // Ensure there is a template
-    if (!_.isString(this.options.template) && !_.isFunction(this.options.template)) {
-      throw new Error('"template" was not provided as a string or function.');
-    }
-
-    // Ensure groupBy is valid
-    if (!_.isUndefined(this.options.groupBy) &&
-      this.validGroupByTypes.indexOf(this.options.groupBy) === -1) {
-      throw new Error('"groupBy" was provided but not a valid value.');
-    }
-
-    // Ensure CSV characters are single characters, not that the parsing
-    // couldn't probably handle it, but why make it more complex
-    if (!_.isString(this.options.csvDelimiter) || this.options.csvDelimiter.length !== 1) {
-      throw new Error('"csvDelimiter" was not provided as a single character string.');
-    }
-
-    if (!_.isString(this.options.csvQuote) || this.options.csvQuote.length !== 1) {
-      throw new Error('"csvQuote" was not provided as a single character string.');
-    }
-
-    // Try to build template if string
-    if (_.isString(this.options.template)) {
-      try {
-        this.options.template = _.template(this.options.template);
-      }
-      catch (e) {
-        throw new Error('Error parsing template string with underscore templating: ' + e.message);
-      }
-    }
-
-    // Force boolean on date order
-    this.options.descending = !!this.options.descending;
-
-    // Determine if browser
-    this.isBrowser = this.checkBrowser();
-
-    // Check that element is given if in browser
-    if (this.isBrowser && !this.options.el) {
-      throw new Error('"el" needs to br provided as a string or object.');
-    }
-
-    // Get element
-    this.el = this.getElement(this.options.el);
-
-    // Check that an element was found if in browser
-    if (this.isBrowser && !this.el) {
-      throw new Error('Could not find a valid element from the given "el" option.');
-    }
-
-    // If the entry data was provided as a string, attempt to parse as
-    // CSV
-    if (_.isString(this.options.entries)) {
-      this.options.entries = this.parseCSV(this.options.entries,
-        this.options.csvDelimiter, this.options.csvQuote);
-    }
-
-    // Map columns and attach entries to object for easier access.
-    // Should be in format { needed: provided }
-    this.entries = this.mapKeys(this.options.entries, this.options.keyMapping);
-
-    // Parse entries like dates
-    this.entries = this.parseEntries(this.entries);
-
-    // Sort entries.  The entries as a single array is
-    // used for easy access too all entries
-    this.entries = this.sortEntries(this.entries, this.options.descending);
-
-    // Group entries.
-    this.groups = this.groupEntries(this.entries);
-
-    // Sort groups
-    this.groups = this.sortGroups(this.groups, this.options.descending);
-
-    // If browser, do some DOM things and render
-    if (this.isBrowser) {
-      // Get the id from the element or create an id for the timeline
-      // as there may be multiple timelines on the same page
-      this.id = this.el.id || this.uniqueId('tik-tok-timeline');
-      this.el.id = this.id;
-
-      // Render
-      this.render();
-    }
+    this.update(options);
   };
 
   // Add methods and properties
@@ -164,10 +69,125 @@
     // probably be variable based on screen height.
     viewOffset: 40,
 
+    // The update function builds or rebuilds the timeline
+    update: function(options) {
+      this.options = this.options || {};
+      this.options = _.extend({}, defaultOptions, this.options, options || {});
+
+      // Validate, build, and render
+      this.validate();
+      this.build();
+      this.render();
+    },
+
+    // Validate options and other input
+    validate: function() {
+      // Check entry data
+      if (!_.isArray(this.options.entries) && !_.isString(this.options.entries)) {
+        throw new Error('"entries" data should be provided as a string or array.');
+      }
+
+      // Ensure column mapping is an object
+      if (this.options.keyMapping && !_.isObject(this.options.keyMapping)) {
+        throw new Error('"keyMapping" was not provided as an object.');
+      }
+
+      // Ensure there is a template
+      if (!_.isString(this.options.template) && !_.isFunction(this.options.template)) {
+        throw new Error('"template" was not provided as a string or function.');
+      }
+
+      // Ensure groupBy is valid
+      if (!_.isUndefined(this.options.groupBy) &&
+        this.validGroupByTypes.indexOf(this.options.groupBy) === -1) {
+        throw new Error('"groupBy" was provided but not a valid value.');
+      }
+
+      // Ensure CSV characters are single characters, not that the parsing
+      // couldn't probably handle it, but why make it more complex
+      if (!_.isString(this.options.csvDelimiter) || this.options.csvDelimiter.length !== 1) {
+        throw new Error('"csvDelimiter" was not provided as a single character string.');
+      }
+
+      if (!_.isString(this.options.csvQuote) || this.options.csvQuote.length !== 1) {
+        throw new Error('"csvQuote" was not provided as a single character string.');
+      }
+
+      // Try to build template if string
+      if (_.isString(this.options.template)) {
+        try {
+          this.options.template = _.template(this.options.template);
+        }
+        catch (e) {
+          throw new Error('Error parsing template string with underscore templating: ' + e.message);
+        }
+      }
+
+      // If the entry data was provided as a string, attempt to parse as
+      // CSV
+      if (_.isString(this.options.entries)) {
+        this.options.entries = this.parseCSV(this.options.entries,
+          this.options.csvDelimiter, this.options.csvQuote);
+      }
+
+      // Force boolean on date order
+      this.options.descending = !!this.options.descending;
+
+      // Determine if browser
+      this.isBrowser = this.checkBrowser();
+
+      // Check that element is given if in browser
+      if (this.isBrowser && !this.options.el) {
+        throw new Error('"el" needs to br provided as a string or object.');
+      }
+    },
+
+    // Build entries and process options
+    build: function() {
+      // Get element
+      this.el = this.getElement(this.options.el);
+
+      // Check that an element was found if in browser
+      if (this.isBrowser && !this.el) {
+        throw new Error('Could not find a valid element from the given "el" option.');
+      }
+
+      // Map columns and attach entries to object for easier access.
+      // Should be in format { needed: provided }
+      this.entries = this.mapKeys(this.options.entries, this.options.keyMapping);
+
+      // Parse entries like dates
+      this.entries = this.parseEntries(this.entries);
+
+      // Sort entries.  The entries as a single array is
+      // used for easy access too all entries
+      this.entries = this.sortEntries(this.entries, this.options.descending);
+
+      // Group entries.
+      this.groups = this.groupEntries(this.entries);
+
+      // Sort groups
+      this.groups = this.sortGroups(this.groups, this.options.descending);
+
+      // If browser, do some DOM things and render
+      if (this.isBrowser) {
+        // Get the id from the element or create an id for the timeline
+        // as there may be multiple timelines on the same page
+        this.id = this.el.id || this.uniqueId('tik-tok-timeline');
+        this.el.id = this.id;
+      }
+    },
+
     // Main renderer
     render: function() {
       var _this = this;
 
+      // If not in browser, no need to do DOM things
+      if (!this.isBrowser) {
+        return;
+      }
+
+      // Run template function with values
       this.el.innerHTML = this.options.template({
         _: _,
         groups: this.groups,

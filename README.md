@@ -78,12 +78,27 @@ You can use the following options when defining a Tik Tok timeline:
 * `groupBy`: Tik Tok will automatically group your entries depending on what kind of time they all span.  This may not be exactly what you want, so you can override it with this option.  Use one of the following values: `'hours', 'days', 'months', 'years', or 'decades'`.  Default is `undefined`.
 * `keyMapping`: If you have entry data that is keyed differently, you can provide a basic object to convert when it is processed.  For instance:  
     ```
-    {
-      'needed-key': 'provided-key',
-      'date': 'this is our crazy keyed date field'
-    }
+  {
+    'needed-key': 'provided-key',
+    'date': 'this is our crazy keyed date field'
+  }
     ```
 * `template`: If you want to override the HTML output of the timeline, use your own template.  See the `src/tik-tok.tpl.html` for a starting point.  You can provide a string that will be processed with [Underscore's template function](http://underscorejs.org/#template), or provide your own templating function.  The function will be passed the `groups` of entries, `_` (Underscore), the timeline `title`, and the whole `tiktok` object.
+
+### Methods
+
+* The `update` method will re-render the timeline.  This method takes the same `options` object as described above and will override any new options defined.  For example:  
+    ```
+  var t = new TikTok({
+    el: 'example-tik-tok-container',
+    entries: [ ... entries data here ... ]
+  });
+
+  // Change grouping type
+  t.update({
+    groupBy: 'months'
+  });
+    ```
 
 
 ## Development and contributing
