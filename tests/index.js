@@ -162,6 +162,60 @@ describe('TikTok', function() {
     });
   });
 
+  // Update
+  describe('#update', function() {
+    it('should update options', function() {
+      var entries = [
+        { date: '2014-01-01', title: 'First', body: 'This is 1' }
+      ];
+      var newEntries = [
+        { date: '2014-03-01', title: 'Second', body: 'This is 2' },
+        { date: '2014-03-02', title: 'Third', body: 'This is 3' }
+      ];
+      var t;
+
+      t = new TikTok({
+        entries: entries
+      });
+
+      assert.equal(t.entries[0].title, 'First');
+
+      t.update({
+        entries: newEntries,
+        groupBy: 'months'
+      });
+
+      assert.equal(t.entries[0].title, 'Second');
+      assert.equal(t.groupType, 'months');
+    });
+  });
+
+  // Add
+  describe('#add', function() {
+    it('should add options', function() {
+      var entries = [
+        { date: '2014-01-01', title: 'First', body: 'This is 1' }
+      ];
+      var newEntries = [
+        { date: '2014-03-02', title: 'Third', body: 'This is 3' },
+        { date: '2014-03-01', title: 'Second', body: 'This is 2' }
+      ];
+      var t;
+
+      t = new TikTok({
+        entries: entries
+      });
+
+      assert.equal(t.entries[0].title, 'First');
+
+      t.add(newEntries);
+
+      assert.equal(t.entries[0].title, 'First');
+      assert.equal(t.entries[1].title, 'Second');
+      assert.equal(t.entries[2].title, 'Third');
+    });
+  });
+
   // Check browser
   describe('#checkBrowser', function() {
     it('should (not) be browser', function() {

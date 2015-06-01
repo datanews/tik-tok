@@ -99,6 +99,19 @@ You can use the following options when defining a Tik Tok timeline:
     groupBy: 'months'
   });
     ```
+* The `add` method will add an entry to the timeline and re-render.  This can take in an array of entries, a single object, or a CSV.  The second argument can be used to update any options (like the `update` method).  For example:  
+    ```
+  var t = new TikTok({
+    el: 'example-tik-tok-container',
+    entries: []
+  });
+
+  // Add entries
+  t.add([
+    { date: '1984-01-01', title: 'Dystopian future starts' },
+    { date: '1984-01-02', title: 'Dystopian future a lot like last week' },
+  ]);
+    ```
 
 
 ## Development and contributing

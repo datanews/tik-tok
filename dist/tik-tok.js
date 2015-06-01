@@ -75,7 +75,7 @@
     // probably be variable based on screen height.
     viewOffset: 40,
 
-    // The update function builds or rebuilds the timeline
+    // Builds or rebuilds the timeline
     update: function(options) {
       this.options = this.options || {};
       this.options = _.extend({}, defaultOptions, this.options, options || {});
@@ -84,6 +84,48 @@
       this.validate();
       this.build();
       this.render();
+    },
+
+    // Add entries to existing entries.
+    add: function(entries, options) {
+      var combined;
+
+      // Ensure our options are put together.  This should be run
+      // after an initial update, but just to make sure.
+      this.options = this.options || {};
+      this.options = _.extend({}, defaultOptions, this.options, options || {});
+
+      // Check to see if input is a string and process with CSV
+      if (_.isString(entries)) {
+        entries = this.parseCSV(entries, this.options.csvDelimiter, this.options.csvQuote);
+      }
+
+      // If entries is just an object, not array, make into an array
+      entries = (_.isObject(entries) && !_.isArray(entries)) ? [entries] : entries;
+
+      // Make sure we have an array
+      if (!_.isArray(entries) || entries.length <= 0) {
+        throw new Error('"entries" provided could not be made into an array.');
+      }
+
+      // It's easier to just use the existing entries that have been parsed
+      // then trying to re-check the original entry options passed in
+      if (this.entries && this.entries.length > 0) {
+        combined = _.map(this.entries, _.clone);
+
+        _.each(entries, function(e) {
+          combined.push(e);
+        });
+      }
+      else {
+        combined = entries;
+      }
+
+      // Set as option
+      this.options.entries = combined;
+
+      // Update
+      this.update();
     },
 
     // Validate options and other input
@@ -129,13 +171,6 @@
         }
       }
 
-      // If the entry data was provided as a string, attempt to parse as
-      // CSV
-      if (_.isString(this.options.entries)) {
-        this.options.entries = this.parseCSV(this.options.entries,
-          this.options.csvDelimiter, this.options.csvQuote);
-      }
-
       // Force boolean on date order
       this.options.descending = !!this.options.descending;
 
@@ -156,6 +191,13 @@
       // Check that an element was found if in browser
       if (this.isBrowser && !this.el) {
         throw new Error('Could not find a valid element from the given "el" option.');
+      }
+
+      // If the entry data was provided as a string, attempt to parse as
+      // CSV
+      if (_.isString(this.options.entries)) {
+        this.options.entries = this.parseCSV(this.options.entries,
+          this.options.csvDelimiter, this.options.csvQuote);
       }
 
       // Map columns and attach entries to object for easier access.
