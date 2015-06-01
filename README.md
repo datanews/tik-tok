@@ -171,7 +171,7 @@ Test are run automatically on each push with [Travis CI](https://travis-ci.org/)
 
 (TODO)
 
-#### Code style and quality
+### Code style and quality
 
 Use the following to get your development environment setup.  Having consistent code style leads to smoother contributions, easier reviewing, and better and more stable code.
 
