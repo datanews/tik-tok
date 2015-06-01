@@ -73,7 +73,7 @@
 
     // Ensure groupBy is valid
     if (!_.isUndefined(this.options.groupBy) &&
-      this.validGroupTypes.indexOf(this.options.groupBy) === -1) {
+      this.validGroupByTypes.indexOf(this.options.groupBy) === -1) {
       throw new Error('"groupBy" was provided but not a valid value.');
     }
 
@@ -156,7 +156,7 @@
   _.extend(TikTok.prototype, {
     // What group types are valid; this should correspond with the
     // relevant functions.
-    validGroupTypes: ['months', 'years', 'decade'],
+    validGroupByTypes: ['months', 'years', 'decade'],
 
     // Anchors and otherwise checking for things at the top of
     // the page is not accurate to where people are looking, as they
@@ -330,7 +330,7 @@
 
       // Determine group.  Allow this to be overriden with option.
       this.groupType = (this.options.groupBy &&
-        this.validGroupTypes.indexOf(this.options.groupBy) !== -1) ?
+        this.validGroupByTypes.indexOf(this.options.groupBy) !== -1) ?
         this.options.groupBy : this.determineGroups(this.entries);
 
       // Get grouping function
