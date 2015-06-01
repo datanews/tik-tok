@@ -131,7 +131,6 @@ Install dependencies.  All commands are assumed to be from the [Command Line](ht
     * On common Linux systems: `apt-get install nodejs`
 1. Install [Gulp](http://gulpjs.com/) command line tool: `npm install gulp -g`
 1. Install [Bower](http://bower.cio/) command line tool: `npm install bower -g`
-1. (optional, see below) Install [Testling](https://ci.testling.com/) command line tool: `npm install -g testling`
 1. Get the code (replace with your fork's repository URL) and enter into the code directory: `git clone https://github.com/datanews/tik-tok.git && cd tik-tok`
 1. Install Node dependencies: `npm install`
 1. Install Bower dependencies: `bower install`
@@ -165,9 +164,7 @@ Test are run automatically on each push with [Travis CI](https://travis-ci.org/)
 
 #### Cross-browser testing
 
-The project is setup to use [Testling](https://ci.testling.com/) for basic cross-browser support.  The tests will get run when pushed up to Github.  You can run them locally if you have installed the Testling command line tool (see above) with the following:
-
-    testling
+(TODO)
 
 
 ### Release
