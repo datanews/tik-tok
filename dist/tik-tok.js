@@ -251,14 +251,20 @@
 
       // Add entries to scroll to specific entry when link is
       // clicked.  This is a bit nicer and consistent with load.
-      _.each(this.el.querySelectorAll('a.tt-entry-link'), function(a) {
-        a.addEventListener('click', function(e) {
-          e.preventDefault();
-          var hash = this.getAttribute('href');
-          history.pushState(null, null, hash);
-          _this.scrollTo(hash);
-        });
-      });
+      // Make a reference-able function first.  Note that we
+      // need the element this.
+      this.eventSmoothAnchor = this.eventSmoothAnchor || function(e) {
+        e.preventDefault();
+        var hash = this.getAttribute('href');
+        history.pushState(null, null, hash);
+        _this.scrollTo(hash);
+      };
+
+      // Attach events
+      _.each(this.el.querySelectorAll('a.tt-entry-link'), _.bind(function(a) {
+        a.removeEventListener('click', this.eventSmoothAnchor);
+        a.addEventListener('click', this.eventSmoothAnchor);
+      }, this));
 
       // Gather placement of entries and timeline in order to determine
       // where the user is on the timeline
@@ -273,8 +279,11 @@
         this.determinePlacements();
       }, this), 200);
 
-      // Watch scrolling to update progress bar
-      document.addEventListener('scroll', _.bind(this.updateProgress, this));
+      // Watch scrolling to update progress bar.  Make reference-able function
+      // for removal
+      this.eventUpdateProgress = this.eventUpdateProgress || _.bind(this.updateProgress, this);
+      document.removeEventListener('scroll', this.eventUpdateProgress);
+      document.addEventListener('scroll', this.eventUpdateProgress);
     },
 
     // Update progress bar
