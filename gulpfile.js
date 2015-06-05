@@ -6,6 +6,7 @@
 
 // Dependencies
 var fs = require('fs');
+var path = require('path');
 var gulp = require('gulp');
 var jshint = require('gulp-jshint');
 var jscs = require('gulp-jscs');
@@ -21,6 +22,7 @@ var cssminify = require('gulp-minify-css');
 var autoprefixer = require('gulp-autoprefixer');
 var webserver = require('gulp-webserver');
 var mocha = require('gulp-mocha');
+var karma = require('karma').server;
 
 // Create banner to insert into files
 var pkg = require('./package.json');
@@ -58,7 +60,8 @@ gulp.task('support-js', function() {
     .pipe(jscs());
 });
 
-// Run tests
+// Run tests through Node.  This is quicker, and used for immediate
+// development
 gulp.task('test', ['js', 'support-js'], function() {
   return gulp.src('tests/**/*.js', { read: false })
     .pipe(plumber(plumberHandler))
@@ -66,6 +69,14 @@ gulp.task('test', ['js', 'support-js'], function() {
       ui: 'bdd',
       reporter: 'spec'
     }));
+});
+
+// Run tests in browsers
+gulp.task('browser-test', ['js', 'support-js'], function(done) {
+  return karma.start({
+    configFile: path.join(__dirname + '/tests/karma.conf.js'),
+    singleRun: true
+  }, done);
 });
 
 // Main JS task.  Takes in files from src and outputs
@@ -144,7 +155,7 @@ gulp.task('webserver', function() {
 });
 
 // Default task is a basic build
-gulp.task('default', ['support-js', 'js', 'test', 'styles']);
+gulp.task('default', ['support-js', 'js', 'test', 'browser-test', 'styles']);
 
 // Combine webserver and watch tasks for a more complete server
 gulp.task('server', ['default', 'watch', 'webserver']);

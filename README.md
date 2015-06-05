@@ -148,15 +148,16 @@ Edit files in the `src` directory; these need to get built into the `dist` direc
 
 ### Build
 
-After edits are made, run checks and create build version with the following command.  Note that building will happen automatically with the above Development tasks.
+After edits are made, run checks and tests and create build version with the following command.  Note that building will happen automatically with the above Development tasks.
 
     gulp
 
 ### Testing
 
-Test should be run within the watch tasks described above, but you can run the tests manually with the following.  Do note that the Development tasks above will run these on save, and note that tests are run against the build (`dist`), not the source.
+Note that tests are run against the build (`dist`), not the source.
 
-    gulp test
+* `gulp test`: Will run the tests through Node environment and will miss some browser based tests.  This will get run automatically when running `gulp server`.
+* `gulp browser-test`: Will run tests in given browsers.  This will get done with the default `gulp` build command.
 
 ### Continuous integration
 

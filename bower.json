@@ -47,6 +47,8 @@
     "moment": "~2.10.2"
   },
   "devDependencies": {
-    "tabletop": "~1.4.0"
+    "tabletop": "~1.4.0",
+    "mocha": "~2.2.5",
+    "chai": "~3.0.0"
   }
 }

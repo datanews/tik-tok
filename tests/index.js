@@ -5,13 +5,21 @@
  * beforeEach:false, and afterEach:false
  */
 
-/* global describe:false, it:false */
+/* global describe:false, it:false, chai:false */
 'use strict';
 
-// Dependencies.  See the following for assert reference
-// https://nodejs.org/api/assert.html
-var assert = require('assert');
-var TikTok = require('../dist/tik-tok');
+// We want to be able to run tests from the command line quickly
+// for development, as well as through Karma for cross-browser testing
+if (typeof module !== 'undefined' && module.exports) {
+  // See the following for assert reference
+  // https://nodejs.org/api/assert.html
+  var assert = require('assert');
+  var TikTok = TikTok || require('../dist/tik-tok');
+}
+else {
+  // Get the assert object from Chai
+  var assert = chai.assert;
+}
 
 // Tests for TikTok object
 describe('TikTok', function() {
@@ -59,7 +67,8 @@ describe('TikTok', function() {
       assert.throws(function() {
         t = new TikTok({
           entries: entries,
-          keyMapping: keyMapping
+          keyMapping: keyMapping,
+          el: 'body'
         });
       });
     });
@@ -73,7 +82,8 @@ describe('TikTok', function() {
       assert.throws(function() {
         t = new TikTok({
           entries: entries,
-          groupBy: groupBy
+          groupBy: groupBy,
+          el: 'body'
         });
       });
     });
@@ -86,7 +96,8 @@ describe('TikTok', function() {
       assert.throws(function() {
         t = new TikTok({
           entries: entries,
-          csvDelimiter: 'too long'
+          csvDelimiter: 'too long',
+          el: 'body'
         });
       });
     });
@@ -99,7 +110,8 @@ describe('TikTok', function() {
       assert.throws(function() {
         t = new TikTok({
           entries: entries,
-          csvQuote: undefined
+          csvQuote: undefined,
+          el: 'body'
         });
       });
     });
@@ -113,7 +125,8 @@ describe('TikTok', function() {
       assert.throws(function() {
         t = new TikTok({
           entries: entries,
-          template: template
+          template: template,
+          el: 'body'
         });
       });
     });
@@ -125,7 +138,8 @@ describe('TikTok', function() {
 
       assert.doesNotThrow(function() {
         t = new TikTok({
-          entries: entries
+          entries: entries,
+          el: 'body'
         });
       });
     });
@@ -138,12 +152,14 @@ describe('TikTok', function() {
         '2000-04-04,title 2,body 2';
 
       t = new TikTok({
-        entries: entries
+        entries: entries,
+        el: 'body'
       });
 
       assert.doesNotThrow(function() {
         t = new TikTok({
-          entries: entries
+          entries: entries,
+          el: 'body'
         });
       });
     });
@@ -156,7 +172,8 @@ describe('TikTok', function() {
       assert.doesNotThrow(function() {
         t = new TikTok({
           entries: entries,
-          dateFormat: 'YYYYY-------MM/D'
+          dateFormat: 'YYYYY-------MM/D',
+          el: 'body'
         });
       });
     });
@@ -175,7 +192,8 @@ describe('TikTok', function() {
       var t;
 
       t = new TikTok({
-        entries: entries
+        entries: entries,
+        el: 'body'
       });
 
       assert.equal(t.entries[0].title, 'First');
@@ -203,7 +221,8 @@ describe('TikTok', function() {
       var t;
 
       t = new TikTok({
-        entries: entries
+        entries: entries,
+        el: 'body'
       });
 
       assert.equal(t.entries[0].title, 'First');
@@ -216,10 +235,10 @@ describe('TikTok', function() {
     });
   });
 
-  // Check browser
+  // Check browser with similar check as actual function
   describe('#checkBrowser', function() {
     it('should (not) be browser', function() {
-      var isBrowser = !(module && module.exports);
+      var isBrowser = !(typeof module !== 'undefined' && module.exports && typeof window === 'undefined');
       var entries = [
         { date: '2014-05-01', title: 'Second', body: 'This is 2' },
         { date: '2014-06-01', title: 'Third', body: 'This is 3' },
@@ -228,7 +247,8 @@ describe('TikTok', function() {
       var t;
 
       t = new TikTok({
-        entries: entries
+        entries: entries,
+        el: 'body'
       });
 
       assert.equal(t.checkBrowser(), isBrowser);
@@ -259,7 +279,8 @@ describe('TikTok', function() {
       };
       var t = new TikTok({
         entries: entries,
-        keyMapping: keyMapping
+        keyMapping: keyMapping,
+        el: 'body'
       });
 
       assert.deepEqual(t.mapKeys(entries, keyMapping), expected);
@@ -276,7 +297,8 @@ describe('TikTok', function() {
       ];
       var t = new TikTok({
         entries: entries,
-        keyMapping: {}
+        keyMapping: {},
+        el: 'body'
       });
 
       assert.deepEqual(t.mapKeys(entries, {}), entries);
@@ -295,7 +317,8 @@ describe('TikTok', function() {
       ];
 
       t = new TikTok({
-        entries: entries
+        entries: entries,
+        el: 'body'
       });
 
       assert.equal(t.groupType, 'hours');
@@ -311,7 +334,8 @@ describe('TikTok', function() {
       ];
 
       t = new TikTok({
-        entries: entries
+        entries: entries,
+        el: 'body'
       });
 
       assert.equal(t.groupType, 'days');
@@ -327,7 +351,8 @@ describe('TikTok', function() {
       ];
 
       t = new TikTok({
-        entries: entries
+        entries: entries,
+        el: 'body'
       });
 
       assert.equal(t.groupType, 'months');
@@ -343,7 +368,8 @@ describe('TikTok', function() {
       ];
 
       t = new TikTok({
-        entries: entries
+        entries: entries,
+        el: 'body'
       });
 
       assert.equal(t.groupType, 'years');
@@ -359,7 +385,8 @@ describe('TikTok', function() {
       ];
 
       t = new TikTok({
-        entries: entries
+        entries: entries,
+        el: 'body'
       });
 
       assert.equal(t.groupType, 'decades');
@@ -379,7 +406,8 @@ describe('TikTok', function() {
       var expected = '2014-03';
 
       t = new TikTok({
-        entries: entries
+        entries: entries,
+        el: 'body'
       });
 
       assert.equal(t.groupEntries(t.entries)[0].id, expected);
@@ -397,7 +425,8 @@ describe('TikTok', function() {
 
       t = new TikTok({
         entries: entries,
-        groupBy: 'years'
+        groupBy: 'years',
+        el: 'body'
       });
 
       assert.equal(t.groupEntries(t.entries)[0].id, expected);
@@ -416,7 +445,8 @@ describe('TikTok', function() {
       ];
 
       t = new TikTok({
-        entries: entries
+        entries: entries,
+        el: 'body'
       });
 
       assert.equal(t.sortGroups(t.groups)[0].id, '2014-03');
@@ -435,7 +465,8 @@ describe('TikTok', function() {
       ];
 
       t = new TikTok({
-        entries: entries
+        entries: entries,
+        el: 'body'
       });
 
       assert.equal(t.sortGroups(t.groups)[0].entries[0].title, 'First');
@@ -452,7 +483,8 @@ describe('TikTok', function() {
       ];
 
       t = new TikTok({
-        entries: entries
+        entries: entries,
+        el: 'body'
       });
 
       assert.equal(t.sortGroups(t.groups, true)[0].id, '2014-06');
@@ -474,10 +506,16 @@ describe('TikTok', function() {
 
       // Create object
       t = new TikTok({
-        entries: entries
+        entries: entries,
+        el: 'body'
       });
 
-      assert.equal(t.getElement(element), null);
+      if (t.checkBrowser()) {
+        assert.equal(typeof t.getElement(element), 'object');
+      }
+      else {
+        assert.equal(t.getElement(element), null);
+      }
     });
 
     // Use fake element
@@ -492,7 +530,8 @@ describe('TikTok', function() {
 
       // Create object
       t = new TikTok({
-        entries: entries
+        entries: entries,
+        el: 'body'
       });
       t.isBrowser = true;
 
@@ -504,7 +543,8 @@ describe('TikTok', function() {
   describe('#determineMediaType', function() {
     var entries = [{ date: '2015-01-03', title: 'Title!', body: 'Over here!' }];
     var t = new TikTok({
-      entries: entries
+      entries: entries,
+      el: 'body'
     });
 
     // No URL
@@ -542,7 +582,8 @@ describe('TikTok', function() {
   describe('#regexEscape', function() {
     var entries = [{ date: '2015-01-03', title: 'Title!', body: 'Over here!' }];
     var t = new TikTok({
-      entries: entries
+      entries: entries,
+      el: 'body'
     });
 
     // Parse CSV
@@ -559,7 +600,8 @@ describe('TikTok', function() {
   describe('#makeIdentifier', function() {
     var entries = [{ date: '2015-01-03', title: 'Title!', body: 'Over here!' }];
     var t = new TikTok({
-      entries: entries
+      entries: entries,
+      el: 'body'
     });
 
     // Parse CSV
@@ -581,7 +623,8 @@ describe('TikTok', function() {
   describe('#parseCSV', function() {
     var entries = [{ date: '2015-01-03', title: 'Title!', body: 'Over here!' }];
     var t = new TikTok({
-      entries: entries
+      entries: entries,
+      el: 'body'
     });
 
     // Parse CSV

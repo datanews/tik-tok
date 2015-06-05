@@ -358,7 +358,7 @@
 
     // Simple test for browser (used mostly for testing in Node)
     checkBrowser: function() {
-      return (typeof window !== 'undefined' && document);
+      return !!(typeof window !== 'undefined' && document);
     },
 
     // Sort groups (and entries in groups).  Sorts ascending (oldest to newest)

@@ -4,7 +4,7 @@
   "description": "Tik Tok is a Javascript tool to easily create beautiful, mobile-friendly, vertical timelines.",
   "main": "gulpfile.js",
   "scripts": {
-    "test": "gulp test"
+    "test": "gulp test && gulp browser-test"
   },
   "repository": {
     "type": "git",
@@ -48,7 +48,7 @@
     "gulp-jshint": "^1.10.0",
     "gulp-less": "^3.0.3",
     "gulp-minify-css": "^1.1.0",
-    "gulp-mocha": "^2.0.1",
+    "gulp-mocha": "^2.1.1",
     "gulp-plumber": "^1.0.0",
     "gulp-recess": "^1.1.2",
     "gulp-rename": "^1.2.2",
@@ -57,8 +57,14 @@
     "gulp-util": "^3.0.4",
     "gulp-webserver": "^0.9.0",
     "jshint-stylish": "^1.0.1",
+    "karma": "^0.12.35",
+    "karma-chrome-launcher": "^0.1.12",
+    "karma-firefox-launcher": "^0.1.6",
+    "karma-mocha": "^0.1.10",
+    "karma-phantomjs-launcher": "^0.2.0",
     "less": "^2.5.0",
-    "mocha": "^2.2.4"
+    "mocha": "^2.2.4",
+    "phantomjs": "^1.9.17"
   },
   "dependencies": {
     "moment": "^2.10.2",
