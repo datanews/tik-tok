@@ -24,13 +24,15 @@ var sauceLabLaunchers = {
     base: 'SauceLabs',
     browserName: 'firefox',
     version: '30'
-  },
+  }
+  /*,
   slIOSSafari: {
     base: 'SauceLabs',
     browserName: 'iphone',
     platform: 'OS X 10.9',
     version: '7.1'
   }
+  */
 };
 
 // Base, local configuration
@@ -98,7 +100,8 @@ if (process.env.TRAVIS && process.env.SAUCE_USERNAME && process.env.SAUCE_ACCESS
   configuration.sauceLabs = {
     testName: 'Tik Tok browser tests'
   };
-  configuration.logLevel = 'debug';
+
+  //configuration.logLevel = 'debug';
   configuration.captureTimeout = 120000;
   configuration.port = 9876;
 }
