@@ -6,4 +6,5 @@ node_js:
   - "iojs"
 
 before_install:
-  - npm install -g gulp
+  - npm install -g gulp bower
+  - bower install
