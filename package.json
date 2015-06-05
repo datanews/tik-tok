@@ -59,12 +59,13 @@
     "jshint-stylish": "^1.0.1",
     "karma": "^0.12.35",
     "karma-chrome-launcher": "^0.1.12",
-    "karma-firefox-launcher": "^0.1.6",
     "karma-mocha": "^0.1.10",
     "karma-phantomjs-launcher": "^0.2.0",
     "less": "^2.5.0",
     "mocha": "^2.2.4",
-    "phantomjs": "^1.9.17"
+    "phantomjs": "^1.9.17",
+    "sauce-connect-launcher": "^0.11.1",
+    "saucelabs": "^0.1.1"
   },
   "dependencies": {
     "moment": "^2.10.2",
