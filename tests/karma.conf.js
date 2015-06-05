@@ -4,10 +4,47 @@
 'use strict';
 
 // Sauce lab launchers
+// https://docs.saucelabs.com/reference/platforms-configurator/
 var sauceLabLaunchers = {
-  slChrome: {
+  // Chrome
+  slChromeWin: {
     base: 'SauceLabs',
-    browserName: 'chrome'
+    browserName: 'chrome',
+    platform: 'Windows 8.1'
+  },
+  slChromeOSX: {
+    base: 'SauceLabs',
+    browserName: 'chrome',
+    platform: 'OS X 10.10'
+  },
+  slChromeBeta: {
+    base: 'SauceLabs',
+    browserName: 'chrome',
+    version: 'beta'
+  },
+
+  // Firefox
+  slFFWin: {
+    base: 'SauceLabs',
+    browserName: 'chrome',
+    platform: 'Windows 8.1'
+  },
+  slFFOSX: {
+    base: 'SauceLabs',
+    browserName: 'firefox',
+    platform: 'OS X 10.10'
+  },
+  slFFBeta: {
+    base: 'SauceLabs',
+    browserName: 'firefox',
+    version: 'beta'
+  },
+
+  // IE
+  slIE9: {
+    base: 'SauceLabs',
+    browserName: 'internet explorer',
+    version: '9'
   },
   slIE10: {
     base: 'SauceLabs',
@@ -20,19 +57,59 @@ var sauceLabLaunchers = {
     platform: 'Windows 8.1',
     version: '11'
   },
-  slFirefox: {
+
+  // Safari
+  slSafari8: {
     base: 'SauceLabs',
-    browserName: 'firefox',
-    version: '30'
-  }
-  /*,
-  slIOSSafari: {
+    browserName: 'safari',
+    platform: 'OS X 10.10',
+    version: '8.0'
+  },
+  slSafari7: {
+    base: 'SauceLabs',
+    browserName: 'safari',
+    platform: 'OS X 10.9',
+    version: '7.0'
+  },
+
+  // Mobile safari
+  slIOSSafari82: {
     base: 'SauceLabs',
     browserName: 'iphone',
-    platform: 'OS X 10.9',
-    version: '7.1'
+    platform: 'OS X 10.10',
+    version: '8.2',
+    deviceName: 'iPhone Simulator'
+  },
+  slIOSSafari81: {
+    base: 'SauceLabs',
+    browserName: 'iphone',
+    platform: 'OS X 10.10',
+    version: '8.1',
+    deviceName: 'iPhone Simulator'
+  },
+  slIOSSafari71: {
+    base: 'SauceLabs',
+    browserName: 'iphone',
+    platform: 'OS X 10.10',
+    version: '7.1',
+    deviceName: 'iPhone Simulator'
+  },
+
+  // Android
+  slAndroid51: {
+    base: 'SauceLabs',
+    browserName: 'android',
+    platform: 'Linux',
+    version: '5.1',
+    deviceName: 'Android Emulator'
+  },
+  slAndroidNexus44: {
+    base: 'SauceLabs',
+    browserName: 'android',
+    platform: 'Linux',
+    version: '4.4',
+    deviceName: 'Google Nexus 7 HD Emulator'
   }
-  */
 };
 
 // Base, local configuration
