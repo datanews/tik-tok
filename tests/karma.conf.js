@@ -92,13 +92,14 @@ if (process.env.TRAVIS) {
   configuration.browsers = ['PhantomJS'];
 }
 
-// If we are in Travis and Sauce stuff is there
-if (process.env.TRAVIS && process.env.SAUCE_USERNAME && process.env.SAUCE_ACCESS_KEY) {
+// If the Sauce Labs vars are set (in Travis or not), run that.
+if (process.env.SAUCE_USERNAME && process.env.SAUCE_ACCESS_KEY) {
   configuration.customLaunchers = sauceLabLaunchers;
   configuration.reporters = ['progress', 'saucelabs'];
   configuration.browsers = Object.keys(sauceLabLaunchers);
   configuration.sauceLabs = {
-    testName: 'Tik Tok browser tests'
+    testName: 'Tik Tok',
+    build: process.env.TRAVIS_BUILD_NUMBER || 'local'
   };
 
   //configuration.logLevel = 'debug';

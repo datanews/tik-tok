@@ -2,7 +2,7 @@
 
 Tik Tok is a Javascript tool to easily create beautiful, mobile-friendly, vertical timelines.
 
-[![Build Status](https://travis-ci.org/datanews/tik-tok.svg?branch=master)](https://travis-ci.org/datanews/tik-tok)
+[![Build Status](https://travis-ci.org/datanews/tik-tok.svg?branch=master)](https://travis-ci.org/datanews/tik-tok) [![Sauce Browser Test Status](https://saucelabs.com/buildstatus/tik-tok)](https://saucelabs.com/u/tik-tok)
 
 ## Install
 
@@ -117,9 +117,7 @@ You can use the following options when defining a Tik Tok timeline:
 
 Instructions on how to do development and make contributions to the project.
 
-### Environment
-
-#### Dependencies
+### Install and environment
 
 Install dependencies.  All commands are assumed to be from the [Command Line](http://en.wikipedia.org/wiki/Command-line_interface) and from the root directory of the project (except for the initial getting of the code).
 
@@ -157,16 +155,15 @@ After edits are made, run checks and tests and create build version with the fol
 Note that tests are run against the build (`dist`), not the source.
 
 * `gulp test`: Will run the tests through Node environment and will miss some browser based tests.  This will get run automatically when running `gulp server`.
-* `gulp browser-test`: Will run tests in given browsers.  This will get done with the default `gulp` build command.
-
-### Continuous integration
-
-Test are run automatically on each push with [Travis CI](https://travis-ci.org/).
+* `gulp browser-test`: Will run tests in given browsers.  If you have the Sauce Labs environment variables set up (see below), this will use their service to test in multiple browsers.  This will get done with the default `gulp` build command.
 
 #### Cross-browser testing
 
-(TODO)
+Automated, cross-browser testing is done with the [Sauce Labs](https://saucelabs.com/) service.  To run this locally, you will need a Sauce Labs account, and you will need to set the `SAUCE_USERNAME` and `SAUCE_ACCESS_KEY` environment variables.  There's a [handy copy and paste tool](https://docs.saucelabs.com/tutorials/node-js/) at this page.  A Tik Tok account has been set up on Sauce Labs to run the tests with Travis CI.
 
+### Continuous integration
+
+Test are run automatically on each push with [Travis CI](https://travis-ci.org/).  This will automatically run the cross-browser tests in Sauce Labs as well.
 
 ### Release
 
