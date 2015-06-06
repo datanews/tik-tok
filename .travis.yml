@@ -6,7 +6,7 @@ node_js:
   - "iojs"
 
 before_install:
-  - npm install -g gulp bower
+  - npm install -g gulp bower karma-cli
   - bower install
 
 env:
