@@ -177,7 +177,7 @@ if (process.env.SAUCE_USERNAME && process.env.SAUCE_ACCESS_KEY) {
   configuration.reporters = ['progress', 'saucelabs'];
   configuration.browsers = Object.keys(sauceLabLaunchers);
   configuration.sauceLabs = {
-    testName: 'Tik Tok',
+    testName: 'Tik Tok #' + (process.env.TRAVIS_BUILD_NUMBER || 'local'),
     build: process.env.TRAVIS_BUILD_NUMBER || 'local'
   };
 
