@@ -93,9 +93,10 @@ var sauceLabLaunchers = {
     platform: 'OS X 10.10',
     version: '7.1',
     deviceName: 'iPhone Simulator'
-  },
+  }
 
-  // Android
+  // Android (seem to be an issue)
+  /*
   slAndroid51: {
     base: 'SauceLabs',
     browserName: 'android',
@@ -110,6 +111,7 @@ var sauceLabLaunchers = {
     version: '4.4',
     deviceName: 'Google Nexus 7 HD Emulator'
   }
+  */
 };
 
 // Base, local configuration
