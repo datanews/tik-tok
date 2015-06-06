@@ -171,14 +171,17 @@ if (process.env.TRAVIS) {
   configuration.browsers = ['PhantomJS'];
 }
 
-// If the Sauce Labs vars are set (in Travis or not), run that.
+// If the Sauce Labs vars are set (in Travis or not), run that.  We try
+// to make the name and the build number unique so that Sauce can handle
 if (process.env.SAUCE_USERNAME && process.env.SAUCE_ACCESS_KEY) {
   configuration.customLaunchers = sauceLabLaunchers;
   configuration.reporters = ['progress', 'saucelabs'];
   configuration.browsers = Object.keys(sauceLabLaunchers);
   configuration.sauceLabs = {
-    testName: 'Tik Tok #' + (process.env.TRAVIS_BUILD_NUMBER || 'local'),
-    build: process.env.TRAVIS_BUILD_NUMBER || 'local'
+    testName: 'Tik Tok #' + (process.env.TRAVIS_BUILD_NUMBER || 'local') +
+      (process.env.TRAVIS_NODE_VERSION ? '-' + process.env.TRAVIS_NODE_VERSION : ''),
+    build: (process.env.TRAVIS_BUILD_NUMBER || 'local') +
+      (process.env.TRAVIS_NODE_VERSION ? '-' + process.env.TRAVIS_NODE_VERSION : '')
   };
 
   //configuration.logLevel = 'debug';
