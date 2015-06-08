@@ -152,18 +152,15 @@ After edits are made, run checks and tests and create build version with the fol
 
 ### Testing
 
-Note that tests are run against the build (`dist`), not the source.
+Note that tests are run against the build (`dist`), not the source, and get run during the build step.
 
 * `gulp test`: Will run the tests through Node environment and will miss some browser based tests.  This will get run automatically when running `gulp server`.
-* `gulp browser-test`: Will run tests in given browsers.  If you have the Sauce Labs environment variables set up (see below), this will use their service to test in multiple browsers.  This will get done with the default `gulp` build command.
-
-#### Cross-browser testing
-
-Automated, cross-browser testing is done with the [Sauce Labs](https://saucelabs.com/) service.  To run this locally, you will need a Sauce Labs account, and you will need to set the `SAUCE_USERNAME` and `SAUCE_ACCESS_KEY` environment variables.  There's a [handy copy and paste tool](https://docs.saucelabs.com/tutorials/node-js/) at this page.  A Tik Tok account has been set up on Sauce Labs to run the tests with Travis CI.
+* `gulp browser-test`: Will run tests in given browsers.  By default, this will just run the tests in a PhantomJS browser.
+    * Multiple cross-browser testing is done with the [Sauce Labs](https://saucelabs.com/) service.  To run this locally, you will need a Sauce Labs account, and you will need to set the `SAUCE_USERNAME` and `SAUCE_ACCESS_KEY` environment variables.  There's a [handy copy and paste tool](https://docs.saucelabs.com/tutorials/node-js/) at this page if you already have an account.
 
 ### Continuous integration
 
-Test are run automatically on each push with [Travis CI](https://travis-ci.org/).  This will automatically run the cross-browser tests in Sauce Labs as well.
+Test are run automatically on each push with [Travis CI](https://travis-ci.org/).  This will not run the cross-browser tests in Sauce Labs as these seem to timeout or otherwise fail in ways that we have no control over.
 
 ### Release
 
