@@ -282,7 +282,9 @@
 
     // Update progress bar
     updateProgress: function() {
-      var currentView = document.body.scrollTop;
+      var currentViewTop = document.body.scrollTop;
+      var currentViewHeight = window.innerHeight;
+      var currentViewBottom = currentViewTop + currentViewHeight;
       var currentEntry = 0;
 
       // Offset view.  Adjust just a bit so that when scrolling to
@@ -295,7 +297,7 @@
       this.determinePlacementsThrottled();
 
       // Determine if in timeline at all
-      if (currentView >= this.top - o && currentView <= this.bottom - o) {
+      if (currentViewTop >= this.top - o && currentViewTop <= this.bottom - o) {
         this.barEl.classList.add('enabled');
 
         // Determine which entry we are in
@@ -303,10 +305,16 @@
           var bottom = (this.entries[ei + 1]) ? this.entries[ei + 1].top :
             this.bottom;
 
-          if (currentView >= e.top - o && currentView < bottom - o) {
+          if (currentViewTop >= e.top - o && currentViewTop < bottom - o) {
             currentEntry = ei;
           }
         }, this));
+
+        // If we reach the end of the page and we are still on a timeline, we
+        // assume the end of the timeline
+        if (currentViewBottom >= this.documentHeight - 5) {
+          currentEntry = this.entries.length - 1;
+        }
 
         // Move progress accordingly.
         this.progressEl.style.width = (currentEntry / (this.entries.length - 1) * 100) + '%';
@@ -553,10 +561,16 @@
     // like images may not be loaded yet.
     determinePlacements: function() {
       var _this = this;
+      var body = document.body;
+      var html = document.documentElement;
 
       // Determine top and bottom of timeline
       this.top = this.el.getBoundingClientRect().top + window.pageYOffset;
       this.bottom = this.el.getBoundingClientRect().bottom + window.pageYOffset;
+
+      // Get the full window height
+      this.documentHeight = Math.max(body.scrollHeight, body.offsetHeight,
+        html.clientHeight, html.scrollHeight, html.offsetHeight);
 
       // Determine top and bottom of entries
       this.entries = _.map(this.entries, function(e) {
