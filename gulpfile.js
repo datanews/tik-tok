@@ -6,6 +6,7 @@
 
 // Dependencies
 var fs = require('fs');
+var path = require('path');
 var gulp = require('gulp');
 var jshint = require('gulp-jshint');
 var jscs = require('gulp-jscs');
@@ -21,6 +22,7 @@ var cssminify = require('gulp-minify-css');
 var autoprefixer = require('gulp-autoprefixer');
 var webserver = require('gulp-webserver');
 var mocha = require('gulp-mocha');
+var karma = require('karma').server;
 
 // Create banner to insert into files
 var pkg = require('./package.json');
@@ -58,8 +60,9 @@ gulp.task('support-js', function() {
     .pipe(jscs());
 });
 
-// Run tests
-gulp.task('test', function() {
+// Run tests through Node.  This is quicker, and used for immediate
+// development
+gulp.task('test', ['js', 'support-js'], function() {
   return gulp.src('tests/**/*.js', { read: false })
     .pipe(plumber(plumberHandler))
     .pipe(mocha({
@@ -68,10 +71,18 @@ gulp.task('test', function() {
     }));
 });
 
+// Run tests in browsers
+gulp.task('browser-test', ['js', 'support-js'], function(done) {
+  return karma.start({
+    configFile: path.join(__dirname + '/tests/karma.conf.js'),
+    singleRun: true
+  }, done);
+});
+
 // Main JS task.  Takes in files from src and outputs
 // to dist.  Gets template and uses JSHint, JSCS, add header, minify
 gulp.task('js', function() {
-  gulp.src('src/**/*.js')
+  return gulp.src('src/**/*.js')
     .pipe(plumber(plumberHandler))
     .pipe(replace(
       'REPLACE-DEFAULT-TEMPLATE',
@@ -95,7 +106,7 @@ gulp.task('js', function() {
 
 // Styles.  Recess linting, Convert LESS to CSS, minify
 gulp.task('styles', function() {
-  gulp.src('src/**/*.less')
+  return gulp.src('src/**/*.less')
     .pipe(plumber(plumberHandler))
     .pipe(recess({
       noOverqualifying: false
@@ -127,7 +138,7 @@ gulp.task('watch', function() {
 
 // Web server for conveinence
 gulp.task('webserver', function() {
-  gulp.src('./')
+  return gulp.src('./')
     .pipe(webserver({
       port: 8089,
       livereload: {
@@ -144,7 +155,7 @@ gulp.task('webserver', function() {
 });
 
 // Default task is a basic build
-gulp.task('default', ['support-js', 'js', 'test', 'styles']);
+gulp.task('default', ['support-js', 'js', 'test', 'browser-test', 'styles']);
 
 // Combine webserver and watch tasks for a more complete server
 gulp.task('server', ['default', 'watch', 'webserver']);

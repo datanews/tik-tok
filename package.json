@@ -48,7 +48,7 @@
     "gulp-jshint": "^1.10.0",
     "gulp-less": "^3.0.3",
     "gulp-minify-css": "^1.1.0",
-    "gulp-mocha": "^2.0.1",
+    "gulp-mocha": "^2.1.1",
     "gulp-plumber": "^1.0.0",
     "gulp-recess": "^1.1.2",
     "gulp-rename": "^1.2.2",
@@ -57,25 +57,19 @@
     "gulp-util": "^3.0.4",
     "gulp-webserver": "^0.9.0",
     "jshint-stylish": "^1.0.1",
+    "karma": "^0.12.35",
+    "karma-chrome-launcher": "^0.1.12",
+    "karma-mocha": "^0.1.10",
+    "karma-phantomjs-launcher": "^0.2.0",
+    "karma-sauce-launcher": "^0.2.11",
     "less": "^2.5.0",
-    "mocha": "^2.2.4"
+    "mocha": "^2.2.4",
+    "phantomjs": "^1.9.17",
+    "sauce-connect-launcher": "^0.11.1",
+    "saucelabs": "^0.1.1"
   },
   "dependencies": {
     "moment": "^2.10.2",
     "underscore": "^1.8.3"
-  },
-  "testling": {
-    "harness": "mocha-bdd",
-    "files": "tests/*.js",
-    "browsers": [
-      "ie/8..latest",
-      "chrome/22..latest",
-      "firefox/16..latest",
-      "safari/latest",
-      "opera/11.0..latest",
-      "iphone/6",
-      "ipad/6",
-      "android-browser/latest"
-    ]
   }
 }

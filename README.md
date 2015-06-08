@@ -2,8 +2,7 @@
 
 Tik Tok is a Javascript tool to easily create beautiful, mobile-friendly, vertical timelines.
 
-[![Testling browser support](https://ci.testling.com/datanews/tik-tok.png)
-](https://ci.testling.com/datanews/tik-tok)
+[![Build Status](https://travis-ci.org/datanews/tik-tok.svg?branch=master)](https://travis-ci.org/datanews/tik-tok) [![Sauce Browser Test Status](https://saucelabs.com/buildstatus/tik-tok)](https://saucelabs.com/u/tik-tok)
 
 ## Install
 
@@ -78,21 +77,47 @@ You can use the following options when defining a Tik Tok timeline:
 * `groupBy`: Tik Tok will automatically group your entries depending on what kind of time they all span.  This may not be exactly what you want, so you can override it with this option.  Use one of the following values: `'hours', 'days', 'months', 'years', or 'decades'`.  Default is `undefined`.
 * `keyMapping`: If you have entry data that is keyed differently, you can provide a basic object to convert when it is processed.  For instance:  
     ```
-    {
-      'needed-key': 'provided-key',
-      'date': 'this is our crazy keyed date field'
-    }
+  {
+    'needed-key': 'provided-key',
+    'date': 'this is our crazy keyed date field'
+  }
     ```
 * `template`: If you want to override the HTML output of the timeline, use your own template.  See the `src/tik-tok.tpl.html` for a starting point.  You can provide a string that will be processed with [Underscore's template function](http://underscorejs.org/#template), or provide your own templating function.  The function will be passed the `groups` of entries, `_` (Underscore), the timeline `title`, and the whole `tiktok` object.
+
+### Methods
+
+* The `update` method will re-render the timeline.  This method takes the same `options` object as described above and will override any new options defined.  For example:  
+    ```
+  var t = new TikTok({
+    el: 'example-tik-tok-container',
+    entries: [ ... entries data here ... ]
+  });
+
+  // Change grouping type
+  t.update({
+    groupBy: 'months'
+  });
+    ```
+* The `add` method will add an entry to the timeline and re-render.  This can take in an array of entries, a single object, or a CSV.  The second argument can be used to update any options (like the `update` method).  For example:  
+    ```
+  var t = new TikTok({
+    el: 'example-tik-tok-container',
+    entries: []
+  });
+
+  // Add entries
+  t.add([
+    { date: '1984-01-01', title: 'Dystopian future starts' },
+    { date: '1984-01-02', title: 'Dystopian future a lot like last week' },
+  ]);
+    ```
 
 
 ## Development and contributing
 
 Instructions on how to do development and make contributions to the project.
 
-### Environment
-
-#### Dependencies
+### Install and environment
 
 Install dependencies.  All commands are assumed to be from the [Command Line](http://en.wikipedia.org/wiki/Command-line_interface) and from the root directory of the project (except for the initial getting of the code).
 
@@ -104,7 +129,6 @@ Install dependencies.  All commands are assumed to be from the [Command Line](ht
     * On common Linux systems: `apt-get install nodejs`
 1. Install [Gulp](http://gulpjs.com/) command line tool: `npm install gulp -g`
 1. Install [Bower](http://bower.cio/) command line tool: `npm install bower -g`
-1. (optional, see below) Install [Testling](https://ci.testling.com/) command line tool: `npm install -g testling`
 1. Get the code (replace with your fork's repository URL) and enter into the code directory: `git clone https://github.com/datanews/tik-tok.git && cd tik-tok`
 1. Install Node dependencies: `npm install`
 1. Install Bower dependencies: `bower install`
@@ -122,28 +146,27 @@ Edit files in the `src` directory; these need to get built into the `dist` direc
 
 ### Build
 
-After edits are made, run checks and create build version with the following command.  Note that building will happen automatically with the above Development tasks.
+After edits are made, run checks and tests and create build version with the following command.  Note that building will happen automatically with the above Development tasks.
 
     gulp
 
 ### Testing
 
-Test should be run within the watch tasks described above, but you can run the tests manually with the following.  Do note that the Development tasks above will run these on save, and note that tests are run against the build (`dist`), not the source.
+Note that tests are run against the build (`dist`), not the source, and get run during the build step.
 
-    gulp test
+* `gulp test`: Will run the tests through Node environment and will miss some browser based tests.  This will get run automatically when running `gulp server`.
+* `gulp browser-test`: Will run tests in given browsers.  By default, this will just run the tests in a PhantomJS browser.
+    * Multiple cross-browser testing is done with the [Sauce Labs](https://saucelabs.com/) service.  To run this locally, you will need a Sauce Labs account, and you will need to set the `SAUCE_USERNAME` and `SAUCE_ACCESS_KEY` environment variables.  There's a [handy copy and paste tool](https://docs.saucelabs.com/tutorials/node-js/) at this page if you already have an account.
 
-#### Cross-browser testing
+### Continuous integration
 
-The project is setup to use [Testling](https://ci.testling.com/) for basic cross-browser support.  The tests will get run when pushed up to Github.  You can run them locally if you have installed the Testling command line tool (see above) with the following:
-
-    testling
-
+Test are run automatically on each push with [Travis CI](https://travis-ci.org/).  This will not run the cross-browser tests in Sauce Labs as these seem to timeout or otherwise fail in ways that we have no control over.
 
 ### Release
 
 (TODO)
 
-#### Code style and quality
+### Code style and quality
 
 Use the following to get your development environment setup.  Having consistent code style leads to smoother contributions, easier reviewing, and better and more stable code.
 

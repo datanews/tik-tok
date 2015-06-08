@@ -52,111 +52,16 @@
     template: 'REPLACE-DEFAULT-TEMPLATE'
   };
 
-  // Constructior
+  // Constructor.  This just calls the update function.
   var TikTok = function(options) {
-    this.options = _.extend({}, defaultOptions, options || {});
-
-    // Check entry data
-    if (!_.isArray(this.options.entries) && !_.isString(this.options.entries)) {
-      throw new Error('"entries" data should be provided as a string or array.');
-    }
-
-    // Ensure column mapping is an object
-    if (this.options.keyMapping && !_.isObject(this.options.keyMapping)) {
-      throw new Error('"keyMapping" was not provided as an object.');
-    }
-
-    // Ensure there is a template
-    if (!_.isString(this.options.template) && !_.isFunction(this.options.template)) {
-      throw new Error('"template" was not provided as a string or function.');
-    }
-
-    // Ensure groupBy is valid
-    if (!_.isUndefined(this.options.groupBy) &&
-      this.validGroupTypes.indexOf(this.options.groupBy) === -1) {
-      throw new Error('"groupBy" was provided but not a valid value.');
-    }
-
-    // Ensure CSV characters are single characters, not that the parsing
-    // couldn't probably handle it, but why make it more complex
-    if (!_.isString(this.options.csvDelimiter) || this.options.csvDelimiter.length !== 1) {
-      throw new Error('"csvDelimiter" was not provided as a single character string.');
-    }
-
-    if (!_.isString(this.options.csvQuote) || this.options.csvQuote.length !== 1) {
-      throw new Error('"csvQuote" was not provided as a single character string.');
-    }
-
-    // Try to build template if string
-    if (_.isString(this.options.template)) {
-      try {
-        this.options.template = _.template(this.options.template);
-      }
-      catch (e) {
-        throw new Error('Error parsing template string with underscore templating: ' + e.message);
-      }
-    }
-
-    // Force boolean on date order
-    this.options.descending = !!this.options.descending;
-
-    // Determine if browser
-    this.isBrowser = this.checkBrowser();
-
-    // Check that element is given if in browser
-    if (this.isBrowser && !this.options.el) {
-      throw new Error('"el" needs to br provided as a string or object.');
-    }
-
-    // Get element
-    this.el = this.getElement(this.options.el);
-
-    // Check that an element was found if in browser
-    if (this.isBrowser && !this.el) {
-      throw new Error('Could not find a valid element from the given "el" option.');
-    }
-
-    // If the entry data was provided as a string, attempt to parse as
-    // CSV
-    if (_.isString(this.options.entries)) {
-      this.options.entries = this.parseCSV(this.options.entries,
-        this.options.csvDelimiter, this.options.csvQuote);
-    }
-
-    // Map columns and attach entries to object for easier access.
-    // Should be in format { needed: provided }
-    this.entries = this.mapKeys(this.options.entries, this.options.keyMapping);
-
-    // Parse entries like dates
-    this.entries = this.parseEntries(this.entries);
-
-    // Sort entries.  The entries as a single array is
-    // used for easy access too all entries
-    this.entries = this.sortEntries(this.entries, this.options.descending);
-
-    // Group entries.
-    this.groups = this.groupEntries(this.entries);
-
-    // Sort groups
-    this.groups = this.sortGroups(this.groups, this.options.descending);
-
-    // If browser, do some DOM things and render
-    if (this.isBrowser) {
-      // Get the id from the element or create an id for the timeline
-      // as there may be multiple timelines on the same page
-      this.id = this.el.id || this.uniqueId('tik-tok-timeline');
-      this.el.id = this.id;
-
-      // Render
-      this.render();
-    }
+    this.update(options);
   };
 
   // Add methods and properties
   _.extend(TikTok.prototype, {
     // What group types are valid; this should correspond with the
     // relevant functions.
-    validGroupTypes: ['months', 'years', 'decade'],
+    validGroupByTypes: ['months', 'years', 'decade'],
 
     // Anchors and otherwise checking for things at the top of
     // the page is not accurate to where people are looking, as they
@@ -164,10 +69,167 @@
     // probably be variable based on screen height.
     viewOffset: 40,
 
+    // Builds or rebuilds the timeline
+    update: function(options) {
+      this.options = this.options || {};
+      this.options = _.extend({}, defaultOptions, this.options, options || {});
+
+      // Validate, build, and render
+      this.validate();
+      this.build();
+      this.render();
+    },
+
+    // Add entries to existing entries.
+    add: function(entries, options) {
+      var combined;
+
+      // Ensure our options are put together.  This should be run
+      // after an initial update, but just to make sure.
+      this.options = this.options || {};
+      this.options = _.extend({}, defaultOptions, this.options, options || {});
+
+      // Check to see if input is a string and process with CSV
+      if (_.isString(entries)) {
+        entries = this.parseCSV(entries, this.options.csvDelimiter, this.options.csvQuote);
+      }
+
+      // If entries is just an object, not array, make into an array
+      entries = (_.isObject(entries) && !_.isArray(entries)) ? [entries] : entries;
+
+      // Make sure we have an array
+      if (!_.isArray(entries) || entries.length <= 0) {
+        throw new Error('"entries" provided could not be made into an array.');
+      }
+
+      // It's easier to just use the existing entries that have been parsed
+      // then trying to re-check the original entry options passed in
+      if (this.entries && this.entries.length > 0) {
+        combined = _.map(this.entries, _.clone);
+
+        _.each(entries, function(e) {
+          combined.push(e);
+        });
+      }
+      else {
+        combined = entries;
+      }
+
+      // Set as option
+      this.options.entries = combined;
+
+      // Update
+      this.update();
+    },
+
+    // Validate options and other input
+    validate: function() {
+      // Check entry data
+      if (!_.isArray(this.options.entries) && !_.isString(this.options.entries)) {
+        throw new Error('"entries" data should be provided as a string or array.');
+      }
+
+      // Ensure column mapping is an object
+      if (this.options.keyMapping && !_.isObject(this.options.keyMapping)) {
+        throw new Error('"keyMapping" was not provided as an object.');
+      }
+
+      // Ensure there is a template
+      if (!_.isString(this.options.template) && !_.isFunction(this.options.template)) {
+        throw new Error('"template" was not provided as a string or function.');
+      }
+
+      // Ensure groupBy is valid
+      if (!_.isUndefined(this.options.groupBy) &&
+        this.validGroupByTypes.indexOf(this.options.groupBy) === -1) {
+        throw new Error('"groupBy" was provided but not a valid value.');
+      }
+
+      // Ensure CSV characters are single characters, not that the parsing
+      // couldn't probably handle it, but why make it more complex
+      if (!_.isString(this.options.csvDelimiter) || this.options.csvDelimiter.length !== 1) {
+        throw new Error('"csvDelimiter" was not provided as a single character string.');
+      }
+
+      if (!_.isString(this.options.csvQuote) || this.options.csvQuote.length !== 1) {
+        throw new Error('"csvQuote" was not provided as a single character string.');
+      }
+
+      // Try to build template if string
+      if (_.isString(this.options.template)) {
+        try {
+          this.options.template = _.template(this.options.template);
+        }
+        catch (e) {
+          throw new Error('Error parsing template string with underscore templating: ' + e.message);
+        }
+      }
+
+      // Force boolean on date order
+      this.options.descending = !!this.options.descending;
+
+      // Determine if browser
+      this.isBrowser = this.checkBrowser();
+
+      // Check that element is given if in browser
+      if (this.isBrowser && !this.options.el) {
+        throw new Error('"el" needs to br provided as a string or object.');
+      }
+    },
+
+    // Build entries and process options
+    build: function() {
+      // Get element
+      this.el = this.getElement(this.options.el);
+
+      // Check that an element was found if in browser
+      if (this.isBrowser && !this.el) {
+        throw new Error('Could not find a valid element from the given "el" option.');
+      }
+
+      // If the entry data was provided as a string, attempt to parse as
+      // CSV
+      if (_.isString(this.options.entries)) {
+        this.options.entries = this.parseCSV(this.options.entries,
+          this.options.csvDelimiter, this.options.csvQuote);
+      }
+
+      // Map columns and attach entries to object for easier access.
+      // Should be in format { needed: provided }
+      this.entries = this.mapKeys(this.options.entries, this.options.keyMapping);
+
+      // Parse entries like dates
+      this.entries = this.parseEntries(this.entries);
+
+      // Sort entries.  The entries as a single array is
+      // used for easy access too all entries
+      this.entries = this.sortEntries(this.entries, this.options.descending);
+
+      // Group entries.
+      this.groups = this.groupEntries(this.entries);
+
+      // Sort groups
+      this.groups = this.sortGroups(this.groups, this.options.descending);
+
+      // If browser, do some DOM things and render
+      if (this.isBrowser) {
+        // Get the id from the element or create an id for the timeline
+        // as there may be multiple timelines on the same page
+        this.id = this.el.id || this.uniqueId('tik-tok-timeline');
+        this.el.id = this.id;
+      }
+    },
+
     // Main renderer
     render: function() {
       var _this = this;
 
+      // If not in browser, no need to do DOM things
+      if (!this.isBrowser) {
+        return;
+      }
+
+      // Run template function with values
       this.el.innerHTML = this.options.template({
         _: _,
         groups: this.groups,
@@ -183,14 +245,20 @@
 
       // Add entries to scroll to specific entry when link is
       // clicked.  This is a bit nicer and consistent with load.
-      _.each(this.el.querySelectorAll('a.tt-entry-link'), function(a) {
-        a.addEventListener('click', function(e) {
-          e.preventDefault();
-          var hash = this.getAttribute('href');
-          history.pushState(null, null, hash);
-          _this.scrollTo(hash);
-        });
-      });
+      // Make a reference-able function first.  Note that we
+      // need the element this.
+      this.eventSmoothAnchor = this.eventSmoothAnchor || function(e) {
+        e.preventDefault();
+        var hash = this.getAttribute('href');
+        history.pushState(null, null, hash);
+        _this.scrollTo(hash);
+      };
+
+      // Attach events
+      _.each(this.el.querySelectorAll('a.tt-entry-link'), _.bind(function(a) {
+        a.removeEventListener('click', this.eventSmoothAnchor);
+        a.addEventListener('click', this.eventSmoothAnchor);
+      }, this));
 
       // Gather placement of entries and timeline in order to determine
       // where the user is on the timeline
@@ -205,13 +273,18 @@
         this.determinePlacements();
       }, this), 200);
 
-      // Watch scrolling to update progress bar
-      document.addEventListener('scroll', _.bind(this.updateProgress, this));
+      // Watch scrolling to update progress bar.  Make reference-able function
+      // for removal
+      this.eventUpdateProgress = this.eventUpdateProgress || _.bind(this.updateProgress, this);
+      document.removeEventListener('scroll', this.eventUpdateProgress);
+      document.addEventListener('scroll', this.eventUpdateProgress);
     },
 
     // Update progress bar
     updateProgress: function() {
-      var currentView = document.body.scrollTop;
+      var currentViewTop = document.body.scrollTop;
+      var currentViewHeight = window.innerHeight;
+      var currentViewBottom = currentViewTop + currentViewHeight;
       var currentEntry = 0;
 
       // Offset view.  Adjust just a bit so that when scrolling to
@@ -224,7 +297,7 @@
       this.determinePlacementsThrottled();
 
       // Determine if in timeline at all
-      if (currentView >= this.top - o && currentView <= this.bottom - o) {
+      if (currentViewTop >= this.top - o && currentViewTop <= this.bottom - o) {
         this.barEl.classList.add('enabled');
 
         // Determine which entry we are in
@@ -232,10 +305,16 @@
           var bottom = (this.entries[ei + 1]) ? this.entries[ei + 1].top :
             this.bottom;
 
-          if (currentView >= e.top - o && currentView < bottom - o) {
+          if (currentViewTop >= e.top - o && currentViewTop < bottom - o) {
             currentEntry = ei;
           }
         }, this));
+
+        // If we reach the end of the page and we are still on a timeline, we
+        // assume the end of the timeline
+        if (currentViewBottom >= this.documentHeight - 5) {
+          currentEntry = this.entries.length - 1;
+        }
 
         // Move progress accordingly.
         this.progressEl.style.width = (currentEntry / (this.entries.length - 1) * 100) + '%';
@@ -287,7 +366,7 @@
 
     // Simple test for browser (used mostly for testing in Node)
     checkBrowser: function() {
-      return (typeof window !== 'undefined' && document);
+      return !!(typeof window !== 'undefined' && document);
     },
 
     // Sort groups (and entries in groups).  Sorts ascending (oldest to newest)
@@ -330,7 +409,7 @@
 
       // Determine group.  Allow this to be overriden with option.
       this.groupType = (this.options.groupBy &&
-        this.validGroupTypes.indexOf(this.options.groupBy) !== -1) ?
+        this.validGroupByTypes.indexOf(this.options.groupBy) !== -1) ?
         this.options.groupBy : this.determineGroups(this.entries);
 
       // Get grouping function
@@ -482,10 +561,16 @@
     // like images may not be loaded yet.
     determinePlacements: function() {
       var _this = this;
+      var body = document.body;
+      var html = document.documentElement;
 
       // Determine top and bottom of timeline
       this.top = this.el.getBoundingClientRect().top + window.pageYOffset;
       this.bottom = this.el.getBoundingClientRect().bottom + window.pageYOffset;
+
+      // Get the full window height
+      this.documentHeight = Math.max(body.scrollHeight, body.offsetHeight,
+        html.clientHeight, html.scrollHeight, html.offsetHeight);
 
       // Determine top and bottom of entries
       this.entries = _.map(this.entries, function(e) {
