@@ -516,7 +516,7 @@
 
         // Determine type of media from media url if mediaType has not
         // been provided
-        e.mediaType = e.mediaType || this.determineMediaType(e.media);
+        e.type = e.type || this.determineMediaType(e.media);
 
         // Create a formatted version of date for template
         e.dateFormatted = d.format(this.options.dateDisplay);

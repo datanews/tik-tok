@@ -179,6 +179,25 @@ describe('TikTok', function() {
     });
   });
 
+  describe('#parseEntries', function() {
+    it('should override media type', function() {
+      var entries = [
+        { date: '2014-01-01', title: 'First', body: 'This is 1', type: 'image', media: 'http://youtube.com/1.png' },
+        { date: '2014-03-01', title: 'Second', body: 'This is 2', media: 'http://youtube.com/1.png' },
+        { date: '2014-03-02', title: 'Third', body: 'This is 3' }
+      ];
+      var t;
+
+      t = new TikTok({
+        entries: entries,
+        el: 'body'
+      });
+
+      assert.equal(t.parseEntries(entries)[0].type, 'image');
+      assert.equal(t.parseEntries(entries)[1].type, 'youtube');
+    });
+  });
+
   // Update
   describe('#update', function() {
     it('should update options', function() {

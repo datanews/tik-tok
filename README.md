@@ -50,10 +50,13 @@ JSON example:
       date: '2014-04-01', // String date, see format option below for what is supported.
       title: 'This is an awesome event',
       body: 'This is the optional main text',
-      // Media should be a URL to an image or the embed URL for Youtube, SoundCloud,
-      // and (more soon)
+      // Media should be a URL to an image or the embed URL.  This will automatically look
+      // for the following types: Youtube, SoundCloud, general iframe/embed, or image
       media: 'http://url.com/to/image.png',
-      source: 'This is a source line for your media'
+      source: 'This is a source line for your media',
+      // Override the media type with this field (this is not usually needed).  Possible values:
+      // youtube, soundcloud, soundcloud_large, embed, image
+      type: embed
     }
 
 CSV example:
