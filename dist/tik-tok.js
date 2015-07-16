@@ -554,6 +554,11 @@
         return 'soundcloud';
       }
 
+      // General embed/iframe
+      else if (url.indexOf('embed') !== -1 || url.indexOf('iframe') !== -1) {
+        return 'embed';
+      }
+
       // Image
       else {
         return 'image';
