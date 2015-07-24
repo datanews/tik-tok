@@ -180,3 +180,11 @@ Use the following to get your development environment setup.  Having consistent 
 1. (optional) Install a [JSHint plugin for your favorite code editor](http://jshint.com/install/)
     * [JSHint](http://jshint.com/) is a JS error detection tool.
     * This is optional since the main build task will run this.
+
+### Project page
+
+The main project page is hosted on Github Pages through this repository.
+
+We want to include the Bower dependencies in this branch, so this is a helpful command to make that all happen at once (assuming `master` is up to date).
+
+    git checkout gh-pages && git merge master && git add bower_components -f && git commit -m "Adding bower dependencies for project page" && git push origin gh-pages && git checkout master
