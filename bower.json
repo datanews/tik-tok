@@ -51,6 +51,7 @@
   "devDependencies": {
     "tabletop": "~1.4.0",
     "mocha": "~2.2.5",
-    "chai": "~3.0.0"
+    "chai": "~3.0.0",
+    "highlightjs": "~8.6.0"
   }
 }

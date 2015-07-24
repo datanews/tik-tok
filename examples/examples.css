@@ -9,7 +9,7 @@ body {
 
 .section-ban {
   background-color: #EAEAEA;
-  padding: 1em 0.5em;
+  padding: 1em 1em;
   margin-bottom: 2em;
 }
 
@@ -22,15 +22,17 @@ body {
   font-size: 1.5em;
 }
 
-.section-ban code {
-  display: block;
+.section code {
+  padding: 0.15em 0.25em;
   font-family: monospace;
+  background-color: #DADADA;
+}
+
+.section-ban pre code {
+  display: block;
   border: 1px solid #DADADA;
-  background-color: #FFFFFF;
-  overflow: scroll;
   border-radius: 3px;
   padding: 1em;
-  max-height: 20em;
 }
 
 .section-ban h2 {
