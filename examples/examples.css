@@ -1,5 +1,6 @@
 /**
- * CSS specific to examples.
+ * CSS specific to examples.  Use specificty to not screw up any Tik Tok
+ * styles inadvertently
  */
 
 body {
@@ -11,21 +12,101 @@ body {
   background-color: #EAEAEA;
   padding: 1em 1em;
   margin-bottom: 2em;
+  box-sizing: border-box;
+  font-family: Georgia, serif;
+}
+.section-ban-last {
+  margin-bottom: 0;
 }
 
-.section-wrapper {
+/* General styles */
+.section-ban * {
+  box-sizing: border-box;
+}
+
+.section-ban img {
+  max-width: 100%;
+}
+
+.section-ban h1,
+.section-ban h2,
+.section-ban h3 {
+  font-family: Lato, Helvetica, Arial, sans-serif;
+}
+
+.section-ban h1 {
+  font-size: 4em;
+}
+
+/* Cleafix */
+.section-ban .cf:before,
+.section-ban .cf:after {
+  content: " ";
+  display: table;
+}
+.section-ban .cf:after {
+  clear: both;
+}
+.section-ban .cf {
+  *zoom: 1;
+}
+
+/* Inner wrapper */
+.section-ban .section-wrapper {
   max-width: 1000px;
   margin: 0 auto;
 }
 
-.section-ban .intro {
-  font-size: 1.5em;
+/* Gridish */
+.section-ban .columns .column-50 {
+  float: left;
+  width: 50%;
+  padding-right: 1em;
+}
+.section-ban .columns .column-last {
+  padding-right: 0;
 }
 
-.section code {
+/* Top section */
+.section-ban .intro {
+  text-align: center;
+}
+.section-ban .intro p {
+  font-size: 1.85em;
+}
+.section-ban .intro img {
+  text-align: right;
+  max-height: 30em;
+}
+.section-ban .intro .column-last {
+  text-align: right;
+}
+
+@media screen and (max-width: 700px) {
+  .section-ban .intro h1 {
+    font-size: 3em;
+  }
+  .section-ban .intro p {
+    font-size: 1.25em;
+  }
+}
+
+@media screen and (max-width: 450px) {
+  .section-ban .intro .column-50 {
+    width: 100%;
+    padding: 0;
+    margin-bottom: 1em;
+  }
+  .section-ban .intro .column-last {
+    margin-bottom: 0;
+  }
+}
+
+/* Code sections */
+.section-ban code {
   padding: 0.15em 0.25em;
   font-family: monospace;
-  background-color: #DADADA;
+  background-color: #f8f8f8;
 }
 
 .section-ban pre code {
@@ -33,13 +114,11 @@ body {
   border: 1px solid #DADADA;
   border-radius: 3px;
   padding: 1em;
+  background-color: #f8f8f8;
 }
 
-.section-ban h2 {
-  font-size: 1.5em;
-  text-align: center;
-}
 
+/* loading for tik toks */
 .temp-loading {
   margin: 2em;
   text-align: center;
