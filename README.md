@@ -154,7 +154,7 @@ After edits are made, run checks and tests and create build version with the fol
 
 ### Testing
 
-Note that tests are run against the build (`dist`), not the source, and get run during the build step.
+Note that tests are run against the build (`dist`), not the source, and get run during the main build step, `gulp`.
 
 * `gulp test`: Will run the tests through Node environment and will miss some browser based tests.  This will get run automatically when running `gulp server`.
 * `gulp browser-test`: Will run tests in given browsers.  By default, this will just run the tests in a PhantomJS and Chrome browser through Karma.
