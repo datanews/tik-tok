@@ -40,7 +40,9 @@
     "node_modules",
     "bower_components",
     "test",
-    "tests"
+    "tests",
+    "examples",
+    "index.html"
   ],
   "dependencies": {
     "underscore": "~1.8.3",
