@@ -115,7 +115,6 @@ You can use the following options when defining a Tik Tok timeline:
   ]);
     ```
 
-
 ## Development and contributing
 
 Instructions on how to do development and make contributions to the project.
@@ -158,7 +157,7 @@ After edits are made, run checks and tests and create build version with the fol
 Note that tests are run against the build (`dist`), not the source, and get run during the build step.
 
 * `gulp test`: Will run the tests through Node environment and will miss some browser based tests.  This will get run automatically when running `gulp server`.
-* `gulp browser-test`: Will run tests in given browsers.  By default, this will just run the tests in a PhantomJS browser.
+* `gulp browser-test`: Will run tests in given browsers.  By default, this will just run the tests in a PhantomJS and Chrome browser through Karma.
     * Multiple cross-browser testing is done with the [Sauce Labs](https://saucelabs.com/) service.  To run this locally, you will need a Sauce Labs account, and you will need to set the `SAUCE_USERNAME` and `SAUCE_ACCESS_KEY` environment variables.  There's a [handy copy and paste tool](https://docs.saucelabs.com/tutorials/node-js/) at this page if you already have an account.
 
 ### Continuous integration
