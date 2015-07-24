@@ -186,5 +186,5 @@ Use the following to get your development environment setup.  Having consistent 
 The main project page is hosted on Github Pages through this repository.
 
 We want to include the Bower dependencies in this branch, so this is a helpful command to make that all happen at once (assuming `master` is up to date).
-
-    git checkout gh-pages && git merge master && git add bower_components -f && git commit -m "Adding bower dependencies for project page" && git push origin gh-pages && git checkout master
+    * `git checkout gh-pages && git merge master && git add bower_components -f && git commit -m "Adding bower dependencies for project page" && git push origin gh-pages && git checkout master && bower install`
+    * If you are not updating the Bower dependencies: `git checkout gh-pages && git merge master && git push origin gh-pages && git checkout master && bower install`
