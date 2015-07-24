@@ -145,12 +145,11 @@ gulp.task('webserver', function() {
         enable: true,
         filter: function(file) {
           // Only watch dist and examples
-          return (file.match(/dist|examples/)) ? true : false;
+          return (file.match(/dist|examples|index\.html/)) ? true : false;
         }
       },
       directoryListing: true,
-      open: true,
-      fallback: 'index.html'
+      open: true
     }));
 });
 
