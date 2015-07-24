@@ -1,0 +1,99 @@
+<!doctype html>
+<html class="no-js" lang="">
+  <head>
+    <meta charset="utf-8">
+    <meta http-equiv="x-ua-compatible" content="ie=edge">
+
+    <title>Tabletop | Tik Tok examples</title>
+
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+
+    <!-- Lato font -->
+    <link href="http://fonts.googleapis.com/css?family=Lato&subset=latin,latin-ext" rel="stylesheet" type="text/css">
+
+    <!-- Main library CSS -->
+    <link rel="stylesheet" href="../dist/tik-tok.css">
+
+    <!-- General example stylesheet -->
+    <link rel="stylesheet" href="examples.css">
+
+    <!-- Example CSS -->
+    <style media="screen" type="text/css">
+
+      /* Example styling for tabletop */
+      #tik-tok-tabletop .tt-bg-color {
+        background-color: #BDBDBD;
+      }
+
+      #tik-tok-tabletop .tt-spine-color {
+        background-color: #6A6A6A;
+        color: #FFFFFF;
+      }
+
+      #tik-tok-tabletop .tt-header-color {
+        background-color: #282828;
+      }
+
+      #tik-tok-tabletop .tt-entry .tt-entry-date {
+        color: #282828;
+      }
+
+      #tik-tok-tabletop .tt-entry .tt-entry-link {
+        background-color: #282828;
+      }
+
+      #tik-tok-tabletop .tt-entry .tt-entry-body a {
+        color: #282828;
+        font-weight: bold;
+      }
+
+      #tik-tok-tabletop .tt-progress-bar .tt-progress {
+        background-color: #A4A4A4;
+      }
+    </style>
+  </head>
+  <body>
+
+    <div class="section-ban">
+      <div class="section-wrapper">
+        <div class="intro">
+          Tik Tok is a simple, mobile-friendly, vertical timeline Javascript library that makes it easy to turn your timely data into something fun.  Check out the examples below.
+        </div>
+      </div>
+    </div>
+
+    <div id="tik-tok-tabletop">
+      <div class="temp-loading">Loading...</div>
+    </div>
+
+
+    <!-- Dependencies -->
+    <script src="../bower_components/underscore/underscore.js"></script>
+    <script src="../bower_components/moment/moment.js"></script>
+
+    <!-- Demo/dev dependencies -->
+    <script src="../bower_components/tabletop/src/tabletop.js"></script>
+
+    <!-- Main library JS -->
+    <script src="../dist/tik-tok.js"></script>
+
+    <!-- General example JS -->
+    <script src="examples.js"></script>
+
+    <!-- Make examples -->
+    <script>
+      // Tabletop example
+      Tabletop.init({
+        key: '1aZuK7Hn_THzCGE0fujCV93CSozfT2FxDtSMaVG3ltiA',
+        simpleSheet: true,
+        callback: function(data, tabletop) {
+          var tabletopTikTok = new TikTok({
+            el: '#tik-tok-tabletop',
+            title: 'Getting data from Google Spreadsheets',
+            entries: data
+          });
+        }
+      });
+    </script>
+  </body>
+</html>

@@ -157,5 +157,8 @@ gulp.task('webserver', function() {
 // Default task is a basic build
 gulp.task('default', ['support-js', 'js', 'test', 'browser-test', 'styles']);
 
+// No browser test build
+gulp.task('no-brower-build', ['support-js', 'js', 'test', 'styles']);
+
 // Combine webserver and watch tasks for a more complete server
-gulp.task('server', ['default', 'watch', 'webserver']);
+gulp.task('server', ['no-brower-build', 'watch', 'webserver']);

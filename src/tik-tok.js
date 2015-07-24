@@ -516,7 +516,7 @@
 
         // Determine type of media from media url if mediaType has not
         // been provided
-        e.mediaType = e.mediaType || this.determineMediaType(e.media);
+        e.type = e.type || this.determineMediaType(e.media);
 
         // Create a formatted version of date for template
         e.dateFormatted = d.format(this.options.dateDisplay);
@@ -546,6 +546,11 @@
       // SoundCloud regular
       else if (url.indexOf('soundcloud.com') !== -1) {
         return 'soundcloud';
+      }
+
+      // General embed/iframe
+      else if (url.indexOf('embed') !== -1 || url.indexOf('iframe') !== -1) {
+        return 'embed';
       }
 
       // Image

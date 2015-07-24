@@ -44,14 +44,17 @@
                 <% if (e.media) { %>
                   <div class="tt-entry-media-wrapper <% if (e.body) { %>with-body<% } %>">
                     <div class="tt-entry-media <% if (e.source) { %>with-source<% } %>">
-                      <% if (e.mediaType === 'youtube') { %>
+                      <% if (e.type === 'youtube') { %>
                         <iframe class="tt-entry-media-youtube" width="100%" height="350" src="<%= e.media %>" frameborder="0" allowfullscreen></iframe>
 
-                      <% } else if (e.mediaType === 'soundcloud_large') { %>
+                      <% } else if (e.type === 'soundcloud_large') { %>
                         <iframe class="tt-entry-media-soundcloud" width="100%" height="350" scrolling="no" frameborder="no" src="<%= e.media %>"></iframe>
 
-                      <% } else if (e.mediaType === 'soundcloud') { %>
+                      <% } else if (e.type === 'soundcloud') { %>
                         <iframe class="tt-entry-media-soundcloud" width="100%" height="166" scrolling="no" frameborder="no" src="<%= e.media %>"></iframe>
+
+                      <% } else if (e.type === 'embed') { %>
+                        <iframe class="tt-entry-media-embed" width="100%" height="350" scrolling="no" frameborder="no" src="<%= e.media %>"></iframe>
 
                       <% } else { %>
                         <img class="tt-entry-media-image" src="<%= e.media %>">

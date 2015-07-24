@@ -50,10 +50,13 @@ JSON example:
       date: '2014-04-01', // String date, see format option below for what is supported.
       title: 'This is an awesome event',
       body: 'This is the optional main text',
-      // Media should be a URL to an image or the embed URL for Youtube, SoundCloud,
-      // and (more soon)
+      // Media should be a URL to an image or the embed URL.  This will automatically look
+      // for the following types: Youtube, SoundCloud, general iframe/embed, or image
       media: 'http://url.com/to/image.png',
-      source: 'This is a source line for your media'
+      source: 'This is a source line for your media',
+      // Override the media type with this field (this is not usually needed).  Possible values:
+      // youtube, soundcloud, soundcloud_large, embed, image
+      type: embed
     }
 
 CSV example:
@@ -112,7 +115,6 @@ You can use the following options when defining a Tik Tok timeline:
   ]);
     ```
 
-
 ## Development and contributing
 
 Instructions on how to do development and make contributions to the project.
@@ -152,10 +154,10 @@ After edits are made, run checks and tests and create build version with the fol
 
 ### Testing
 
-Note that tests are run against the build (`dist`), not the source, and get run during the build step.
+Note that tests are run against the build (`dist`), not the source, and get run during the main build step, `gulp`.
 
 * `gulp test`: Will run the tests through Node environment and will miss some browser based tests.  This will get run automatically when running `gulp server`.
-* `gulp browser-test`: Will run tests in given browsers.  By default, this will just run the tests in a PhantomJS browser.
+* `gulp browser-test`: Will run tests in given browsers.  By default, this will just run the tests in a PhantomJS and Chrome browser through Karma.
     * Multiple cross-browser testing is done with the [Sauce Labs](https://saucelabs.com/) service.  To run this locally, you will need a Sauce Labs account, and you will need to set the `SAUCE_USERNAME` and `SAUCE_ACCESS_KEY` environment variables.  There's a [handy copy and paste tool](https://docs.saucelabs.com/tutorials/node-js/) at this page if you already have an account.
 
 ### Continuous integration

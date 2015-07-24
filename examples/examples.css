@@ -1,0 +1,46 @@
+/**
+ * CSS specific to examples.
+ */
+
+body {
+  padding: 0;
+  margin: 0;
+}
+
+.section-ban {
+  background-color: #EAEAEA;
+  padding: 1em 1em;
+  margin-bottom: 2em;
+}
+
+.section-wrapper {
+  max-width: 1000px;
+  margin: 0 auto;
+}
+
+.section-ban .intro {
+  font-size: 1.5em;
+}
+
+.section code {
+  padding: 0.15em 0.25em;
+  font-family: monospace;
+  background-color: #DADADA;
+}
+
+.section-ban pre code {
+  display: block;
+  border: 1px solid #DADADA;
+  border-radius: 3px;
+  padding: 1em;
+}
+
+.section-ban h2 {
+  font-size: 1.5em;
+  text-align: center;
+}
+
+.temp-loading {
+  margin: 2em;
+  text-align: center;
+}

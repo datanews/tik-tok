@@ -179,6 +179,25 @@ describe('TikTok', function() {
     });
   });
 
+  describe('#parseEntries', function() {
+    it('should override media type', function() {
+      var entries = [
+        { date: '2014-01-01', title: 'First', body: 'This is 1', type: 'image', media: 'http://youtube.com/1.png' },
+        { date: '2014-03-01', title: 'Second', body: 'This is 2', media: 'http://youtube.com/1.png' },
+        { date: '2014-03-02', title: 'Third', body: 'This is 3' }
+      ];
+      var t;
+
+      t = new TikTok({
+        entries: entries,
+        el: 'body'
+      });
+
+      assert.equal(t.parseEntries(entries)[0].type, 'image');
+      assert.equal(t.parseEntries(entries)[1].type, 'youtube');
+    });
+  });
+
   // Update
   describe('#update', function() {
     it('should update options', function() {
@@ -560,21 +579,27 @@ describe('TikTok', function() {
     });
 
     // SoundCloud
-    it('should return soundcloud for image URL', function() {
+    it('should return soundcloud for soundcloud URL', function() {
       var url = 'https://w.soundcloud.com/player/?url=https%3A//api.soundcloud.com/tracks/153891564&amp;color=ff5500&amp;auto_play=false&amp;hide_related=false&amp;show_comments=true&amp;show_user=true&amp;show_reposts=false';
       assert.equal(t.determineMediaType(url), 'soundcloud');
     });
 
     // SoundCloud large
-    it('should return soundcloud_large for image URL', function() {
+    it('should return soundcloud_large for soundcloud URL', function() {
       var url = 'https://w.soundcloud.com/player/?url=https%3A//api.soundcloud.com/tracks/153891564&amp;auto_play=false&amp;hide_related=false&amp;show_comments=true&amp;show_user=true&amp;show_reposts=false&amp;visual=true';
       assert.equal(t.determineMediaType(url), 'soundcloud_large');
     });
 
     // Youtube large
-    it('should return youtube for image URL', function() {
+    it('should return youtube for youtube URL', function() {
       var url = 'https://www.youtube.com/embed/4IP_E7efGWE';
       assert.equal(t.determineMediaType(url), 'youtube');
+    });
+
+    // General embed
+    it('should return embed for embed URL', function() {
+      var url = 'https://embed.theguardian.com/embed/video/us-news/video/2014/dec/04/i-cant-breathe-eric-garner-chokehold-death-video';
+      assert.equal(t.determineMediaType(url), 'embed');
     });
   });
 
