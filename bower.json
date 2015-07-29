@@ -49,9 +49,10 @@
     "moment": "~2.10.2"
   },
   "devDependencies": {
-    "tabletop": "~1.4.0",
+    "tabletop": "~1.4.2",
     "mocha": "~2.2.5",
     "chai": "~3.0.0",
-    "highlightjs": "~8.6.0"
+    "highlightjs": "~8.6.0",
+    "jquery": "1.x"
   }
 }

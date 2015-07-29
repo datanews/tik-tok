@@ -49,88 +49,35 @@
       </div>
     </div>
 
-    <div id="welcome-tik-tok">
+    <div id="welcome-tik-tok" class="example-html">
       <div class="temp-loading">Loading...</div>
     </div>
 
     <div class="section-ban section-ban-last">
       <div class="section-wrapper">
+        <div class="example-html-output">
+          <p>HTML used in this example.  Note that the inner loading <code>&lt;div&gt;</code> is not necessary but a nice note while things are loading.</p>
+          <pre><code class="html"></code></pre>
+        </div>
 
-        <p>HTML used in this example.  Note that the inner loading <code>&lt;div&gt;</code> is not necessary but a nice note while things are loading.</p>
-        <pre><code class="html">&lt;div id="welcome-tik-tok"&gt;
-  &lt;div class="temp-loading"&gt;Loading...&lt;/div&gt;
-&lt;/div&gt;</code></pre>
+        <div class="code-output example-css-output">
+          <p>CSS used in this example.</p>
+          <pre><code class="css"></code></pre>
+        </div>
 
-        <p>JS used in this example.</p>
-        <pre><code class="js">var welcomeTikTok = new TikTok({
-  el: 'welcome-tik-tok',
-  title: 'Welcome to Tik Tok',
-  entries: [
-    {
-      date: '2009-06-03',
-      title: 'Hey there',
-      body: 'Tik Tok lets you create a simple, mobile-friendly, vertical timeline easily.  Just give it some timeline data and it will do the rest.  This timeline example will walk you through some of the features of Tik Tok, all with some cute kitten pictures.'
-    },
-
-    {
-      date: '2009-07-10',
-      title: 'Some HTML content',
-      body: 'Each entry is at the very least a &lt;code&gt;date&lt;/code&gt;, but will probably include a &lt;code&gt;title&lt;/code&gt; and possibly a &lt;code&gt;body&lt;/code&gt;.  You can use any &lt;abbr title="Hypertext Markup Language"&gt;HTML&lt;/abbr&gt; you want.'
-    },
-
-    { date: '2010-01-13',
-      title: 'Images',
-      body: 'You can add an image with the &lt;code&gt;media&lt;/code&gt; field.  Just put in a URL and Timeline will work it out.',
-      media: 'https://placekitten.com/g/1200/350'
-    },
-
-    {
-      date: '2010-02-11',
-      title: 'Add some source information',
-      body: 'Include a &lt;code&gt;source&lt;/code&gt; field to add a note about the media source, such as where it came from.',
-      media: 'https://placekitten.com/g/800/350',
-      source: '&lt;a href="https://placekitten.com/" target="_blank"&gt;PlaceKitten&lt;/a&gt; is an amazing source for kitten images.'
-    },
-
-    {
-      date: '2010-10-03',
-      title: 'Or just use a single image',
-      media: 'https://placekitten.com/g/1200/500',
-      source: 'You can use just a &lt;code&gt;media&lt;/code&gt; URL, and no &lt;code&gt;body&lt;/code&gt; and the media will take up the full space on any screen size.'
-    },
-
-    {
-      date: '2012-01-03',
-      title: 'YouTube',
-      body: 'The &lt;code&gt;media&lt;/code&gt; field supports multiple sources and embeds them appropriately.  You can use a YouTube embed URL, such as &lt;code&gt;https://www.youtube.com/embed/4IP_E7efGWE&lt;/code&gt;.',
-      media: 'https://www.youtube.com/embed/4IP_E7efGWE',
-      source: 'Videos of kittens are even better.'
-    },
-
-    {
-      date: '2012-04-03',
-      title: 'SoundCloud',
-      body: 'There\'s also support for the SoundCloud player; just use the &lt;code&gt;iframe src&lt;/code&gt; URL from SoundCloud.',
-      media: 'https://w.soundcloud.com/player/?url=https%3A//api.soundcloud.com/tracks/153891564&amp;color=ff5500&amp;auto_play=false&amp;hide_related=false&amp;show_comments=true&amp;show_user=true&amp;show_reposts=false',
-      source: 'Space cats!'
-    },
-
-    {
-      date: '2014-11-01',
-      title: 'That\'s it!',
-      body: 'It\'s that easy.  You can see the code for this example below.  This just went through the basics of Tik Tok.  For more examples that dive deeper into the options available in Tik Tok, go to the &lt;a href="/examples"&gt;Examples&lt;/a&gt; page.  For more technical information about installation and other code details, checkout out the &lt;a href="https://github.com/datanews/tik-tok" target="_blank"&gt;Github&lt;/a&gt; page.'
-    }
-  ]
-});</code></pre>
+        <div class="code-output example-javascript-output">
+          <p>Javascript used in this example:</p>
+          <pre><code class="js"></code></pre>
+        </div>
       </div>
     </div>
-
 
     <!-- Dependencies -->
     <script src="bower_components/underscore/underscore.js"></script>
     <script src="bower_components/moment/moment.js"></script>
 
     <!-- Demo/dev dependencies -->
+    <script src="../bower_components/jquery/dist/jquery.min.js"></script>
     <script src="bower_components/highlightjs/highlight.pack.js"></script>
     <script type="text/javascript" src="https://cdn.rawgit.com/mikeflynn/egg.js/master/egg.min.js"></script>
 
@@ -141,7 +88,7 @@
     <script src="examples/examples.js"></script>
 
     <!-- Make examples -->
-    <script>
+    <script id="example-javascript">
       // Welcome timeline
       var welcomeTikTok = new TikTok({
         el: 'welcome-tik-tok',

@@ -4,12 +4,15 @@
     <meta charset="utf-8">
     <meta http-equiv="x-ua-compatible" content="ie=edge">
 
-    <title>Tabletop | Tik Tok examples</title>
+    <title>Tabletop example | Tik Tok examples</title>
 
     <meta name="viewport" content="width=device-width, initial-scale=1">
 
     <!-- Lato font -->
     <link href="http://fonts.googleapis.com/css?family=Lato&subset=latin,latin-ext" rel="stylesheet" type="text/css">
+
+    <!-- Demo/dev dependencies -->
+    <link rel="stylesheet" href="../bower_components/highlightjs/styles/github.css">
 
     <!-- Main library CSS -->
     <link rel="stylesheet" href="../dist/tik-tok.css">
@@ -18,54 +21,43 @@
     <link rel="stylesheet" href="examples.css">
 
     <!-- Example CSS -->
-    <style media="screen" type="text/css">
-
-      /* Example styling for tabletop */
-      #tik-tok-tabletop .tt-bg-color {
-        background-color: #BDBDBD;
-      }
-
-      #tik-tok-tabletop .tt-spine-color {
-        background-color: #6A6A6A;
-        color: #FFFFFF;
-      }
-
-      #tik-tok-tabletop .tt-header-color {
-        background-color: #282828;
-      }
-
-      #tik-tok-tabletop .tt-entry .tt-entry-date {
-        color: #282828;
-      }
-
-      #tik-tok-tabletop .tt-entry .tt-entry-link {
-        background-color: #282828;
-      }
-
-      #tik-tok-tabletop .tt-entry .tt-entry-body a {
-        color: #282828;
-        font-weight: bold;
-      }
-
-      #tik-tok-tabletop .tt-progress-bar .tt-progress {
-        background-color: #A4A4A4;
-      }
+    <style media="screen" type="text/css" id="example-css">
     </style>
   </head>
   <body>
 
-    <div class="section-ban">
+    <div class="section-ban menu">
       <div class="section-wrapper">
-        <div class="intro">
-          Tik Tok is a simple, mobile-friendly, vertical timeline Javascript library that makes it easy to turn your timely data into something fun.  Check out the examples below.
-        </div>
+        <ul>
+          <li><a href="/"><img src="./images/tik-tok-head-right-grey-100.png"></a></li>
+          <li><a href="/examples/">Examples</a></li>
+          <li><a href="https://github.com/datanews/tik-tok" target="_blank">Code</a></li>
+        </ul>
       </div>
     </div>
 
-    <div id="tik-tok-tabletop">
+    <div id="tik-tok-tabletop" class="example-html">
       <div class="temp-loading">Loading...</div>
     </div>
 
+    <div class="section-ban section-ban-last">
+      <div class="section-wrapper">
+        <div class="example-html-output">
+          <p>HTML used in this example.  Note that the inner loading <code>&lt;div&gt;</code> is not necessary but a nice note while things are loading.</p>
+          <pre><code class="html"></code></pre>
+        </div>
+
+        <div class="code-output example-css-output">
+          <p>CSS used in this example.</p>
+          <pre><code class="css"></code></pre>
+        </div>
+
+        <div class="code-output example-javascript-output">
+          <p>Javascript used in this example:</p>
+          <pre><code class="js"></code></pre>
+        </div>
+      </div>
+    </div>
 
     <!-- Dependencies -->
     <script src="../bower_components/underscore/underscore.js"></script>
@@ -73,6 +65,8 @@
 
     <!-- Demo/dev dependencies -->
     <script src="../bower_components/tabletop/src/tabletop.js"></script>
+    <script src="../bower_components/highlightjs/highlight.pack.js"></script>
+    <script type="text/javascript" src="https://cdn.rawgit.com/mikeflynn/egg.js/master/egg.min.js"></script>
 
     <!-- Main library JS -->
     <script src="../dist/tik-tok.js"></script>
@@ -81,11 +75,10 @@
     <script src="examples.js"></script>
 
     <!-- Make examples -->
-    <script>
+    <script id="example-javascript">
       // Tabletop example
       Tabletop.init({
         key: '1aZuK7Hn_THzCGE0fujCV93CSozfT2FxDtSMaVG3ltiA',
-        simpleSheet: true,
         callback: function(data, tabletop) {
           var tabletopTikTok = new TikTok({
             el: '#tik-tok-tabletop',

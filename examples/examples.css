@@ -161,9 +161,13 @@ body {
   background-color: #f8f8f8;
 }
 
-
 /* loading for tik toks */
 .temp-loading {
   margin: 2em;
   text-align: center;
+}
+
+/* Code output don't show unless we have code */
+.code-output {
+  display: none;
 }
