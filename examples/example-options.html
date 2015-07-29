@@ -36,7 +36,7 @@
       </div>
     </div>
 
-    <div id="colors-tik-tok" class="example-html">
+    <div id="options-tik-tok" class="example-html">
       <div class="temp-loading">Loading...</div>
     </div>
 
@@ -77,71 +77,44 @@
     <!-- Make examples -->
     <script id="example-javascript">
       var tikTok = new TikTok({
-        el: '#colors-tik-tok',
-        title: 'Color example',
+        el: '#options-tik-tok',
+        dateFormat: '[Year:] YYYY, [Month:] MMM, [Day:] DD',
+        dateDisplay: '[the] Do [of] MMMM, YYYY',
+        descending: false,
+        groupBy: 'years',
+        keyMapping: {
+          title: 'customTitle'
+        },
         entries: [
           {
-            date: '1901-01-01',
-            title: 'Colors (or lack of)',
-            body: 'This example goes through some of the color specific CSS styling you can do to Tik Tok.  Just add some CSS to your page.  Note that the <code>#colors-tik-tok</code> parts refers to our specific container and provides some <a href="https://developer.mozilla.org/en-US/docs/Web/CSS/Specificity" target="_blank">CSS</a> specificity so that the default styles will be overriden.'
+            date: 'Year: 1985, Month: Jan, Day: 5',
+            customTitle: 'All the options',
+            body: 'This example goes through changing most all the options that are possible with Tik Tok.  The first thing you might notice is that we left out the <code>title</code> option all together and that section is no longer there.  Check out the <a href="https://github.com/datanews/tik-tok" target="_blank">Github</a> page for more details on customization and the API.'
           },
           {
-            date: '1913-02-01',
-            title: 'The title area',
-            body: '<p>Tik Tok provides some helpful CSS classes for selecting colors, the title area is one of them:</p>' +
-              '<code class="code-block"><pre>#colors-tik-tok .tt-header-color {\n' +
-              '  background-color: #282828;\n' +
-              '}</pre></code>'
+            date: 'Year: 1992, Month: Feb, Day: 4',
+            customTitle: 'Date format',
+            body: 'The <code>dateFormat</code> option changes how Tik Tok will parse your date formats.  This can be anything supported by <a href="http://momentjs.com/docs/#/parsing/string-format/" target="_blank">Moment JS parsing strings</a>.'
           },
           {
-            date: '1918-02-01',
-            title: 'Main background',
-            body: '<p>The main background can changed similarly:</p>' +
-              '<code class="code-block"><pre>#colors-tik-tok .tt-bg-color {\n' +
-              '  background-color: #BDBDBD;\n' +
-              '}</pre></code>'
+            date: 'Year: 1992, Month: Mar, Day: 4',
+            customTitle: 'Date display',
+            body: 'The <code>dateDisplay</code> option does the opposite and changes how the date will be displayed in the entries.  You can see how the date for this and all entries is different and longer.  This can be anything supported by <a href="http://momentjs.com/docs/#/displaying/format/" target="_blank">Moment JS formatting strings</a>.'
           },
           {
-            date: '1922-03-01',
-            title: 'The spine',
-            body: '<p>The spine and group coloring can easily be changed with the following:</p>' +
-              '<code class="code-block"><pre>#colors-tik-tok .tt-spine-color {\n' +
-              '  background-color: #6A6A6A;\n' +
-              '  color: #FFFFFF;\n' +
-              '}</pre></code>'
+            date: 'Year: 2000, Month: Jun, Day: 1',
+            customTitle: 'Descending',
+            body: 'The <code>descending</code> option changes the order of the timeline from ascending to descending if set to <code>true</code>.  This timeline has not actually had this set, but it is explicitly set to the default.'
           },
           {
-            date: '1934-03-01',
-            title: 'Entries',
-            body: '<p>Each entry can be styled as well:</p>' +
-              '<code class="code-block"><pre>#colors-tik-tok .tt-entry .tt-entry-date {\n' +
-              '  color: #282828;\n' +
-              '}\n' +
-              '\n' +
-              '#colors-tik-tok .tt-entry .tt-entry-link {\n' +
-              '  background-color: #282828;\n' +
-              '}\n' +
-              '\n' +
-              '#colors-tik-tok .tt-entry .tt-entry-body a {\n' +
-              '  color: #282828;\n' +
-              '  font-weight: bold;\n' +
-              '}</pre></code>'
+            date: 'Year: 2011, Month: Dec, Day: 11',
+            customTitle: 'Grouping',
+            body: 'The <code>groupBy</code> option overrides how Tik Tok groups entries together.  Normally this timeline would be grouped by decades but we have set it explicitly to <code>years</code>.'
           },
           {
-            date: '1936-05-01',
-            title: 'Specific entry',
-            body: '<p>A specific entry can be changed by using its id attribute.  This will be based on the title so could change easily</p>' +
-              '<code class="code-block"><pre>#colors-tik-tok #colors-tik-tok-specific-entry-0.tt-entry {\n' +
-              '  background-color: #CCDAFF;\n' +
-              '}</pre></code>'
-          },
-          {
-            date: '1949-10-01',
-            title: 'Progress bar',
-            body: '<p>You can also easily change the progress bar as well.</p>' +
-              '<code class="code-block"><pre>#colors-tik-tok .tt-progress-bar .tt-progress {\n' +
-              '  background-color: #A4A4A4;\n' +
-              '}</pre></code>'
+            date: 'Year: 2022, Month: Dec, Day: 11',
+            customTitle: 'Input translation',
+            body: 'The <code>keyMapping</code> is a way to easily use a datasource that has different fields, or keys.  In this example we use the <code>customTitle</code> field as our <code>title</code>.'
           }
         ]
       });
