@@ -1,0 +1,123 @@
+<!doctype html>
+<html class="no-js" lang="">
+  <head>
+    <meta charset="utf-8">
+    <meta http-equiv="x-ua-compatible" content="ie=edge">
+
+    <title>Options example | Tik Tok examples</title>
+
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+
+    <!-- Lato font -->
+    <link href="http://fonts.googleapis.com/css?family=Lato&subset=latin,latin-ext" rel="stylesheet" type="text/css">
+
+    <!-- Demo/dev dependencies -->
+    <link rel="stylesheet" href="../bower_components/highlightjs/styles/github.css">
+
+    <!-- Main library CSS -->
+    <link rel="stylesheet" href="../dist/tik-tok.css">
+
+    <!-- General example stylesheet -->
+    <link rel="stylesheet" href="examples.css">
+
+    <!-- Example CSS -->
+    <style media="screen" type="text/css" id="example-css">
+    </style>
+  </head>
+  <body>
+
+    <div class="section-ban menu">
+      <div class="section-wrapper">
+        <ul>
+          <li><a href="/"><img src="./images/tik-tok-head-right-grey-100.png"></a></li>
+          <li><a href="/examples/">Examples</a></li>
+          <li><a href="https://github.com/datanews/tik-tok" target="_blank">Code</a></li>
+        </ul>
+      </div>
+    </div>
+
+    <div id="options-tik-tok" class="example-html">
+      <div class="temp-loading">Loading...</div>
+    </div>
+
+    <div class="section-ban section-ban-last">
+      <div class="section-wrapper">
+        <div class="example-html-output">
+          <p>HTML used in this example.  Note that the inner loading <code>&lt;div&gt;</code> is not necessary but a nice note while things are loading.</p>
+          <pre><code class="html"></code></pre>
+        </div>
+
+        <div class="code-output example-css-output">
+          <p>CSS used in this example.</p>
+          <pre><code class="css"></code></pre>
+        </div>
+
+        <div class="code-output example-javascript-output">
+          <p>Javascript used in this example:</p>
+          <pre><code class="js"></code></pre>
+        </div>
+      </div>
+    </div>
+
+    <!-- Dependencies -->
+    <script src="../bower_components/underscore/underscore.js"></script>
+    <script src="../bower_components/moment/moment.js"></script>
+
+    <!-- Demo/dev dependencies -->
+    <script src="../bower_components/jquery/dist/jquery.min.js"></script>
+    <script src="../bower_components/highlightjs/highlight.pack.js"></script>
+    <script src="https://cdn.rawgit.com/mikeflynn/egg.js/master/egg.min.js"></script>
+
+    <!-- Main library JS -->
+    <script src="../dist/tik-tok.js"></script>
+
+    <!-- General example JS -->
+    <script src="examples.js"></script>
+
+    <!-- Make examples -->
+    <script id="example-javascript">
+      var tikTok = new TikTok({
+        el: '#options-tik-tok',
+        dateFormat: '[Year:] YYYY, [Month:] MMM, [Day:] DD',
+        dateDisplay: '[the] Do [of] MMMM, YYYY',
+        descending: false,
+        groupBy: 'years',
+        keyMapping: {
+          title: 'customTitle'
+        },
+        entries: [
+          {
+            date: 'Year: 1985, Month: Jan, Day: 5',
+            customTitle: 'All the options',
+            body: 'This example goes through changing most all the options that are possible with Tik Tok.  The first thing you might notice is that we left out the <code>title</code> option all together and that section is no longer there.  Check out the <a href="https://github.com/datanews/tik-tok" target="_blank">Github</a> page for more details on customization and the API.'
+          },
+          {
+            date: 'Year: 1992, Month: Feb, Day: 4',
+            customTitle: 'Date format',
+            body: 'The <code>dateFormat</code> option changes how Tik Tok will parse your date formats.  This can be anything supported by <a href="http://momentjs.com/docs/#/parsing/string-format/" target="_blank">Moment JS parsing strings</a>.'
+          },
+          {
+            date: 'Year: 1992, Month: Mar, Day: 4',
+            customTitle: 'Date display',
+            body: 'The <code>dateDisplay</code> option does the opposite and changes how the date will be displayed in the entries.  You can see how the date for this and all entries is different and longer.  This can be anything supported by <a href="http://momentjs.com/docs/#/displaying/format/" target="_blank">Moment JS formatting strings</a>.'
+          },
+          {
+            date: 'Year: 2000, Month: Jun, Day: 1',
+            customTitle: 'Descending',
+            body: 'The <code>descending</code> option changes the order of the timeline from ascending to descending if set to <code>true</code>.  This timeline has not actually had this set, but it is explicitly set to the default.'
+          },
+          {
+            date: 'Year: 2011, Month: Dec, Day: 11',
+            customTitle: 'Grouping',
+            body: 'The <code>groupBy</code> option overrides how Tik Tok groups entries together.  Normally this timeline would be grouped by decades but we have set it explicitly to <code>years</code>.'
+          },
+          {
+            date: 'Year: 2022, Month: Dec, Day: 11',
+            customTitle: 'Input translation',
+            body: 'The <code>keyMapping</code> is a way to easily use a datasource that has different fields, or keys.  In this example we use the <code>customTitle</code> field as our <code>title</code>.'
+          }
+        ]
+      });
+    </script>
+  </body>
+</html>

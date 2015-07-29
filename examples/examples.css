@@ -38,6 +38,17 @@ body {
   font-size: 4em;
 }
 
+.section-ban a,
+.section-ban a:visited {
+  text-decoration: none;
+  color: #5F678C;
+}
+
+.section-ban a:hover {
+  text-decoration: underline;
+}
+
+
 /* Cleafix */
 .section-ban .cf:before,
 .section-ban .cf:after {
@@ -102,6 +113,39 @@ body {
   }
 }
 
+/* Menu section */
+.section-ban.menu {
+  background-color: #232323;
+  text-align: center;
+  font-family: Lato, Helvetica, Arial, sans-serif;
+}
+
+.project-page .section-ban.menu {
+  margin-top: -2em;
+}
+
+.section-ban.menu ul,
+.section-ban.menu ul li {
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+
+.section-ban.menu ul li {
+  display: inline-block;
+  font-size: 1.5em;
+  padding: 0 0.5em;
+}
+
+.section-ban.menu ul li a {
+  color: #89A2AE;
+}
+
+.section-ban.menu ul li img {
+  vertical-align: middle;
+  max-height: 2em;
+}
+
 /* Code sections */
 .section-ban code {
   padding: 0.15em 0.25em;
@@ -117,9 +161,13 @@ body {
   background-color: #f8f8f8;
 }
 
-
 /* loading for tik toks */
 .temp-loading {
   margin: 2em;
   text-align: center;
+}
+
+/* Code output don't show unless we have code */
+.code-output {
+  display: none;
 }

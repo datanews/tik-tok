@@ -1,0 +1,183 @@
+<!doctype html>
+<html class="no-js" lang="">
+  <head>
+    <meta charset="utf-8">
+    <meta http-equiv="x-ua-compatible" content="ie=edge">
+
+    <title>Color example | Tik Tok examples</title>
+
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+
+    <!-- Lato font -->
+    <link href="http://fonts.googleapis.com/css?family=Lato&subset=latin,latin-ext" rel="stylesheet" type="text/css">
+
+    <!-- Demo/dev dependencies -->
+    <link rel="stylesheet" href="../bower_components/highlightjs/styles/github.css">
+
+    <!-- Main library CSS -->
+    <link rel="stylesheet" href="../dist/tik-tok.css">
+
+    <!-- General example stylesheet -->
+    <link rel="stylesheet" href="examples.css">
+
+    <!-- Example CSS -->
+    <style media="screen" type="text/css" id="example-css">
+      #colors-tik-tok .tt-bg-color {
+        background-color: #BDBDBD;
+      }
+
+      #colors-tik-tok .tt-spine-color {
+        background-color: #6A6A6A;
+        color: #FFFFFF;
+      }
+
+      #colors-tik-tok .tt-header-color {
+        background-color: #282828;
+      }
+
+      #colors-tik-tok .tt-entry .tt-entry-date {
+        color: #282828;
+      }
+
+      #colors-tik-tok .tt-entry .tt-entry-link {
+        background-color: #282828;
+      }
+
+      #colors-tik-tok .tt-entry .tt-entry-body a {
+        color: #282828;
+        font-weight: bold;
+      }
+
+      #colors-tik-tok #colors-tik-tok-specific-entry-0.tt-entry {
+        background-color: #CCDAFF;
+      }
+
+      #colors-tik-tok .tt-progress-bar .tt-progress {
+        background-color: #A4A4A4;
+      }
+    </style>
+  </head>
+  <body>
+
+    <div class="section-ban menu">
+      <div class="section-wrapper">
+        <ul>
+          <li><a href="/"><img src="./images/tik-tok-head-right-grey-100.png"></a></li>
+          <li><a href="/examples/">Examples</a></li>
+          <li><a href="https://github.com/datanews/tik-tok" target="_blank">Code</a></li>
+        </ul>
+      </div>
+    </div>
+
+    <div id="colors-tik-tok" class="example-html">
+      <div class="temp-loading">Loading...</div>
+    </div>
+
+    <div class="section-ban section-ban-last">
+      <div class="section-wrapper">
+        <div class="example-html-output">
+          <p>HTML used in this example.  Note that the inner loading <code>&lt;div&gt;</code> is not necessary but a nice note while things are loading.</p>
+          <pre><code class="html"></code></pre>
+        </div>
+
+        <div class="code-output example-css-output">
+          <p>CSS used in this example.</p>
+          <pre><code class="css"></code></pre>
+        </div>
+
+        <div class="code-output example-javascript-output">
+          <p>Javascript used in this example:</p>
+          <pre><code class="js"></code></pre>
+        </div>
+      </div>
+    </div>
+
+    <!-- Dependencies -->
+    <script src="../bower_components/underscore/underscore.js"></script>
+    <script src="../bower_components/moment/moment.js"></script>
+
+    <!-- Demo/dev dependencies -->
+    <script src="../bower_components/jquery/dist/jquery.min.js"></script>
+    <script src="../bower_components/highlightjs/highlight.pack.js"></script>
+    <script type="text/javascript" src="https://cdn.rawgit.com/mikeflynn/egg.js/master/egg.min.js"></script>
+
+    <!-- Main library JS -->
+    <script src="../dist/tik-tok.js"></script>
+
+    <!-- General example JS -->
+    <script src="examples.js"></script>
+
+    <!-- Make examples -->
+    <script id="example-javascript">
+      var tikTok = new TikTok({
+        el: '#colors-tik-tok',
+        title: 'Color example',
+        entries: [
+          {
+            date: '1901-01-01',
+            title: 'Colors (or lack of)',
+            body: 'This example goes through some of the color specific CSS styling you can do to Tik Tok.  Just add some CSS to your page.  Note that the <code>#colors-tik-tok</code> parts refers to our specific container and provides some <a href="https://developer.mozilla.org/en-US/docs/Web/CSS/Specificity" target="_blank">CSS</a> specificity so that the default styles will be overriden.'
+          },
+          {
+            date: '1913-02-01',
+            title: 'The title area',
+            body: '<p>Tik Tok provides some helpful CSS classes for selecting colors, the title area is one of them:</p>' +
+              '<code class="code-block"><pre>#colors-tik-tok .tt-header-color {\n' +
+              '  background-color: #282828;\n' +
+              '}</pre></code>'
+          },
+          {
+            date: '1918-02-01',
+            title: 'Main background',
+            body: '<p>The main background can changed similarly:</p>' +
+              '<code class="code-block"><pre>#colors-tik-tok .tt-bg-color {\n' +
+              '  background-color: #BDBDBD;\n' +
+              '}</pre></code>'
+          },
+          {
+            date: '1922-03-01',
+            title: 'The spine',
+            body: '<p>The spine and group coloring can easily be changed with the following:</p>' +
+              '<code class="code-block"><pre>#colors-tik-tok .tt-spine-color {\n' +
+              '  background-color: #6A6A6A;\n' +
+              '  color: #FFFFFF;\n' +
+              '}</pre></code>'
+          },
+          {
+            date: '1934-03-01',
+            title: 'Entries',
+            body: '<p>Each entry can be styled as well:</p>' +
+              '<code class="code-block"><pre>#colors-tik-tok .tt-entry .tt-entry-date {\n' +
+              '  color: #282828;\n' +
+              '}\n' +
+              '\n' +
+              '#colors-tik-tok .tt-entry .tt-entry-link {\n' +
+              '  background-color: #282828;\n' +
+              '}\n' +
+              '\n' +
+              '#colors-tik-tok .tt-entry .tt-entry-body a {\n' +
+              '  color: #282828;\n' +
+              '  font-weight: bold;\n' +
+              '}</pre></code>'
+          },
+          {
+            date: '1936-05-01',
+            title: 'Specific entry',
+            body: '<p>A specific entry can be changed by using its id attribute.  This will be based on the title so could change easily</p>' +
+              '<code class="code-block"><pre>#colors-tik-tok #colors-tik-tok-specific-entry-0.tt-entry {\n' +
+              '  background-color: #CCDAFF;\n' +
+              '}</pre></code>'
+          },
+          {
+            date: '1949-10-01',
+            title: 'Progress bar',
+            body: '<p>You can also easily change the progress bar as well.</p>' +
+              '<code class="code-block"><pre>#colors-tik-tok .tt-progress-bar .tt-progress {\n' +
+              '  background-color: #A4A4A4;\n' +
+              '}</pre></code>'
+          }
+        ]
+      });
+    </script>
+  </body>
+</html>

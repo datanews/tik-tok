@@ -4,7 +4,7 @@
     <meta charset="utf-8">
     <meta http-equiv="x-ua-compatible" content="ie=edge">
 
-    <title>Tabletop example | Tik Tok examples</title>
+    <title>CSV example | Tik Tok examples</title>
 
     <meta name="viewport" content="width=device-width, initial-scale=1">
 
@@ -36,7 +36,7 @@
       </div>
     </div>
 
-    <div id="tik-tok-tabletop" class="example-html">
+    <div id="tik-tok-csv" class="example-html">
       <div class="temp-loading">Loading...</div>
     </div>
 
@@ -67,7 +67,6 @@
     <script src="../bower_components/jquery/dist/jquery.min.js"></script>
     <script src="../bower_components/highlightjs/highlight.pack.js"></script>
     <script type="text/javascript" src="https://cdn.rawgit.com/mikeflynn/egg.js/master/egg.min.js"></script>
-    <script src="../bower_components/tabletop/src/tabletop.js"></script>
 
     <!-- Main library JS -->
     <script src="../dist/tik-tok.js"></script>
@@ -77,16 +76,12 @@
 
     <!-- Make examples -->
     <script id="example-javascript">
-      Tabletop.init({
-        key: '1aZuK7Hn_THzCGE0fujCV93CSozfT2FxDtSMaVG3ltiA',
-        simpleSheet: true,
-        callback: function(data, tabletop) {
-          var tikTok = new TikTok({
-            el: '#tik-tok-tabletop',
-            title: 'Getting data from Google Spreadsheets',
-            entries: data
-          });
-        }
+      $.get('./example.csv', function(csv) {
+        var tikTok = new TikTok({
+          el: '#tik-tok-csv',
+          title: 'Getting data from a CSV',
+          entries: csv
+        });
       });
     </script>
   </body>
