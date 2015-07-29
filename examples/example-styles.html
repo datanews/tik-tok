@@ -1,0 +1,199 @@
+<!doctype html>
+<html class="no-js" lang="">
+  <head>
+    <meta charset="utf-8">
+    <meta http-equiv="x-ua-compatible" content="ie=edge">
+
+    <title>Style example | Tik Tok examples</title>
+
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+
+    <!-- Lato font -->
+    <link href="http://fonts.googleapis.com/css?family=Lato&subset=latin,latin-ext" rel="stylesheet" type="text/css">
+
+    <!-- Demo/dev dependencies -->
+    <link rel="stylesheet" href="../bower_components/highlightjs/styles/github.css">
+
+    <!-- Main library CSS -->
+    <link rel="stylesheet" href="../dist/tik-tok.css">
+
+    <!-- General example stylesheet -->
+    <link rel="stylesheet" href="examples.css">
+
+    <!-- Example CSS -->
+    <style media="screen" type="text/css" id="example-css">
+      #styles-tik-tok .tik-tok-container {
+        width: 100%;
+        margin: 0 0 2em 0;
+      }
+
+      #styles-tik-tok .tt-bg-color {
+        background-color: #DFFF80;
+      }
+
+      #styles-tik-tok .tt-spine-color {
+        background-color: #B88A00;
+        color: #FFFFFF;
+      }
+
+      #styles-tik-tok .tt-spine-background {
+        z-index: 10;
+      }
+
+      #styles-tik-tok .tt-group .tt-group-label-wrapper,
+      #styles-tik-tok .tt-spine-background,
+      #styles-tik-tok .tt-spine-end {
+        text-align: left;
+        padding-left: 2em;
+      }
+
+      #styles-tik-tok .tt-spine-end .tt-spine-point {
+        display: none;
+      }
+
+      #styles-tik-tok .tt-header {
+        text-align: left;
+        padding-left: 3em;
+      }
+
+      #styles-tik-tok .tt-header .tt-label {
+        color: #E699FF;
+      }
+
+      #styles-tik-tok .tt-header-color {
+        background-color: #3366FF;
+      }
+
+      #styles-tik-tok .tt-entry {
+        background-color: #33CCFF;
+        border-radius: 0.5em;
+      }
+
+      #styles-tik-tok .tt-group .tt-group-label {
+        border-bottom-right-radius: 0.5em;
+        border-top-right-radius: 0.5em;
+      }
+
+      #styles-tik-tok .tt-entry .tt-entry-date {
+        text-align: right;
+        color: #FF3366;
+      }
+
+      #styles-tik-tok .tt-entry .tt-entry-link {
+        display: none;
+      }
+
+      #styles-tik-tok .tt-entry .tt-entry-title {
+        padding: 0.5em 0.65em;
+        margin: 0 -0.65em 0.5em -0.65em;
+        background-color: rgba(255, 255, 255, 0.4);
+      }
+
+      #styles-tik-tok .tt-entry .tt-entry-body a {
+        color: #FF3366;
+        font-weight: bold;
+      }
+
+      #styles-tik-tok .tt-entry .tt-entry-body code {
+        background-color: #E699FF;
+      }
+
+      #styles-tik-tok .tt-progress-bar {
+        background-color: #FFCC33;
+      }
+
+      #styles-tik-tok .tt-progress-bar .tt-progress {
+        background-color: #FF6633;
+      }
+    </style>
+  </head>
+  <body>
+
+    <div class="section-ban menu">
+      <div class="section-wrapper">
+        <ul>
+          <li><a href="/"><img src="./images/tik-tok-head-right-grey-100.png"></a></li>
+          <li><a href="/examples/">Examples</a></li>
+          <li><a href="https://github.com/datanews/tik-tok" target="_blank">Code</a></li>
+        </ul>
+      </div>
+    </div>
+
+    <div id="styles-tik-tok" class="example-html">
+      <div class="temp-loading">Loading...</div>
+    </div>
+
+    <div class="section-ban section-ban-last">
+      <div class="section-wrapper">
+        <div class="example-html-output">
+          <p>HTML used in this example.  Note that the inner loading <code>&lt;div&gt;</code> is not necessary but a nice note while things are loading.</p>
+          <pre><code class="html"></code></pre>
+        </div>
+
+        <div class="code-output example-css-output">
+          <p>CSS used in this example.</p>
+          <pre><code class="css"></code></pre>
+        </div>
+
+        <div class="code-output example-javascript-output">
+          <p>Javascript used in this example:</p>
+          <pre><code class="js"></code></pre>
+        </div>
+      </div>
+    </div>
+
+    <!-- Dependencies -->
+    <script src="../bower_components/underscore/underscore.js"></script>
+    <script src="../bower_components/moment/moment.js"></script>
+
+    <!-- Demo/dev dependencies -->
+    <script src="../bower_components/jquery/dist/jquery.min.js"></script>
+    <script src="../bower_components/highlightjs/highlight.pack.js"></script>
+    <script type="text/javascript" src="https://cdn.rawgit.com/mikeflynn/egg.js/master/egg.min.js"></script>
+
+    <!-- Main library JS -->
+    <script src="../dist/tik-tok.js"></script>
+
+    <!-- General example JS -->
+    <script src="examples.js"></script>
+
+    <!-- Make examples -->
+    <script id="example-javascript">
+      var tikTok = new TikTok({
+        el: '#styles-tik-tok',
+        title: 'Style changes',
+        entries: [
+          {
+            date: '2015-05-08 10:00:00',
+            title: 'Styles',
+            body: 'This examples tries to show what can be done only with CSS.  This is, of course, not a pretty example, but hopefully can give you some idea of how to change your timeline to fit your design needs.'
+          },
+          {
+            date: '2015-05-08 11:05:00',
+            title: 'The spine',
+            body: '<p>The spine is created with just some CSS, so with a little effort, you can push it over to the left, remove the point and change the color.</p>' +
+              '<code class="code-block"><pre>#styles-tik-tok .tt-spine-color {\n' +
+              '  background-color: #B88A00;\n' +
+              '  color: #FFFFFF;\n' +
+              '}\n' +
+              '\n' +
+              '#styles-tik-tok .tt-spine-background {\n' +
+              '  z-index: 10;\n' +
+              '}\n' +
+              '\n' +
+              '#styles-tik-tok .tt-group .tt-group-label-wrapper,\n' +
+              '#styles-tik-tok .tt-spine-background,\n' +
+              '#styles-tik-tok .tt-spine-end {\n' +
+              '  text-align: left;\n' +
+              '  padding-left: 2em;\n' +
+              '}\n' +
+              '\n' +
+              '#styles-tik-tok .tt-spine-end .tt-spine-point {\n' +
+              '  display: none;\n' +
+              '}</pre></code>'
+          }
+        ]
+      });
+    </script>
+  </body>
+</html>
