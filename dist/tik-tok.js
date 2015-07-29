@@ -38,7 +38,7 @@
   // Default options
   var defaultOptions = {
     // Date formats used by moment
-    dateFormat: ['MMM DD, YYYY', 'MM/DD/YYYY', 'M/D/YYYY', 'DD MMM YYYY', 'YYYY-MM-DD'],
+    dateFormat: ['MMM DD, YYYY', 'MM/DD/YYYY', 'M/D/YYYY', 'DD MMM YYYY', 'YYYY-MM-DD', 'YYYY-MM-DD HH:mm:ss'],
 
     // Date display format
     dateDisplay: 'MMM DD, YYYY',
