@@ -6,6 +6,10 @@
  'use strict';
 
 (function() {
+  // Determine path to examples
+  var examplesPath = (window.location.pathname.match(/^\/examples\//gi)) ?
+    './' : './examples/';
+
   // Get example HTML output
   var html = $('<div>').append($('.example-html').clone()).html()
     .replace(/\s+\n/gi, '\n')
@@ -39,10 +43,12 @@
   var tikTok = true;
   egg.addCode([52, 52, 52], function() {
     if (tikTok) {
-      document.getElementById('tik-tok-image').src = 'examples/images/tik-tok-replacement.jpg';
+      $('#tik-tok-image').attr('src', examplesPath + 'images/tik-tok-replacement.jpg');
+      $('.menu ul li img').attr('src', examplesPath + 'images/tik-tok-head-100-replacement.png');
     }
     else {
-      document.getElementById('tik-tok-image').src = 'examples/images/tik-tok-medium.png';
+      $('#tik-tok-image').attr('src', examplesPath + 'images/tik-tok-medium.png');
+      $('.menu ul li img').attr('src', examplesPath + 'images/tik-tok-head-right-grey-100.png');
     }
 
     tikTok = !tikTok;
