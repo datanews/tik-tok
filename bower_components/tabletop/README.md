@@ -120,9 +120,11 @@ You pass in either `key` as the actual spreadsheet key, or just the full publish
 
 `callbackContext` sets the `this` for your callback. It's the tabletop object by default.
 
-`prettyColumnNames` can be true or false (default to true). Since Google doesn't pass us exactly the same column names as in the header ('$ Processed' becomes 'processed'), it takes an extra request to correct them. If you don't want the extra request, you'll want to set it to `false`
+`prettyColumnNames` can be true or false (default to true, unless `proxy` is enabled**). Since Google doesn't pass us exactly the same column names as in the header ('$ Processed' becomes 'processed'), it takes an extra request to correct them. If you don't want the extra request, you'll want to set it to `false`
 
 > See the **unfriendly_headers** example for more info. Only works for newer Google Sheets.
+
+> ** prettyColumnNames doesn't work with [Flatware](https://github.com/jsoma/flatware), is why we disable it with a proxy by default
 
 ### Tabletop itself
 
@@ -171,6 +173,12 @@ Super easy. Just feed the models to Handlebars and you're all set to build the t
 I've put together a Backbone.tabletopSync driver for Backbone collections and models. It's read-only, but you can't really complain if you're powering your Backbone app through Google Spreadsheets.
 
 Source is, of course, in `/src`, and you can check it out in action in `/examples/backbone/`
+
+### Working with Tabletop and AngularJS
+
+[Ændrew Rininsland (@aendrew)](http://www.github.com/aendrew) at [The Times and Sunday Times](http://www.github.com/times) has created a module that makes using Tabletop with [AngularJS](http://www.angularjs.org) extremely easy. It also includes a loader for  [angular-translate](https://angular-translate.github.io) that gives Tabletop the ability to provide i18n translation strings.
+
+Please see [times/angular-tabletop](http://www.github.com/times/angular-tabletop) for more details.
 
 ### Working with Tabletop and TimelineSetter
 

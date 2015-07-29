@@ -69,7 +69,8 @@
     this.singleton = !!options.singleton;
     this.simple_url = !!options.simple_url;
     this.callbackContext = options.callbackContext;
-    this.prettyColumnNames = typeof(options.prettyColumnNames) == 'undefined' ? true : options.prettyColumnNames
+    // Default to on, unless there's a proxy, in which case it's default off
+    this.prettyColumnNames = typeof(options.prettyColumnNames) == 'undefined' ? !options.proxy : options.prettyColumnNames
     
     if(typeof(options.proxy) !== 'undefined') {
       // Remove trailing slash, it will break the app
@@ -78,7 +79,7 @@
       this.singleton = true;
       // Let's only use CORS (straight JSON request) when
       // fetching straight from Google
-      supportsCORS = false
+      supportsCORS = false;
     }
     
     this.parameterize = options.parameterize || false;
@@ -420,7 +421,9 @@
 
     if(typeof(options.data.feed.entry) === 'undefined') {
       options.tabletop.log("Missing data for " + this.name + ", make sure you didn't forget column headers");
+      this.original_columns = [];
       this.elements = [];
+      this.onReady.call(this);
       return;
     }
     
@@ -553,6 +556,10 @@
 
   if(inNodeJS) {
     module.exports = Tabletop;
+  } else if (typeof define === 'function' && define.amd) {
+    define(function () {
+        return Tabletop;
+    });
   } else {
     global.Tabletop = Tabletop;
   }
