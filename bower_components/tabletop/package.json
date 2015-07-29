@@ -1,6 +1,6 @@
 {
   "name": "tabletop",
-  "version": "1.4.0",
+  "version": "1.4.2",
   "description": "**Tabletop.js** takes a Google Spreadsheet and makes it easily accessible through JavaScript. With zero dependencies!",
   "main": "src/tabletop.js",
   "directories": {
@@ -18,7 +18,7 @@
   "readmeFilename": "README.md",
   "gitHead": "fdb1c3ee3bc0f7f3be6ab223a56f9f050fe32496",
   "dependencies": {
-    "request": "~2.16.6",
+    "request": "~2.51.0",
     "grunt": "*",
     "grunt-contrib-connect": "*"
   },
