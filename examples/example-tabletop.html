@@ -77,12 +77,11 @@
 
     <!-- Make examples -->
     <script id="example-javascript">
-      // Tabletop example
       Tabletop.init({
         key: '1aZuK7Hn_THzCGE0fujCV93CSozfT2FxDtSMaVG3ltiA',
         simpleSheet: true,
         callback: function(data, tabletop) {
-          var tabletopTikTok = new TikTok({
+          var tikTok = new TikTok({
             el: '#tik-tok-tabletop',
             title: 'Getting data from Google Spreadsheets',
             entries: data
