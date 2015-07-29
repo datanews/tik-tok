@@ -481,7 +481,7 @@
       return {
         id: decade.toString(),
         date: moment(decade.toString(), 'YYYY'),
-        display: moment(decade.toString(), 'YYYY').format('YYYY\'s')
+        display: moment(decade.toString(), 'YYYY').format('YYYY[\'s]')
       };
     },
 
