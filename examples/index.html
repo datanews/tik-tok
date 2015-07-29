@@ -4,12 +4,15 @@
     <meta charset="utf-8">
     <meta http-equiv="x-ua-compatible" content="ie=edge">
 
-    <title>Tabletop | Tik Tok examples</title>
+    <title>Examples | Tik Tok examples</title>
 
     <meta name="viewport" content="width=device-width, initial-scale=1">
 
     <!-- Lato font -->
     <link href="http://fonts.googleapis.com/css?family=Lato&subset=latin,latin-ext" rel="stylesheet" type="text/css">
+
+    <!-- Demo/dev dependencies -->
+    <link rel="stylesheet" href="../bower_components/highlightjs/styles/github.css">
 
     <!-- Main library CSS -->
     <link rel="stylesheet" href="../dist/tik-tok.css">
@@ -33,13 +36,17 @@
       </div>
     </div>
 
+    <div id="examples-tik-tok">
+      <div class="temp-loading">Loading...</div>
+    </div>
 
     <!-- Dependencies -->
     <script src="../bower_components/underscore/underscore.js"></script>
     <script src="../bower_components/moment/moment.js"></script>
 
     <!-- Demo/dev dependencies -->
-    <script src="../bower_components/tabletop/src/tabletop.js"></script>
+    <script src="../bower_components/highlightjs/highlight.pack.js"></script>
+    <script type="text/javascript" src="https://cdn.rawgit.com/mikeflynn/egg.js/master/egg.min.js"></script>
 
     <!-- Main library JS -->
     <script src="../dist/tik-tok.js"></script>
@@ -49,6 +56,22 @@
 
     <!-- Make examples -->
     <script>
+      var TikTok = new TikTok({
+        el: 'examples-tik-tok',
+        title: 'Tik Tok Examples',
+        entries: [
+          {
+            date: '2015-01-03',
+            title: 'Hey there',
+            body: 'This timeline will link you to some examples that show off some of the options, customizations, and integrations that can happen with Tik Tok.'
+          },
+          {
+            date: '2015-02-09',
+            title: 'Change the colors',
+            body: 'Tik Tok has a distinct default style, but it\'s really easy to change how Tik Tok looks.  This examples goes through some color changes by making Tik Tok greyscale. <br><br> <a href="./example-colors.html">Color example</a>'
+          }
+        ]
+      });
     </script>
   </body>
 </html>
