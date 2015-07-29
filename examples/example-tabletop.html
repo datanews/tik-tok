@@ -64,9 +64,10 @@
     <script src="../bower_components/moment/moment.js"></script>
 
     <!-- Demo/dev dependencies -->
-    <script src="../bower_components/tabletop/src/tabletop.js"></script>
+    <script src="../bower_components/jquery/dist/jquery.min.js"></script>
     <script src="../bower_components/highlightjs/highlight.pack.js"></script>
     <script type="text/javascript" src="https://cdn.rawgit.com/mikeflynn/egg.js/master/egg.min.js"></script>
+    <script src="../bower_components/tabletop/src/tabletop.js"></script>
 
     <!-- Main library JS -->
     <script src="../dist/tik-tok.js"></script>
@@ -79,6 +80,7 @@
       // Tabletop example
       Tabletop.init({
         key: '1aZuK7Hn_THzCGE0fujCV93CSozfT2FxDtSMaVG3ltiA',
+        simpleSheet: true,
         callback: function(data, tabletop) {
           var tabletopTikTok = new TikTok({
             el: '#tik-tok-tabletop',
