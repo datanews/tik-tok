@@ -200,3 +200,15 @@ body {
 .code-output {
   display: none;
 }
+
+/* Examples link */
+.tik-tok-container .tt-entry .tt-entry-body a.example-link {
+  font-family: Lato, Helvetica, Arial, sans-serif;
+  background-color: #e51133;
+  color: #FFFFFF;
+  display: inline-block;
+  padding: 0.5em 1em;
+}
+.tik-tok-container .tt-entry .tt-entry-body a.example-link:hover {
+  background-color: #F03856;
+}
