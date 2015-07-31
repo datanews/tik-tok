@@ -445,7 +445,7 @@
         id: entry.date.format('YYYY-MM-DD-HH'),
         date: moment(entry.date.format('YYYY-MM-DD-HH'), 'YYYY-MM-DD-HH'),
         display: moment(entry.date.format('YYYY-MM-DD-HH'), 'YYYY-MM-DD-HH')
-          .format((groupByDisplay) ? groupByDisplay : 'H a')
+          .format((groupByDisplay) ? groupByDisplay : 'h a')
       };
     },
 
