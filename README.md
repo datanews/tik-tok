@@ -78,6 +78,7 @@ You can use the following options when defining a Tik Tok timeline:
 * `csvDelimiter`: The delimiting chracter if you are using a CSV string.  The default is `,`.
 * `csvQuote`: The quote chracter if you are using a CSV string.  The default is `"`.
 * `groupBy`: Tik Tok will automatically group your entries depending on what kind of time they all span.  This may not be exactly what you want, so you can override it with this option.  Use one of the following values: `'hours', 'days', 'months', 'years', or 'decades'`.  Default is `undefined`.
+* `groupByDisplay`: A string that will determine how the date for each group will be displayed.  See the docs [Moment.js formating](http://momentjs.com/docs/#/displaying/format/) for a complete list of options.  The default is dependent on how the groups are determined.
 * `keyMapping`: If you have entry data that is keyed differently, you can provide a basic object to convert when it is processed.  For instance:  
     ```
   {

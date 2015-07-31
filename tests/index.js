@@ -450,6 +450,25 @@ describe('TikTok', function() {
 
       assert.equal(t.groupEntries(t.entries)[0].id, expected);
     });
+
+    // Option to override group display function
+    it('should override group display if groupByDisplay option', function() {
+      var t;
+      var entries = [
+        { date: '2014-05-01', title: 'Second', body: 'This is 2' },
+        { date: '2014-06-01', title: 'Third', body: 'This is 3' },
+        { date: '2014-03-01', title: 'First', body: 'This is 1' }
+      ];
+      var expected = 'march';
+
+      t = new TikTok({
+        entries: entries,
+        groupByDisplay: 'MMMM',
+        el: 'body'
+      });
+
+      assert.equal(t.groupEntries(t.entries)[0].display.toLowerCase(), expected);
+    });
   });
 
   // Sort groups
