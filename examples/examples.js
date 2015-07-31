@@ -45,6 +45,7 @@
   egg.addCode([52, 52, 52], function() {
     if (tikTok) {
       $('#tik-tok-image').attr('src', examplesPath + 'images/tik-tok-replacement.png');
+      $('#tik-tok-image-small').attr('src', examplesPath + 'images/tik-tok-head-250-replacement.png');
       $('.menu ul li img').attr('src', examplesPath + 'images/tik-tok-head-100-replacement.png');
       $('.tik-tok-container, .tik-tok-container .tt-spine-bottom').css({
         'background-image': 'url(' + examplesPath + 'images/tik-tok-bg-replacement.jpg)',
@@ -71,6 +72,7 @@
     }
     else {
       $('#tik-tok-image').attr('src', examplesPath + 'images/tik-tok-medium.png');
+      $('#tik-tok-image-small').attr('src', examplesPath + 'images/tik-tok-head-250.png');
       $('.menu ul li img').attr('src', examplesPath + 'images/tik-tok-head-right-grey-100.png');
       $('.tik-tok-container, .tik-tok-container .tt-spine-bottom').css('background-image', 'none');
       $('.tik-tok-container .tt-entry').css('background', orig.entryBG);
