@@ -206,8 +206,12 @@
       font-weight: normal;
     }
 
+    .tt-entry-media-wrapper.with-body {
+      margin-bottom: 1em
+    }
+
     .tt-entry-media {
-      margin: 0 -1em 1em -1em;
+      margin: 0 -1em 0 -1em;
 
       &.with-source {
         margin-bottom: 0.5em;
@@ -219,7 +223,6 @@
     }
 
     .tt-entry-source {
-      margin-bottom: 1em;
       font-family: @font-content;
       font-size: 0.85em;
       color: @color-source;
@@ -260,6 +263,16 @@
         cursor: help;
         border-bottom: 1px dashed #ECECEC;
       }
+
+      // Ensure first and last item has no margin to maintain consistent spacing
+      > *:first-child {
+        margin-top: 0;
+      }
+
+      > *:last-child,
+      > *.code-block:last-child {
+        margin-bottom: 0;
+      }
     }
 
     // On larger screens split media and body
@@ -271,6 +284,7 @@
       }
 
       .tt-entry-media-wrapper.with-body {
+        margin-bottom: 0;
         padding-left: 1em;
 
         .tt-entry-media {
@@ -281,6 +295,10 @@
 
       .tt-entry-body-wrapper.with-media {
         padding-right: 1em;
+      }
+
+      .tt-entry-source {
+        margin-bottom: 0;
       }
     }
   }
