@@ -4,7 +4,7 @@
     <meta charset="utf-8">
     <meta http-equiv="x-ua-compatible" content="ie=edge">
 
-    <title>Examples | Tik Tok examples</title>
+    <title>Options example | Tik Tok examples</title>
 
     <meta name="viewport" content="width=device-width, initial-scale=1">
 
@@ -36,7 +36,7 @@
       </div>
     </div>
 
-    <div id="examples-tik-tok" class="example-html">
+    <div id="add-tik-tok" class="example-html">
       <div class="temp-loading">Loading...</div>
     </div>
 
@@ -76,47 +76,60 @@
 
     <!-- Make examples -->
     <script id="example-javascript">
+      // Variables to keep track/simulate time
+      var now = moment();
+      var counter = 1;
+      var delay = 10000;
+      var limit = 20;
+
+      // Create initial timline
       var tikTok = new TikTok({
-        el: 'examples-tik-tok',
-        title: 'Tik Tok Examples',
+        el: '#add-tik-tok',
+        title: '"Live blog" simulator',
+        descending: true,
         entries: [
           {
-            date: '2015-01-03',
-            title: 'Hey there',
-            body: 'This timeline will link you to some examples that show off some of the options, customizations, and integrations that can happen with Tik Tok.'
-          },
-          {
-            date: '2015-02-22',
-            title: 'All the options',
-            body: 'Tik Tok has a number of options to change how it behaves.  This example goes through most of them. <br><br> <a class="example-link" href="./example-options.html">Options example</a>'
-          },
-          {
-            date: '2015-03-09',
-            title: 'Change the colors',
-            body: 'Tik Tok has a distinct default style, but it\'s really easy to change how Tik Tok looks.  This examples goes through some color changes by making Tik Tok greyscale. <br><br> <a class="example-link" href="./example-colors.html">Color example</a>'
-          },
-          {
-            date: '2015-03-15',
-            title: 'Change the styles',
-            body: 'This example changes the style more drastically with some CSS. <br><br> <a class="example-link" href="./example-styles.html">Styles example</a>'
-          },
-          {
-            date: '2015-04-11',
-            title: 'Google Spreadsheets',
-            body: 'Google Spreadsheets provide a great interface where multiple and/or non-technical people can creat content for a timeline.  This example utilizes <a href="https://github.com/jsoma/tabletop" target="_blank">Tabletop.js</a>.  Do keep in mind the <a href="https://github.com/jsoma/tabletop#cachingproxying-google-spreadsheets" target="_blank">limitations of Google Spreadsheet</a> which may cause this example not to work. <br><br> <a class="example-link" href="./example-tabletop.html">Google Spreadsheet example</a>'
-          },
-          {
-            date: '2015-04-11',
-            title: 'CSV\'s',
-            body: 'Tik Tok can natively use CSV data.  CSV stands for "comma-separate values" and is a way of formatting a regular text file so that it looks like a spreadsheet. <br><br> <a class="example-link" href="./example-csv.html">CSV example</a>'
-          },
-          {
-            date: '2015-07-19',
+            date: now.format('YYYY-MM-DD HH:mm:ss'),
             title: 'Adding entries',
-            body: 'This example simulated a "live blog" by using Tik Tok\'s API and specifically the <code>add</code> method. <br><br> <a class="example-link" href="./example-styles.html">Adding entries example</a>'
+            body: 'Tik Tok provides the <code>add</code> method so that you can add entries any time.  This example will generate random entries every few seconds to simulate a "live blog" sort of effect.'
           }
         ]
       });
+
+      // Function to add some entries
+      function addEntry() {
+        var minutes = (Math.floor(Math.random() * 70) + 10);
+        now = moment(now).add(minutes, "minutes");
+
+        // Make entry, randomly adding fields.
+        var entry = {
+          date: now.format('YYYY-MM-DD HH:mm:ss'),
+          title: (counter >= limit) ? 'And then it stopped.' :
+            'Another entry ' + minutes + ' minutes later'
+        };
+        entry.media = (Math.random() >= 0.5) ?
+          'https://placekitten.com/g/' + (Math.floor(Math.random() * 400) + 800) +
+          '/' + (Math.floor(Math.random() * 300) + 300) :
+          undefined;
+        entry.source = (entry.media) ?
+          'Image provided by <a href="https://placekitten.com" target="_blank">PlaceKitten</a>.' :
+          undefined;
+        entry.body = ((!entry.media && Math.random() >= 0.2) || Math.random() >= 0.5) ?
+          'Some very interesting event happened at this time.  Was it exciting, tragic, weird, explosive?  Was there kittens involved?  We just don\'t know yet!' :
+          undefined;
+
+        // Add entry.  Could be an array of entries
+        tikTok.add(entry);
+
+        // Only add if under limt
+        if (counter < limit) {
+          counter++;
+          setTimeout(addEntry, delay);
+        }
+      }
+
+      // Start adding
+      setTimeout(addEntry, delay);
     </script>
   </body>
 </html>
