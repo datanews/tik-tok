@@ -418,8 +418,8 @@
       groupByFunc = this[groupByFunc];
 
       // Go through each entry and create or add to group
-      _.each(entries, function(e) {
-        var g = _.bind(groupByFunc, this)(e, moment);
+      _.each(entries, _.bind(function(e) {
+        var g = _.bind(groupByFunc, this)(e, moment, this.options.groupByDisplay);
 
         if (groups[g.id]) {
           groups[g.id].entries.push(e);
@@ -428,54 +428,59 @@
           groups[g.id] = g;
           groups[g.id].entries = [e];
         }
-      });
+      }, this));
 
       return _.values(groups);
     },
 
     // Group by for hours
-    groupByHours: function(entry, moment) {
+    groupByHours: function(entry, moment, groupByDisplay) {
       return {
         id: entry.date.format('YYYY-MM-DD-HH'),
         date: moment(entry.date.format('YYYY-MM-DD-HH'), 'YYYY-MM-DD-HH'),
-        display: moment(entry.date.format('YYYY-MM-DD-HH'), 'YYYY-MM-DD-HH').format('H a')
+        display: moment(entry.date.format('YYYY-MM-DD-HH'), 'YYYY-MM-DD-HH')
+          .format((groupByDisplay) ? groupByDisplay : 'h a')
       };
     },
 
     // Group by for days
-    groupByDays: function(entry, moment) {
+    groupByDays: function(entry, moment, groupByDisplay) {
       return {
         id: entry.date.format('YYYY-MM-DD'),
         date: moment(entry.date.format('YYYY-MM-DD'), 'YYYY-MM-DD'),
-        display: moment(entry.date.format('YYYY-MM-DD'), 'YYYY-MM-DD').format('dddd')
+        display: moment(entry.date.format('YYYY-MM-DD'), 'YYYY-MM-DD')
+          .format((groupByDisplay) ? groupByDisplay : 'dddd')
       };
     },
 
     // Group by for months
-    groupByMonths: function(entry, moment) {
+    groupByMonths: function(entry, moment, groupByDisplay) {
       return {
         id: entry.date.format('YYYY-MM'),
         date: moment(entry.date.format('YYYY-MM'), 'YYYY-MM'),
-        display: moment(entry.date.format('YYYY-MM'), 'YYYY-MM').format('MMM, YYYY')
+        display: moment(entry.date.format('YYYY-MM'), 'YYYY-MM')
+          .format((groupByDisplay) ? groupByDisplay : 'MMM YYYY')
       };
     },
 
     // Group by for years
-    groupByYears: function(entry, moment) {
+    groupByYears: function(entry, moment, groupByDisplay) {
       return {
         id: entry.date.format('YYYY'),
         date: moment(entry.date.format('YYYY'), 'YYYY'),
-        display: moment(entry.date.format('YYYY'), 'YYYY').format('YYYY')
+        display: moment(entry.date.format('YYYY'), 'YYYY')
+          .format((groupByDisplay) ? groupByDisplay : 'YYYY')
       };
     },
 
     // Group by for decades
-    groupByDecades: function(entry, moment) {
+    groupByDecades: function(entry, moment, groupByDisplay) {
       var decade = Math.floor(entry.date.year() / 10) * 10;
       return {
         id: decade.toString(),
         date: moment(decade.toString(), 'YYYY'),
-        display: moment(decade.toString(), 'YYYY').format('YYYY[\'s]')
+        display: moment(decade.toString(), 'YYYY')
+          .format((groupByDisplay) ? groupByDisplay : 'YYYY[\'s]')
       };
     },
 

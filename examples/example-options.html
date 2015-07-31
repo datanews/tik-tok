@@ -31,7 +31,7 @@
         <ul>
           <li><a href="../"><img src="./images/tik-tok-head-right-grey-100.png"></a></li>
           <li><a href="./">Examples</a></li>
-          <li><a href="https://github.com/datanews/tik-tok" target="_blank">Code</a></li>
+          <li><a href="https://github.com/datanews/tik-tok" target="_blank">Github</a></li>
         </ul>
       </div>
     </div>
@@ -82,6 +82,7 @@
         dateDisplay: '[the] Do [of] MMMM, YYYY',
         descending: false,
         groupBy: 'years',
+        groupByDisplay: '\'YY',
         keyMapping: {
           title: 'customTitle'
         },
@@ -100,6 +101,11 @@
             date: 'Year: 1992, Month: Mar, Day: 4',
             customTitle: 'Date display',
             body: 'The <code>dateDisplay</code> option does the opposite and changes how the date will be displayed in the entries.  You can see how the date for this and all entries is different and longer.  This can be anything supported by <a href="http://momentjs.com/docs/#/displaying/format/" target="_blank">Moment JS formatting strings</a>.'
+          },
+          {
+            date: 'Year: 1992, Month: Dec, Day: 4',
+            customTitle: 'Grouping date display',
+            body: 'The <code>groupByDisplay</code> option allows you to change how the date will be displayed in the grouping label.  You can see how the group is formatted as the last two digits of the year.  This can be anything supported by <a href="http://momentjs.com/docs/#/displaying/format/" target="_blank">Moment JS formatting strings</a> as well.'
           },
           {
             date: 'Year: 2000, Month: Jun, Day: 1',

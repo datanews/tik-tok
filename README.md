@@ -72,12 +72,13 @@ The term "entry" is used instead of "event" as JS uses the term "event" for many
 You can use the following options when defining a Tik Tok timeline:
 
 * `el`: The ID string of the DOM element to put your Tik Tok container in.  This is required.  You can also use CSS selectors if you want.
-* `dateFormat`: A string or array of strings that will be used to parse dates.  The default is: `['MMM DD, YYYY', 'MM/DD/YYYY', 'M/D/YYYY', 'DD MMM YYYY', 'YYYY-MM-DD']`.  For more details see the Moment.js [parsing docs](http://momentjs.com/docs/#/parsing/string-formats/).
+* `dateFormat`: A string or array of strings that will be used to parse dates.  If an array is given it will try each format in order.  The default is a slightly modified Moment.js default: `['MMM DD, YYYY', 'MM/DD/YYYY', 'M/D/YYYY', 'DD MMM YYYY', 'YYYY-MM-DD', 'YYYY-MM-DD HH:mm:ss']`.  For more details see the Moment.js [parsing docs](http://momentjs.com/docs/#/parsing/string-formats/).
 * `dateDisplay`: A string for how the entry date will be displayed for each entry in the timeline.  See the docs [Moment.js formating](http://momentjs.com/docs/#/displaying/format/) for a complete list of options.  The default is `MMM DD, YYYY`.
 * `descending`: Boolean that will make the order of entries descending (newest to oldest) by date if set to true.  The default is `false` which is ascending (oldest to newest).
 * `csvDelimiter`: The delimiting chracter if you are using a CSV string.  The default is `,`.
 * `csvQuote`: The quote chracter if you are using a CSV string.  The default is `"`.
 * `groupBy`: Tik Tok will automatically group your entries depending on what kind of time they all span.  This may not be exactly what you want, so you can override it with this option.  Use one of the following values: `'hours', 'days', 'months', 'years', or 'decades'`.  Default is `undefined`.
+* `groupByDisplay`: A string that will determine how the date for each group will be displayed.  See the docs [Moment.js formating](http://momentjs.com/docs/#/displaying/format/) for a complete list of options.  The default is dependent on how the groups are determined.
 * `keyMapping`: If you have entry data that is keyed differently, you can provide a basic object to convert when it is processed.  For instance:  
     ```
   {
