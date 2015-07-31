@@ -456,7 +456,7 @@
       return {
         id: entry.date.format('YYYY-MM'),
         date: moment(entry.date.format('YYYY-MM'), 'YYYY-MM'),
-        display: moment(entry.date.format('YYYY-MM'), 'YYYY-MM').format('MMM, YYYY')
+        display: moment(entry.date.format('YYYY-MM'), 'YYYY-MM').format('MMM YYYY')
       };
     },
 
