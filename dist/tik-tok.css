@@ -153,8 +153,11 @@
   font-size: 1.5em;
   font-weight: normal;
 }
+.tik-tok-container .tt-entry .tt-entry-media-wrapper.with-body {
+  margin-bottom: 1em;
+}
 .tik-tok-container .tt-entry .tt-entry-media {
-  margin: 0 -1em 1em -1em;
+  margin: 0 -1em 0 -1em;
 }
 .tik-tok-container .tt-entry .tt-entry-media.with-source {
   margin-bottom: 0.5em;
@@ -163,7 +166,6 @@
   max-width: 100%;
 }
 .tik-tok-container .tt-entry .tt-entry-source {
-  margin-bottom: 1em;
   font-family: Georgia, serif;
   font-size: 0.85em;
   color: #8b8b8b;
@@ -200,6 +202,16 @@
   cursor: help;
   border-bottom: 1px dashed #ECECEC;
 }
+.tik-tok-container .tt-entry .tt-entry-body > *:first-child,
+.tik-tok-container .tt-entry .tt-entry-source > *:first-child {
+  margin-top: 0;
+}
+.tik-tok-container .tt-entry .tt-entry-body > *:last-child,
+.tik-tok-container .tt-entry .tt-entry-source > *:last-child,
+.tik-tok-container .tt-entry .tt-entry-body > *.code-block:last-child,
+.tik-tok-container .tt-entry .tt-entry-source > *.code-block:last-child {
+  margin-bottom: 0;
+}
 @media (min-width: 600px) {
   .tik-tok-container .tt-entry .tt-entry-media-wrapper.with-body,
   .tik-tok-container .tt-entry .tt-entry-body-wrapper.with-media {
@@ -207,6 +219,7 @@
     float: right;
   }
   .tik-tok-container .tt-entry .tt-entry-media-wrapper.with-body {
+    margin-bottom: 0;
     padding-left: 1em;
   }
   .tik-tok-container .tt-entry .tt-entry-media-wrapper.with-body .tt-entry-media {
@@ -215,6 +228,9 @@
   }
   .tik-tok-container .tt-entry .tt-entry-body-wrapper.with-media {
     padding-right: 1em;
+  }
+  .tik-tok-container .tt-entry .tt-entry-source {
+    margin-bottom: 0;
   }
 }
 .tik-tok-container .tt-progress-bar {

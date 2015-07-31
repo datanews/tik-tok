@@ -109,7 +109,8 @@ gulp.task('styles', function() {
   return gulp.src('src/**/*.less')
     .pipe(plumber(plumberHandler))
     .pipe(recess({
-      noOverqualifying: false
+      noOverqualifying: false,
+      noUniversalSelectors: false
     }))
     .pipe(less())
     .pipe(recess.reporter({
