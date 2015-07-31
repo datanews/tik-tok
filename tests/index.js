@@ -432,6 +432,24 @@ describe('TikTok', function() {
       assert.equal(t.groupEntries(t.entries)[0].id, expected);
     });
 
+    // Group these entries by hours
+    it('should group entries by hours', function() {
+      var t;
+      var entries = [
+        { date: '2014-05-01 18:02:01', title: 'Second', body: 'This is 2' },
+        { date: '2014-05-01 12:44:55', title: 'Third', body: 'This is 3' },
+        { date: '2014-05-01 09:23:45', title: 'First', body: 'This is 1' }
+      ];
+      var expected = '2014-05-01-09';
+
+      t = new TikTok({
+        entries: entries,
+        el: 'body'
+      });
+
+      assert.equal(t.groupEntries(t.entries)[0].id, expected);
+    });
+
     // Option to override group by function
     it('should group entries by years with a groupBy option', function() {
       var t;
