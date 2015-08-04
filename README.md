@@ -1,6 +1,6 @@
-# Tik Tok (DRAFT)
+# Tik Tok
 
-Tik Tok is a Javascript tool to easily create beautiful, mobile-friendly, vertical timelines.
+Tik Tok is a Javascript tool to easily create beautiful, simple, mobile-friendly, vertical timelines.
 
 [![Build Status](https://travis-ci.org/datanews/tik-tok.svg?branch=master)](https://travis-ci.org/datanews/tik-tok) [![Sauce Browser Test Status](https://saucelabs.com/buildstatus/tik-tok)](https://saucelabs.com/u/tik-tok)
 
