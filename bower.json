@@ -1,6 +1,6 @@
 {
   "name": "tik-tok",
-  "version": "0.0.1",
+  "version": "0.1.0",
   "homepage": "https://github.com/datanews/tik-tok",
   "description": "Tik Tok is a Javascript tool to easily create beautiful, simple, mobile-friendly, vertical timelines.",
   "authors": [
