@@ -7,7 +7,7 @@
 
 (function() {
   // Determine path to examples
-  var examplesPath = (window.location.pathname.match(/^\/examples\//gi)) ?
+  var examplesPath = (window.location.pathname.match(/\/examples\//gi)) ?
     './' : './examples/';
 
   // Get example HTML output
@@ -51,11 +51,12 @@
         'background-image': 'url(' + examplesPath + 'images/tik-tok-bg-replacement.jpg)',
         'backgroun-position': 'top left'
       });
-      $('.tik-tok-container .tt-entry').css('background');
+      orig.entryBG = $('.tik-tok-container .tt-entry').css('background');
       $('.tik-tok-container .tt-entry').css('background', 'rgba(255, 255, 255, 0.9)');
       $('*').each(function() {
         var $this = $(this);
-        if (!$this.html().match(/<|>/g)) {
+        var tag = $this.prop('tagName').toLowerCase();
+        if (!$this.html().match(/<|>/g) && ['style', 'script', 'html'].indexOf(tag) === -1) {
           $this.html($this.html().replace(/s/gi, '$'));
         }
       });
@@ -78,7 +79,8 @@
       $('.tik-tok-container .tt-entry').css('background', orig.entryBG);
       $('*').each(function() {
         var $this = $(this);
-        if (!$this.html().match(/<|>/g)) {
+        var tag = $this.prop('tagName').toLowerCase();
+        if (!$this.html().match(/<|>/g) && ['style', 'script', 'html'].indexOf(tag) === -1) {
           $this.html($this.html().replace(/\$/gi, 's'));
         }
       });
