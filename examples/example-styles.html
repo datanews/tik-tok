@@ -22,6 +22,7 @@
 
     <!-- Example CSS -->
     <style media="screen" type="text/css" id="example-css">
+      /* Main container */
       #styles-tik-tok .tik-tok-container {
         width: 100%;
         margin: 0 auto 2em auto;
@@ -29,55 +30,71 @@
       }
 
       #styles-tik-tok .tt-bg-color {
-        background-color: #DFFF80;
+        background-color: #E5F9FF;
       }
 
+      /* Spine and grouping */
       #styles-tik-tok .tt-spine-color {
-        background-color: #B88A00;
+        background-color: #003DF5;
         color: #FFFFFF;
       }
 
-      #styles-tik-tok .tt-spine-background {
-        z-index: 10;
+      #styles-tik-tok  .tt-spine-background .tt-spine {
+        width: 0.75em;
       }
 
       #styles-tik-tok .tt-group .tt-group-label-wrapper,
       #styles-tik-tok .tt-spine-background,
       #styles-tik-tok .tt-spine-end {
         text-align: left;
-        padding-left: 2em;
+        padding-left: 0.75em;
       }
 
-      #styles-tik-tok .tt-spine-end .tt-spine-point {
+      #styles-tik-tok .tt-spine-end {
         display: none;
       }
 
+      /* Header */
       #styles-tik-tok .tt-header {
         text-align: left;
-        padding-left: 3em;
+        padding-left: 1.5em;
+        padding-bottom: 0.5em;
       }
 
       #styles-tik-tok .tt-header .tt-label {
-        color: #E699FF;
+        color: #DFDFDF;
       }
 
       #styles-tik-tok .tt-header-color {
-        background-color: #3366FF;
+        background-color: #002EB8;
       }
 
+      /* Progress bar */
+      #styles-tik-tok .tt-progress-bar {
+        background-color: #FFCC33;
+      }
+
+      #styles-tik-tok .tt-progress-bar .tt-progress {
+        background-color: #FF6633;
+      }
+
+      /* Entry and contents */
       #styles-tik-tok .tt-entry {
         background-color: #33CCFF;
         border-radius: 0.5em;
+        margin-left: 1.5em;
       }
 
       #styles-tik-tok .tt-group .tt-group-label {
         border-bottom-right-radius: 0.5em;
         border-top-right-radius: 0.5em;
+        padding-left: 2em;
+        padding-right: 2em;
       }
 
       #styles-tik-tok .tt-entry .tt-entry-date {
         text-align: right;
-        color: #FF3366;
+        color: #DFDFDF;
       }
 
       #styles-tik-tok .tt-entry .tt-entry-link {
@@ -86,7 +103,7 @@
 
       #styles-tik-tok .tt-entry .tt-entry-title {
         padding: 0.5em 0.65em;
-        margin: 0 -0.65em 0.5em -0.65em;
+        margin: 0 -0.65em 0.65em -0.65em;
         background-color: rgba(255, 255, 255, 0.4);
       }
 
@@ -99,12 +116,22 @@
         background-color: #E699FF;
       }
 
-      #styles-tik-tok .tt-progress-bar {
-        background-color: #FFCC33;
-      }
+      /* Override the images to be on the left on larger screens */
+      @media (min-width: 600px) {
+        #styles-tik-tok .tt-entry .tt-entry-media-wrapper.with-body,
+        #styles-tik-tok .tt-entry .tt-entry-body-wrapper.with-media {
+            float: left;
+        }
 
-      #styles-tik-tok .tt-progress-bar .tt-progress {
-        background-color: #FF6633;
+        #styles-tik-tok .tt-entry .tt-entry-media-wrapper.with-body {
+          padding-right: 1em;
+          padding-left: 0;
+        }
+
+        #styles-tik-tok .tt-entry .tt-entry-body-wrapper.with-media {
+          padding-left: 1em;
+          padding-right: 0;
+        }
       }
     </style>
   </head>
@@ -163,6 +190,7 @@
       var tikTok = new TikTok({
         el: '#styles-tik-tok',
         title: 'Style changes',
+        dateDisplay: 'h:mm a',
         entries: [
           {
             date: '2015-05-08 10:00:00',
@@ -172,26 +200,13 @@
           {
             date: '2015-05-08 11:05:00',
             title: 'The spine',
-            body: '<p>The spine is created with just some CSS, so with a little effort, you can push it over to the left, remove the point and change the color.</p>' +
-              '<code class="code-block"><pre>#styles-tik-tok .tt-spine-color {\n' +
-              '  background-color: #B88A00;\n' +
-              '  color: #FFFFFF;\n' +
-              '}\n' +
-              '\n' +
-              '#styles-tik-tok .tt-spine-background {\n' +
-              '  z-index: 10;\n' +
-              '}\n' +
-              '\n' +
-              '#styles-tik-tok .tt-group .tt-group-label-wrapper,\n' +
-              '#styles-tik-tok .tt-spine-background,\n' +
-              '#styles-tik-tok .tt-spine-end {\n' +
-              '  text-align: left;\n' +
-              '  padding-left: 2em;\n' +
-              '}\n' +
-              '\n' +
-              '#styles-tik-tok .tt-spine-end .tt-spine-point {\n' +
-              '  display: none;\n' +
-              '}</pre></code>'
+            body: 'The spine is created with just some CSS, so with a little effort, you can push it over to the left, remove the ends and change the color.'
+          },
+          {
+            date: '2015-05-08 11:23:00',
+            title: 'Images on the left',
+            body: 'We have also added some styles to put the images on the left side of the body text when the screen is large enough.',
+            media: 'https://placekitten.com/g/1100/500'
           }
         ]
       });

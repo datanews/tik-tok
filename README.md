@@ -6,30 +6,35 @@ Tik Tok is a Javascript tool to easily create beautiful, mobile-friendly, vertic
 
 ## Install
 
-The easiest way to get the code is to use [Bower](https://bower.io) or [npm](https://www.npmjs.com/); this will also get the **[Underscore](http://underscorejs.org/) and [Moment.js](http://momentjs.com/docs/) dependencies**.
+There are many ways to get the code.
 
-    bower install tik-tok
-
-or
-
-    npm install tik-tok (coming soon)
-
-You can also [download](https://github.com/datanews/tik-tok/archive/master.zip) the code from Github and separately download the dependencies.
+* Use [Bower](https://bower.io): `bower install tik-tok`
+* Use [npm](https://www.npmjs.com/): `npm install tik-tok`
+* If you aren't familiar with those technologies, just [download](https://github.com/datanews/tik-tok/archive/0.1.0.zip) the code directly from Github and separately download the dependencies, [Underscore](http://underscorejs.org/) and [Moment.js](http://momentjs.com/docs/).
+* Or just use a public CDN, i.e. hosting from somewhere else.  Note that you don't have control over a CDN so if it breaks, which may be unlikely, you're out of luck.
 
 ## Include
 
-Include the files on your page
+Tik Tok is a Javascript file and a CSS file.  You can use RequireJS, AMD, Browserify, or you can manually include the files below like the following:
 
     <!-- Optionally include the Lato font for headings. -->
     <link href="http://fonts.googleapis.com/css?family=Lato&subset=latin,latin-ext" rel="stylesheet" type="text/css">
 
+    <!-- Dependencies -->
     <script src="moment.js"></script>
     <script src="underscore.js"></script>
 
+    <!-- Tik Tok -->
     <link href="dist/tik-tok.css" rel="stylesheet" type="text/css">
     <script src="dist/tik-tok.js"></script>
 
-The library also supports module loaders like RequireJS, AMD, or Browserify.
+Or, the full CDN version:
+
+    <link href="http://fonts.googleapis.com/css?family=Lato&subset=latin,latin-ext" rel="stylesheet" type="text/css">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/underscore.js/1.8.3/underscore-min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.10.6/moment.min.js"></script>
+    <link href="https://cdn.rawgit.com/datanews/tik-tok/0.1.0/dist/tik-tok.min.css" rel="stylesheet" type="text/css">
+    <script src="https://cdn.rawgit.com/datanews/tik-tok/0.1.0/dist/tik-tok.min.js"></script>
 
 ## Use
 
@@ -167,11 +172,22 @@ Test are run automatically on each push with [Travis CI](https://travis-ci.org/)
 
 ### Release
 
-(TODO)
+The following are the necessary steps for creating a new version of Tik Tok.
+
+1. Run `gulp` to ensure the build is up to date and all tests pass.
+1. Determine the next version according the [semantic versioning](http://semver.org/).  This should be in the form of `X.X.X`.
+1. Update `bower.json`
+1. Update `package.json`
+1. Update the download Github URL in the *Install* section of this file.
+1. Update the URLs used in the CDN example in the *Include* section of this file.
+1. Make commit: `git commit -m "Updating version."`
+1. Make tag: `git tag X.X.X`
+1. Push.  Don't forget to add `--tags` to your push command.
+1. Update NPM: `npm publish`
 
 ### Code style and quality
 
-Use the following to get your development environment setup.  Having consistent code style leads to smoother contributions, easier reviewing, and better and more stable code.
+Having consistent code style leads to smoother contributions, easier reviewing, and better and more stable code.  Code style is enforced using automatic technologies.  Use the following to get your development environment setup.  
 
 1. Install an [Editorconfig plugin for your favorite code editor](http://editorconfig.org/#download).
     * [Editorconfig](http://editorconfig.org/) helps to standardize editor settings like indent spacing.
