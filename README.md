@@ -183,6 +183,7 @@ The following are the necessary steps for creating a new version of Tik Tok.
 1. Make commit: `git commit -m "Updating version."`
 1. Make tag: `git tag X.X.X`
 1. Push.  Don't forget to add `--tags` to your push command.
+1. Update NPM: `npm publish`
 
 ### Code style and quality
 
