@@ -174,12 +174,12 @@ Test are run automatically on each push with [Travis CI](https://travis-ci.org/)
 
 The following are the necessary steps for creating a new version of Tik Tok.
 
-1. Run `gulp` to ensure the build is up to date and all tests pass.
 1. Determine the next version according the [semantic versioning](http://semver.org/).  This should be in the form of `X.X.X`.
 1. Update `bower.json`
 1. Update `package.json`
 1. Update the download Github URL in the *Install* section of this file.
 1. Update the URLs used in the CDN example in the *Include* section of this file.
+1. Run `gulp` to ensure the build is up to date and all tests pass and the new version is marked in the build.
 1. Make commit: `git commit -m "Updating version."`
 1. Make tag: `git tag X.X.X`
 1. Push.  Don't forget to add `--tags` to your push command.
