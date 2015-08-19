@@ -21,7 +21,7 @@
     // Get example JS output
     var js = $('#example-javascript').html();
     if (js && js.trim && js.trim()) {
-      js = js.trim().replace(/\s+\n/gi, '\n').replace(/^      /gm, '');
+      js = js.trim().replace(/(^\s)\s+\n/gi, '\n').replace(/^      /gm, '');
       $('.example-javascript-output').show();
       $('.example-javascript-output pre code').text(js);
     }
@@ -29,9 +29,17 @@
     // Get example CSS output
     var css = $('#example-css').html();
     if (css && css.trim && css.trim()) {
-      css = css.trim().replace(/\s+\n/gi, '\n').replace(/^      /gm, '');
+      css = css.trim().replace(/(^\s)\s+\n/gi, '\n').replace(/^      /gm, '');
       $('.example-css-output').show();
       $('.example-css-output pre code').text(css);
+    }
+
+    // Get example custom template if there is one
+    var template = $('<div>').append($('#custom-template').clone()).html();
+    if (template && template.trim && template.trim()) {
+      template = template.trim().replace(/(^\s)\s+\n/gi, '\n').replace(/^    /gm, '');
+      $('.example-template-output').show();
+      $('.example-template-output pre code').text(template);
     }
 
     // Load highlightJS
