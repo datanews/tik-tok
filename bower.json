@@ -53,6 +53,7 @@
     "mocha": "~2.2.5",
     "chai": "~3.0.0",
     "highlightjs": "~8.6.0",
-    "jquery": "1.x"
+    "jquery": "1.x",
+    "mustache.js": "~2.1.3"
   }
 }

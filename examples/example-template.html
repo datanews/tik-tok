@@ -1,0 +1,236 @@
+<!doctype html>
+<html class="no-js" lang="">
+  <head>
+    <meta charset="utf-8">
+    <meta http-equiv="x-ua-compatible" content="ie=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+
+    <title>Template example | Tik Tok examples</title>
+    <meta name="description" content="Tik Tok is a Javascript tool to easily create beautiful, simple, mobile-friendly, vertical timelines." />
+
+    <!-- Twitter Card data -->
+    <meta name="twitter:card" content="summary">
+    <meta name="twitter:site" content="@datanews">
+    <meta name="twitter:title" content="Tik Tok | Colors example">
+    <meta name="twitter:description" content="Tik Tok is a Javascript tool to easily create beautiful, simple, mobile-friendly, vertical timelines.">
+    <meta name="twitter:creator" content="@datanews">
+    <meta name="twitter:image" content="http://datanews.github.io/tik-tok/examples/images/tik-tok-head-250.png">
+
+    <!-- Open Graph data -->
+    <meta property="og:title" content="Tik Tok | Colors example">
+    <meta property="og:type" content="article">
+    <meta property="og:url" content="http://datanews.github.io/tik-tok/">
+    <meta property="og:image" content="http://datanews.github.io/tik-tok/examples/images/tik-tok-head-250.png">
+    <meta property="og:description" content="Tik Tok is a Javascript tool to easily create beautiful, simple, mobile-friendly, vertical timelines.">
+    <meta property="og:site_name" content="Tik Tok">
+
+    <!-- Lato font -->
+    <link href="http://fonts.googleapis.com/css?family=Lato&subset=latin,latin-ext" rel="stylesheet" type="text/css">
+
+    <!-- Demo/dev dependencies -->
+    <link rel="stylesheet" href="../bower_components/highlightjs/styles/github.css">
+
+    <!-- Main library CSS -->
+    <link rel="stylesheet" href="../dist/tik-tok.css">
+
+    <!-- General example stylesheet -->
+    <link rel="stylesheet" href="examples.css">
+
+    <!-- Example CSS -->
+    <style media="screen" type="text/css" id="example-css">
+      #template-tik-tok .tt-entry-title.has-subtitle {
+        margin-bottom: 0.25em;
+      }
+      #template-tik-tok .tt-entry-subtitle {
+        font-style: italic;
+        color: #9A9A9A;
+        margin: 0 0 1em 0;
+      }
+      #template-tik-tok .tt-entry.even-day {
+        background-color: #99CCFF;
+      }
+    </style>
+  </head>
+  <body>
+
+    <div class="section-ban menu">
+      <div class="section-wrapper">
+        <ul>
+          <li><a href="../"><img src="./images/tik-tok-head-right-grey-100.png"></a></li>
+          <li><a href="./">Examples</a></li>
+          <li><a href="https://github.com/datanews/tik-tok" target="_blank">Github</a></li>
+        </ul>
+      </div>
+    </div>
+
+    <div id="template-tik-tok" class="example-html">
+      <div class="temp-loading">Loading...</div>
+    </div>
+
+    <div class="section-ban section-ban-last">
+      <div class="section-wrapper">
+        <div class="example-html-output">
+          <p>HTML used in this example.  Note that the inner loading <code>&lt;div&gt;</code> is not necessary but a nice note while things are loading.</p>
+          <pre><code class="html"></code></pre>
+        </div>
+
+        <div class="code-output example-css-output">
+          <p>CSS used in this example.</p>
+          <pre><code class="css"></code></pre>
+        </div>
+
+        <div class="code-output example-template-output">
+          <p>Custom template used in this example.  This includes the script tag container for example purposes but this is not actually part of the actual template.</p>
+          <pre><code class="html"></code></pre>
+        </div>
+
+        <div class="code-output example-javascript-output">
+          <p>Javascript used in this example:</p>
+          <pre><code class="js"></code></pre>
+        </div>
+      </div>
+    </div>
+
+    <!-- Dependencies -->
+    <script src="../bower_components/underscore/underscore.js"></script>
+    <script src="../bower_components/moment/moment.js"></script>
+
+    <!-- Demo/dev dependencies -->
+    <script src="../bower_components/jquery/dist/jquery.min.js"></script>
+    <script src="../bower_components/mustache.js/mustache.js"></script>
+    <script src="../bower_components/highlightjs/highlight.pack.js"></script>
+    <script src="https://cdn.rawgit.com/mikeflynn/egg.js/master/egg.min.js"></script>
+
+    <!-- Main library JS -->
+    <script src="../dist/tik-tok.js"></script>
+
+    <!-- General example JS -->
+    <script src="examples.js"></script>
+
+    <!-- Custom template -->
+    <script id="custom-template" type="x-tmpl-mustache">
+      <div class="tik-tok-container tt-bg-color">
+        <div class="tt-progress-bar">
+          <div class="tt-progress"></div>
+        </div>
+
+        {{#title}}
+          <div class="tt-header tt-header-color cf">
+            <div class="tt-label">Timeline:</div>
+
+            <div class="tt-title">{{{ title }}}</div>
+          </div>
+        {{/title}}
+
+        <div class="tt-spine-background">
+          <div class="tt-spine tt-spine-color"></div>
+        </div>
+
+        <div class="tt-spine-end tt-spine-top tt-header-color">
+          <div><div class="tt-spine-point tt-spine-color"></div></div>
+          <div><div class="tt-spine tt-spine-color"></div></div>
+        </div>
+
+        <div class="tt-groups">
+          {{#groups}}
+            <div class="tt-group">
+              <div class="tt-group-label-wrapper">
+                <div class="tt-group-label tt-spine-color">
+                  {{ display }}
+                </div>
+              </div>
+
+              <div class="tt-entries">
+                {{#entries}}
+                  <div class="tt-entry {{#evenDay}}even-day{{/evenDay}}" id="{{ tiktok.id }}-{{ id }}">
+
+                    <div class="tt-entry-date">{{ dateFormatted }}</div>
+
+                    {{#title}}
+                      <h3 class="tt-entry-title {{#subtitle}}has-subtitle{{/subtitle}}">{{{ title }}}</h3>
+
+                      {{#subtitle}}
+                        <h4 class="tt-entry-subtitle">{{{ subtitle }}}</h4>
+                      {{/subtitle}}
+                    {{/title}}
+
+                    <div class="tt-entry-content-wrapper cf">
+                      {{#body}}
+                        <div class="tt-entry-body-wrapper {{#media}}with-media{{/media}}">
+                          <div class="tt-entry-body">{{{ body }}}</div>
+                        </div>
+                      {{/body}}
+                    </div>
+                  </div>
+                {{/entries}}
+              </div>
+            </div>
+          {{/groups}}
+        </div>
+
+        <div class="tt-spine-end tt-spine-bottom tt-bg-color">
+          <div><div class="tt-spine-point tt-spine-color"></div></div>
+        </div>
+      </div>
+    </script>
+
+    <!-- Make examples -->
+    <script id="example-javascript">
+      // Use jQuery to get the contents of our template which is stored in
+      // a script tag
+      var template = $('#custom-template').html();
+
+      // Create function to render template
+      Mustache.parse(template);
+      var renderer = function(tiktokData) {
+        // Add some custom data
+        tiktokData.groups.map(function(g) {
+          g.entries.map(function(e) {
+            // Add a flag for any even dates
+            e.evenDay = (e.date.date() % 2 === 0) ? true : false;
+            return e;
+          });
+          return g;
+        });
+
+        // Return output
+        return Mustache.render(template, tiktokData);
+      }
+
+      // Make Tik Tok timeline
+      var tikTok = new TikTok({
+        el: '#template-tik-tok',
+        title: 'Template example',
+        template: renderer,
+        entries: [
+          {
+            date: '1999-12-01',
+            title: 'Changing the HTML output',
+            body: 'Sometimes the changes you want to make to your timeline can\'t be accomplished just with CSS, though you can get pretty far with just CSS.  Tik Tok provides a <code>template</code> option where you can override the HTML.  If you pass a template string, Tik Tok will use <a href="http://underscorejs.org/#template" target="_blank">Underscore\'s template</a> function.  Underscore\'s template function can be a bit confusing or just not your thing, so the <code>template</code> option also accepts a function that will output your template and will be passed an object with the following values: <code>groups</code> (the bulk of the timeline data), <code>title</code> (title of the timeline), <code>tiktok</code> (the current Tik Tok instance).'
+          },
+          {
+            date: '1999-12-07',
+            title: 'Mustache',
+            body: 'This example uses <a href="https://github.com/janl/mustache.js" target="_blank">Mustache</a>, a popular templating language.  The first step is to create a template.  We put our template code in a <code>&lt;script&gt;</code> tag so that its easier to work with.  In this example, we copied the original Tik Tok template, removed the media part for simplicity, and updated the syntax to use Mustache.  You can see the template below.'
+          },
+          {
+            date: '1999-12-12',
+            title: 'Creating a template function',
+            body: 'We use jQuery to turn it into a string that we can use in our Mustache function.  To make sure it works with Tik Tok, we create a little wrapper function that uses the arguments that Tik Tok will provide.  You can see this in the javascript below.'
+          },
+          {
+            date: '2000-01-01',
+            title: 'Extra data',
+            subtitle: 'This is a custom sub-title field that we can add into our custom template',
+            body: 'Another benefit of overriding the template besides visual or functional changes, is that you can add custom data fields to your timeline data that can then affect the output.  Here, we have added a <code>subtitle</code> field.  Note that since you can use HTML in the <code>title</code> and <code>body</code> fields, you can get a lot done without changing the template as well.'
+          },
+          {
+            date: '2000-01-10',
+            title: 'Data parsing',
+            body: 'A custom template like this also gives us the ability to parse out specific data and change the output accordingly.  In this example, if a entry has a date that is an even number, then we add a class and color that entry blue.'
+          }
+        ]
+      });
+    </script>
+  </body>
+</html>
