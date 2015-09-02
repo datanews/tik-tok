@@ -93,12 +93,8 @@
     <!-- Make examples -->
     <script id="example-javascript">
       // Get data from EditData (via Github)
-      var url = 'https://gist.githubusercontent.com/zzolo/3b2d19e7555de9f66e25/raw/2b0fcb966490b1920a2ccd07ab5aebbf44b10b41/data.json';
+      var url = '/examples/example-editdata.json';
       $.getJSON(url, function(data) {
-        // Convert EditData data to TikTok format
-        data = data.map(function(d) {
-          return d.value;
-        });
         var tikTok = new TikTok({
           el: '#tik-tok-editdata',
           title: 'EditData.org example',
