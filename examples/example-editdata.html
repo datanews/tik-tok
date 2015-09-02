@@ -92,8 +92,12 @@
 
     <!-- Make examples -->
     <script id="example-javascript">
-      // Get data from EditData (via Github)
-      var url = 'http://datanews.github.io/tik-tok/examples/example-editdata.json';
+      // Get data from EditData (via Github).  In this example we are using
+      // a relative URL since the JSON file is located in the same repo.
+      // If you are not in the same repo, then you probably want the full
+      // URL.  This might be something like:
+      // https://raw.githubusercontent.com/datanews/tik-tok/master/examples/example-editdata.json
+      var url = 'example-editdata.json';
       $.getJSON(url, function(data) {
         var tikTok = new TikTok({
           el: '#tik-tok-editdata',
