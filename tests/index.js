@@ -196,6 +196,23 @@ describe('TikTok', function() {
       assert.equal(t.parseEntries(entries)[0].type, 'image');
       assert.equal(t.parseEntries(entries)[1].type, 'youtube');
     });
+
+    it('should override displayFormat', function() {
+      var entries = [
+        { date: '2014-01-01', title: 'First', body: 'This is 1' },
+        { date: '2014-03-01', title: 'Second', body: 'This is 2', dateDisplay: 'YYYY-MM-DD' },
+        { date: '2014-03-02', title: 'Third', body: 'This is 3' }
+      ];
+      var t;
+
+      t = new TikTok({
+        entries: entries,
+        el: 'body'
+      });
+
+      assert.equal(t.parseEntries(entries)[0].dateFormatted, 'Jan 01, 2014');
+      assert.equal(t.parseEntries(entries)[1].dateFormatted, '2014-03-01');
+    });
   });
 
   // Update

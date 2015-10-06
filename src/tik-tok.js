@@ -523,8 +523,9 @@
         // been provided
         e.type = e.type || this.determineMediaType(e.media);
 
-        // Create a formatted version of date for template
-        e.dateFormatted = d.format(this.options.dateDisplay);
+        // Create a formatted version of date for template, use the global
+        // options is one is not provided for the entry.
+        e.dateFormatted = d.format(e.dateDisplay || this.options.dateDisplay);
 
         return e;
       }, this));

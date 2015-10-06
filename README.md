@@ -52,8 +52,9 @@ Entry data should be either an array of objects or a CSV string with the followi
 JSON example:
 
     {
-      date: '2014-04-01', // String date, see format option below for what is supported.
-      title: 'This is an awesome event',
+      // String date, see format option below for what is supported.
+      date: '2014-04-01',
+      title: 'This is an awesome title',
       body: 'This is the optional main text',
       // Media should be a URL to an image or the embed URL.  This will automatically look
       // for the following types: Youtube, SoundCloud, general iframe/embed, or image
@@ -61,7 +62,10 @@ JSON example:
       source: 'This is a source line for your media',
       // Override the media type with this field (this is not usually needed).  Possible values:
       // youtube, soundcloud, soundcloud_large, embed, image
-      type: embed
+      type: embed,
+      // Custom display format for the date of this entry, overrides the global
+      // dateDisplay option
+      dateDisplay: 'MMM DD, YYYY'
     }
 
 CSV example:
