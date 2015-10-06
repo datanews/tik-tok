@@ -10,7 +10,7 @@ There are many ways to get the code.
 
 * Use [Bower](https://bower.io): `bower install tik-tok`
 * Use [npm](https://www.npmjs.com/): `npm install tik-tok`
-* If you aren't familiar with those technologies, just [download](https://github.com/datanews/tik-tok/archive/0.1.0.zip) the code directly from Github and separately download the dependencies, [Underscore](http://underscorejs.org/) and [Moment.js](http://momentjs.com/docs/).
+* If you aren't familiar with those technologies, just [download](https://github.com/datanews/tik-tok/archive/0.1.1.zip) the code directly from Github and separately download the dependencies, [Underscore](http://underscorejs.org/) and [Moment.js](http://momentjs.com/docs/).
 * Or just use a public CDN, i.e. hosting from somewhere else.  Note that you don't have control over a CDN so if it breaks, which may be unlikely, you're out of luck.
 
 ## Include
@@ -33,8 +33,8 @@ Or, the full CDN version:
     <link href="http://fonts.googleapis.com/css?family=Lato&subset=latin,latin-ext" rel="stylesheet" type="text/css">
     <script src="https://cdnjs.cloudflare.com/ajax/libs/underscore.js/1.8.3/underscore-min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.10.6/moment.min.js"></script>
-    <link href="https://cdn.rawgit.com/datanews/tik-tok/0.1.0/dist/tik-tok.min.css" rel="stylesheet" type="text/css">
-    <script src="https://cdn.rawgit.com/datanews/tik-tok/0.1.0/dist/tik-tok.min.js"></script>
+    <link href="https://cdn.rawgit.com/datanews/tik-tok/0.1.1/dist/tik-tok.min.css" rel="stylesheet" type="text/css">
+    <script src="https://cdn.rawgit.com/datanews/tik-tok/0.1.1/dist/tik-tok.min.js"></script>
 
 ## Use
 
@@ -52,8 +52,9 @@ Entry data should be either an array of objects or a CSV string with the followi
 JSON example:
 
     {
-      date: '2014-04-01', // String date, see format option below for what is supported.
-      title: 'This is an awesome event',
+      // String date, see format option below for what is supported.
+      date: '2014-04-01',
+      title: 'This is an awesome title',
       body: 'This is the optional main text',
       // Media should be a URL to an image or the embed URL.  This will automatically look
       // for the following types: Youtube, SoundCloud, general iframe/embed, or image
@@ -61,7 +62,10 @@ JSON example:
       source: 'This is a source line for your media',
       // Override the media type with this field (this is not usually needed).  Possible values:
       // youtube, soundcloud, soundcloud_large, embed, image
-      type: embed
+      type: embed,
+      // Custom display format for the date of this entry, overrides the global
+      // dateDisplay option
+      dateDisplay: 'MMM DD, YYYY'
     }
 
 CSV example:

@@ -1,6 +1,6 @@
 /**
  * tik-tok - Tik Tok is a Javascript tool to easily create beautiful, simple, mobile-friendly, vertical timelines.
- * @version v0.1.0
+ * @version v0.1.1
  * @link https://github.com/datanews/tik-tok
  * @license MIT
  */
@@ -529,8 +529,9 @@
         // been provided
         e.type = e.type || this.determineMediaType(e.media);
 
-        // Create a formatted version of date for template
-        e.dateFormatted = d.format(this.options.dateDisplay);
+        // Create a formatted version of date for template, use the global
+        // options is one is not provided for the entry.
+        e.dateFormatted = d.format(e.dateDisplay || this.options.dateDisplay);
 
         return e;
       }, this));
