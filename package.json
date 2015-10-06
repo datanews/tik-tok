@@ -1,6 +1,6 @@
 {
   "name": "tik-tok",
-  "version": "0.1.0",
+  "version": "0.1.1",
   "description": "Tik Tok is a Javascript tool to easily create beautiful, simple, mobile-friendly, vertical timelines.",
   "main": "gulpfile.js",
   "scripts": {

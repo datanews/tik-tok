@@ -1,6 +1,6 @@
 /**
  * tik-tok - Tik Tok is a Javascript tool to easily create beautiful, simple, mobile-friendly, vertical timelines.
- * @version v0.1.0
+ * @version v0.1.1
  * @link https://github.com/datanews/tik-tok
  * @license MIT
  */
