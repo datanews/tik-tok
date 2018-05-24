@@ -30,7 +30,7 @@ Tik Tok is a Javascript file and a CSS file.  You can use RequireJS, AMD, Browse
 
 Or, the full CDN version:
 
-    <link href="http://fonts.googleapis.com/css?family=Lato&subset=latin,latin-ext" rel="stylesheet" type="text/css">
+    <link href="https://fonts.googleapis.com/css?family=Lato&subset=latin,latin-ext" rel="stylesheet" type="text/css">
     <script src="https://cdnjs.cloudflare.com/ajax/libs/underscore.js/1.8.3/underscore-min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.10.6/moment.min.js"></script>
     <link href="https://cdn.rawgit.com/datanews/tik-tok/0.1.1/dist/tik-tok.min.css" rel="stylesheet" type="text/css">
